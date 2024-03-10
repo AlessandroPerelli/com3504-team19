@@ -14,27 +14,14 @@
           <p>Discover the world of plants</p>
         </div>
         <div class="d-flex justify-content-center gap-2 mb-4">
-          <button type="button" class="btn btn-outline-primary">Login</button>
-          <button type="button" class="btn btn-primary">Signup</button>
+          <button id="loginButton" type="button" class="btn btn-custom-active">Login</button>
+          <button id="signupButton" type="button" class="btn btn-custom-inactive">Signup</button>
         </div>
-        <form>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" placeholder="Enter your email">
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" placeholder="Enter your password">
-          </div>
-          <div class="mb-4">
-            <label for="confirmPassword" class="form-label">Confirm Password</label>
-            <input type="password" class="form-control" placeholder="Confirm your password">
-          </div>
-          <div class="d-grid">
-            <button type="submit" class="btn btn-success">Signup</button>
-          </div>
-        </form>
-        </form>
+        <div id="loginForm">
+          <% include components/loginform %>
+        </div>
+        <div id="signupForm" class="hidden">
+          <% include components/signupform %>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

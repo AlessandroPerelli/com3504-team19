@@ -6,13 +6,13 @@ a {
   color: #289966;
 }
 
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited{
+.btn-custom-active {
   background-color: #289966;
   border-color: #289966;
   color: #fff;
 }
 
-.btn-outline-primary, .btn-outline-primary:hover, .btn-outline-primary:active, .btn-outline-primary:visited{
+.btn-custom-inactive {
   background-color: #fff;
   border-color: #289966;
   color: #289966;
