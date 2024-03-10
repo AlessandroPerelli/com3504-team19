@@ -1,5 +1,18 @@
-// custom variables
-$primary: #289966;
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
 
-// import bootstrap
-@import "../../node_modules/bootstrap/scss/bootstrap";
+.navbar {
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
