@@ -12,14 +12,20 @@
   </head>
   <body>
     <% include components/navbar %>
-    <div class="container flex">
-      <div class="login-page-content">
-        <h1><%= title %></h1>
-        <p>Discover the world of plants</p>
-        <div class="form-buttons">
-          <button id="loginButton" class="active" onclick="handleCredentialsFormSwitch()">Login</button>
-          <button id="signupButton" onclick="handleCredentialsFormSwitch()">Signup</button>
-        </div>
+    <div class="login-container flex">
+      <h1><%= title %></h1>
+      <p>Discover the world of plants</p>
+      <div class="form-buttons">
+        <button
+          id="loginButton"
+          class="active"
+          onclick="handleCredentialsFormSwitch()"
+        >
+          Login
+        </button>
+        <button id="signupButton" onclick="handleCredentialsFormSwitch()">
+          Signup
+        </button>
       </div>
       <% include components/signupform %> 
       <% include components/loginform %>

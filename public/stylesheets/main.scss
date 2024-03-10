@@ -37,6 +37,7 @@ button {
   color: black;
   border-radius: 5px;
   margin: 0 10px;
+  height: auto;
 
   &:hover {
     background-color: #289966;
@@ -49,15 +50,36 @@ button {
   color: white;
 }
 
-.form-group {
+.login-container {
+  justify-content: center;
+  align-items: center;
+
+  form {
+      align-self: flex-start;
+    }
+
+  .form-buttons {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+
+    button {
+      flex: 1;
+    }
+
+  }
+}
+
+.form-item {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin: 20px 0;
-}
+  align-items: flex-start;
+  padding: 1.5vh 0vh;
 
-.form-buttons {
-  display: flex;
-  justify-content: center;
+  input {
+    border-color: #AA9163;
+    border-radius: 25%;
+    border-width: 2px;
+  }
 }
-
