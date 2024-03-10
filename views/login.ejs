@@ -13,12 +13,17 @@
   <body>
     <% include components/navbar %>
     <div class="container flex">
-      <h1><%= title %></h1>
-      <div class="form-buttons">
-        <button class="active">Login</button>
-        <button>Signup</button>
+      <div class="login-page-content">
+        <h1><%= title %></h1>
+        <p>Discover the world of plants</p>
+        <div class="form-buttons">
+          <button id="loginButton" class="active" onclick="handleCredentialsFormSwitch()">Login</button>
+          <button id="signupButton" onclick="handleCredentialsFormSwitch()">Signup</button>
+        </div>
       </div>
-      <% include components/signupform %> <% include components/loginform %>
+      <% include components/signupform %> 
+      <% include components/loginform %>
     </div>
+    <script src="/javascripts/script.js"></script>
   </body>
 </html>

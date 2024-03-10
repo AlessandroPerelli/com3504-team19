@@ -1,11 +1,11 @@
 function handleCredentialsFormSwitch() {
   document.getElementById('loginButton').addEventListener('click', function() {
-    document.getElementById('loginForm').classList.add('active');
-    document.getElementById('signupForm').classList.remove('active');
+    document.getElementById('loginButton').classList.add('active');
+    document.getElementById('signupButton').classList.remove('active');
   });
 
   document.getElementById('signupButton').addEventListener('click', function() {
-    document.getElementById('signupForm').classList.add('active');
-    document.getElementById('loginForm').classList.remove('active');
+    document.getElementById('signupButton').classList.add('active');
+    document.getElementById('loginButton').classList.remove('active');
   });
 }
