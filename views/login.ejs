@@ -2,12 +2,23 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/stylesheets/main.css" />
   </head>
   <body>
     <% include components/navbar %>
+    <div class="container flex">
+      <h1><%= title %></h1>
+      <div class="form-buttons">
+        <button class="active">Login</button>
+        <button>Signup</button>
+      </div>
+      <% include components/signupform %> <% include components/loginform %>
+    </div>
   </body>
 </html>
