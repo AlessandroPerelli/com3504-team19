@@ -1,6 +1,5 @@
 body {
   font-family: "Plus Jakarta Sans", sans-serif;
-  margin: 0;
   padding: 0;
   background-color: #f4f4f4;
 }
@@ -8,7 +7,7 @@ body {
 .flex {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: baseline;
   flex-direction: column;
 }
 
@@ -76,4 +75,11 @@ button:hover {
   border-color: #AA9163;
   border-radius: 25%;
   border-width: 2px;
+}
+
+.main-page-container {
+  margin: 0% 20%;
+}
+.main-page-container h1 {
+  align-self: center;
 }/*# sourceMappingURL=main.css.map */
