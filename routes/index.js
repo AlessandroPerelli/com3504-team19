@@ -10,4 +10,8 @@ router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Welcome to Plant Viewer' });
 });
 
+router.get("/main", function (req, res, next) {
+  res.render("mainpage");
+});
+
 module.exports = router;
