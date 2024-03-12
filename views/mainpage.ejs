@@ -11,7 +11,10 @@
   <div class="main-page-container flex">
     <h1>Explore plants</h1>
     <input type="text" id="search" placeholder="Search for plants">
-    <% include components/category.ejs %>
-  </div>
+    <% categoryData.forEach(function(category) { %>
+      <% var categoryName = category.categoryName; %>
+      <% var plants = category.plants; %>
+      <% include components/category.ejs %>
+    <% }); %>  </div>
 </body>
 </html>
