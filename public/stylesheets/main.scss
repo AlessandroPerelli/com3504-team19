@@ -32,10 +32,9 @@ a {
   background-color: #F4F0E5;
   border: none;
   border-radius: 2%;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
   font-size: 16px;
-  width: 50%;
+  width: 35%;
   box-sizing: border-box;
 
   &::placeholder {
@@ -138,5 +137,18 @@ button {
         transform: scale(1.1);
       }
     }
+  }
+}
+
+.category-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2% 0%;
+
+  a {
+    padding: 1rem 1.5rem;
+    background-color: #F4F0E5;
+    border-radius: 35%;
   }
 }
