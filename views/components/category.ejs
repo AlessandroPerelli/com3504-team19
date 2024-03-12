@@ -1,11 +1,10 @@
 <div class="category">
-  <h3>Popular (this is an example of the catagories we can have)</h3>
+  <h3><%= categoryName %></h3>
   <div class="plant-grid">
-    <div class="plant-item">
-      <img src="/images/peashooter.png" alt="plant">
-    </div>
-    <div class="plant-item">
-      <img src="/images/peashooter.png" alt="plant">
-    </div>
+    <% plants.forEach(plant => { %>
+      <div class="plant-item">
+        <img src="/images/peashooter.png" alt="plant">
+      </div>
+    <% }) %>
   </div>
 </div>
