@@ -4,13 +4,19 @@ const categories = [
     plants: [
       { name: "Peashooter", image: "/images/peashooter.png" },
       { name: "Sunflower", image: "/images/sunflower.jpg" },
+      { name: "Peashooter", image: "/images/peashooter.png" },
+      { name: "Sunflower", image: "/images/sunflower.jpg" },
+      { name: "Peashooter", image: "/images/peashooter.png" },
     ],
   },
   {
-    categoryName: 'New Arrivals',
+    categoryName: "New Arrivals",
     plants: [
-      { name: 'Big Leaf', image: "/images/big.jpg" },
-      { name: 'Marigold', image: "/images/marigold.jpg" },
+      { name: "Big Leaf", image: "/images/big.jpg" },
+      { name: "Marigold", image: "/images/marigold.jpg" },
+      { name: "Big Leaf", image: "/images/big.jpg" },
+      { name: "Marigold", image: "/images/marigold.jpg" },
+      { name: "Big Leaf", image: "/images/big.jpg" },
     ],
   },
 ];
