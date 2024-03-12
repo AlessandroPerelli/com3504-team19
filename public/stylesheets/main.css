@@ -90,7 +90,23 @@ button:hover {
   gap: 0.5vh;
   margin: 20px 0;
 }
-.plant-grid img {
-  width: 50%;
-  height: auto;
+.plant-grid .plant-item {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+.plant-grid .plant-item:hover {
+  transform: scale(1.05);
+}
+.plant-grid .plant-item img {
+  width: 100%;
+  display: block;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: transform 0.2s;
+}
+.plant-grid .plant-item img:hover {
+  transform: scale(1.1);
 }/*# sourceMappingURL=main.css.map */

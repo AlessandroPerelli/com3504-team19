@@ -98,9 +98,26 @@ button {
   gap: 0.5vh;
   margin: 20px 0;
 
-  img {
-    width: 50%;
-    height: auto;
-  }
+  .plant-item {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s;
 
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
 }
