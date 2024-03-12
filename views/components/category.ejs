@@ -1,0 +1,10 @@
+<div class="category">
+  <h3><%= categoryName %></h3>
+  <div class="plant-grid">
+    <% plants.forEach(plant => { %>
+    <div class="plant-item">
+      <img src="<%= plant.image %>" alt="plant" />
+    </div>
+    <% }) %>
+  </div>
+</div>
