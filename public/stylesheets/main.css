@@ -15,8 +15,8 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0.5% 15%;
-  border-bottom: solid 1px #F4F0E5;
+  padding: 0% 15%;
+  border-bottom: solid 3px #F4F0E5;
 }
 
 .navbar {
@@ -31,6 +31,13 @@ header {
   font-weight: bold;
 }
 
+.logo-side {
+  align-items: center;
+}
+.logo-side i {
+  font-size: 1.5rem;
+}
+
 .profile-icon {
   width: 50px;
   height: 50px;
@@ -38,6 +45,8 @@ header {
 }
 
 .search-input-navbar {
+  display: flex;
+  flex-direction: row;
   background-color: #F4F0E5;
   border: none;
   border-radius: 1.2rem;
@@ -47,13 +56,19 @@ header {
   width: 100%;
   box-sizing: border-box;
 }
-.search-input-navbar::-moz-placeholder {
-  color: #a8a8a8;
+.search-input-navbar .search-input-section {
+  border: none;
+  background-color: #F4F0E5;
 }
-.search-input-navbar::placeholder {
-  color: #a8a8a8;
+.search-input-navbar .search-input-section::-moz-placeholder {
+  color: #A1824A;
+  font-size: larger;
 }
-.search-input-navbar:focus {
+.search-input-navbar .search-input-section::placeholder {
+  color: #A1824A;
+  font-size: larger;
+}
+.search-input-navbar .search-input-section:focus {
   outline: none;
 }
 
@@ -67,17 +82,19 @@ a {
 .search-input {
   background-color: #F4F0E5;
   border: none;
-  border-radius: 2%;
+  border-radius: 1rem;
   padding: 1.5rem;
   font-size: 16px;
   width: 35%;
   box-sizing: border-box;
 }
 .search-input::-moz-placeholder {
-  color: #a8a8a8;
+  color: #A1824A;
+  font-size: larger;
 }
 .search-input::placeholder {
-  color: #a8a8a8;
+  color: #A1824A;
+  font-size: larger;
 }
 .search-input:focus {
   outline: none;
@@ -137,6 +154,7 @@ button:hover {
 }
 .main-page-container h1 {
   align-self: center;
+  font-weight: 1000;
 }
 
 .plant-grid {
@@ -176,4 +194,5 @@ button:hover {
   padding: 0.5rem 1rem;
   background-color: #F4F0E5;
   border-radius: 1rem;
+  font-weight: 600;
 }/*# sourceMappingURL=main.css.map */
