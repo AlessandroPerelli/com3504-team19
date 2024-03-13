@@ -16,4 +16,8 @@ router.get("/main", function (req, res, next) {
   res.render("mainpage", { categoryData: categories });
 });
 
+router.get("/addplant", function (req, res, next) {
+  res.render("addplant", { title: "Add Plant" });
+});
+
 module.exports = router;
