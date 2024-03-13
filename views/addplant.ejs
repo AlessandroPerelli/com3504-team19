@@ -1,19 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://kit.fontawesome.com/8adee5f06e.js" crossorigin="anonymous"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="/stylesheets/main.css" />
-  <title>Add Plant</title>
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/8adee5f06e.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/stylesheets/main.css" />
+    <title>Add Plant</title>
+  </head>
+  <body>
+    <% include components/navbar.ejs %>
+    <div class="add-plant-container">
+      <form>
+        <div class="add-plant-left">
+          <label for="plantName">Plant name</label>
+          <input
+            type="text"
+            id="plantName"
+            placeholder="Enter the plant name"
+          />
+          <label for="time" class="plant-time">Time</label>
+          <input type="datetime" id="time" placeholder="Enter time" />
+          <label for="location" class="plant-location">Location</label>
+          <input
+            type="text"
+            id="location"
+            placeholder="Enter the plant location"
+          />
+        </div>
+        <div class="add-plant-right">
+          <label for="plantSize" class="plant-size">Plant size</label>
+          <input
+            type="text"
+            id="plantSize"
+            placeholder="Enter the plant size"
+          />
+          <label for="categories" class="plant-categories"
+            >Categories (Characteristics)</label
+          >
+          <input
+            type="text"
+            id="categories"
+            placeholder="Enter the plant categories"
+          />
+          <label for="plantImage" class="plant-image">Plant image</label>
+          <textarea id="plantImage" placeholder="Enter the plant image URL">
+          </textarea>
+        </div>
+      </form>
+    </div>
+  </body>
 </html>

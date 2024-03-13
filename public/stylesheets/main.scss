@@ -253,3 +253,9 @@ button {
   transition: background-color 0.3s ease;
   z-index: 1000;
 }
+
+.add-plant-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
