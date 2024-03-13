@@ -194,7 +194,7 @@ button {
 
 .plant-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(5, 1fr);
   gap: 0.5vh;
   margin: 20px 0;
 
@@ -211,12 +211,14 @@ button {
 
     img {
       width: 100%;
+      height: 100%;
       display: block;
       object-fit: cover;
       transition: transform 0.2s;
 
       &:hover {
         transform: scale(1.1);
+        cursor: pointer;
       }
     }
   }
