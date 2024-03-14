@@ -21,6 +21,9 @@
     <div class="add-plant-container">
       <form>
         <div class="add-plant-left">
+          <label for="plantImage" class="plant-image">
+            <input type="file" id="plantImage" id="inputFile"/>
+          </label>
           <label for="plantName">Plant name</label>
           <input
             type="text"
@@ -28,7 +31,7 @@
             placeholder="Enter the plant name"
           />
           <label for="time" class="plant-time">Time</label>
-          <input type="datetime" id="time" value="<%= dateTime %>" readonly/>
+          <input type="datetime" id="time" value="<%= dateTime %>" readonly />
           <label for="location" class="plant-location">Location</label>
           <input
             type="text"
@@ -51,8 +54,8 @@
             id="categories"
             placeholder="Enter the plant categories"
           />
-          <label for="plantImage" class="plant-image">Plant image</label>
-          <textarea id="plantImage" placeholder="Enter the plant image URL">
+          <label for="plantDescription" class="plant-description">Description</label>
+          <textarea id="plantDescription" placeholder="Enter the plant description">
           </textarea>
         </div>
       </form>
