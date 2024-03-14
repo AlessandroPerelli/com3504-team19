@@ -25,3 +25,8 @@ function getCurrentDateTime() {
   var dateTime = date + ' ' + time;
   return dateTime;
 }
+
+module.exports = {
+  getCurrentDateTime,
+  handleCredentialsFormSwitch,
+};
