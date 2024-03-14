@@ -259,3 +259,18 @@ button {
   flex-direction: row;
   justify-content: center;
 }
+
+.image-drop-area {
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  background: green;
+  text-align: center;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+}
