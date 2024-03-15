@@ -241,4 +241,109 @@ button:hover {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease;
   z-index: 1000;
+}
+
+.add-plant-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  margin: 0% 20%;
+}
+.add-plant-container h1 {
+  align-self: center;
+  font-weight: 1000;
+}
+
+.add-plant-form-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.add-plant-form-container input {
+  background-color: transparent;
+  border: solid 1px #F4F0E5;
+  border-radius: 1rem;
+  padding: 1.5rem 1rem;
+  padding-right: 12rem;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.add-plant-form-container input::-moz-placeholder {
+  color: #A1824A;
+  font-size: larger;
+  font-weight: 200;
+}
+.add-plant-form-container input::placeholder {
+  color: #A1824A;
+  font-size: larger;
+  font-weight: 200;
+}
+.add-plant-form-container input:focus {
+  outline: none;
+}
+.add-plant-form-container textarea {
+  background-color: transparent;
+  border: solid 1px #F4F0E5;
+  border-radius: 1rem;
+  padding: 4rem 1rem;
+  padding-right: 12rem;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  resize: none;
+}
+.add-plant-form-container textarea::-moz-placeholder {
+  color: #A1824A;
+  font-size: larger;
+  font-weight: 200;
+}
+.add-plant-form-container textarea::placeholder {
+  color: #A1824A;
+  font-size: larger;
+  font-weight: 200;
+}
+.add-plant-form-container textarea:focus {
+  outline: none;
+}
+.add-plant-form-container .item {
+  display: flex;
+  flex-direction: column;
+}
+
+.image-container {
+  padding: 10rem 1.5rem;
+  border: solid 1px #F4F0E5;
+  border-radius: 1rem;
+}
+
+.image-label {
+  cursor: pointer;
+}
+
+.image-file {
+  display: none;
+}
+
+.add-plant-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0.5rem;
+  width: 50%;
+}
+.add-plant-left .form-item {
+  width: 100%;
+}
+
+.add-plant-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0.5rem;
+  width: 50%;
+}
+.add-plant-right .form-item {
+  width: 100%;
 }/*# sourceMappingURL=main.css.map */
