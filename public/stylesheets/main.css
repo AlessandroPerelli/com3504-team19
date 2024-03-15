@@ -248,6 +248,53 @@ button:hover {
   flex-direction: row;
   justify-content: center;
 }
+.add-plant-container input {
+  background-color: transparent;
+  border: solid 1px #F4F0E5;
+  border-radius: 1rem;
+  padding: 1.5rem 1rem;
+  padding-right: 12rem;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.add-plant-container input::-moz-placeholder {
+  color: #A1824A;
+  font-size: larger;
+  font-weight: 200;
+}
+.add-plant-container input::placeholder {
+  color: #A1824A;
+  font-size: larger;
+  font-weight: 200;
+}
+.add-plant-container input:focus {
+  outline: none;
+}
+.add-plant-container textarea {
+  background-color: transparent;
+  border: solid 1px #F4F0E5;
+  border-radius: 1rem;
+  padding: 1.5rem 1rem;
+  padding-right: 12rem;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  resize: none;
+}
+.add-plant-container textarea::-moz-placeholder {
+  color: #A1824A;
+  font-size: larger;
+  font-weight: 200;
+}
+.add-plant-container textarea::placeholder {
+  color: #A1824A;
+  font-size: larger;
+  font-weight: 200;
+}
+.add-plant-container textarea:focus {
+  outline: none;
+}
 .add-plant-container .item {
   display: flex;
   flex-direction: column;
@@ -256,17 +303,20 @@ button:hover {
 .image-drop-area {
   width: 100%;
   height: 100%;
-  padding: 2rem;
   background: white;
   text-align: center;
+  cursor: pointer;
 }
 
 .image-preview {
-  width: 100%;
-  height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 1rem;
+}
+
+.image-file {
+  width: 100%;
+  height: 100%;
 }
 
 .add-plant-left {
