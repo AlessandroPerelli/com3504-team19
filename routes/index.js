@@ -1,24 +1,27 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
 const categories = require("../public/javascripts/categories");
-const { getCurrentDateTime, getPlantById } = require("../public/javascripts/script");
+const {
+  getCurrentDateTime,
+  getPlantById,
+} = require("../public/javascripts/script");
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.redirect('/login');
+router.get("/", function (req, res, next) {
+  res.redirect("/login");
 });
 
-router.get('/login', function(req, res, next) {
-  res.render('login', { title: 'Welcome to Plant Viewer' });
+router.get("/login", function (req, res, next) {
+  res.render("login", { title: "Welcome to Plant Viewer", showSearch: false});
 });
 
 router.get("/main", function (req, res, next) {
-  res.render("mainpage", { categoryData: categories });
+  res.render("mainpage", { categoryData: categories, showSearch: true });
 });
 
 router.get("/addplant", function (req, res, next) {
-  res.render("addplant", { dateTime: getCurrentDateTime() });
+  res.render("addplant", { dateTime: getCurrentDateTime(), showSearch: false});
 });
 
 router.get("/viewplant", function (req, res, next) {
@@ -26,7 +29,7 @@ router.get("/viewplant", function (req, res, next) {
   const plantData = getPlantById(plantId, categories);
 
   if (plantData) {
-    res.render("viewplant", { plant: plantData });
+    res.render("viewplant", { plant: plantData, showSearch: false});
   } else {
     res.status(404).send("Plant not found");
   }
