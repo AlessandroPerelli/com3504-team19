@@ -4,15 +4,22 @@
     <a class="logo" href="/">Plant Viewer</a>
   </div>
   <nav class="navbar">
-    <div class="search-input-navbar">
-      <i class="fas fa-search"></i>
-      <input
-        type="text"
-        id="searchNavbar"
-        placeholder="Search"
-        class="search-input-section"
-      />
-    </div>
-    <img class="profile-icon" src="/images/big.jpg" alt="profile" />
+    <% if (showSearch === true) { %>
+      <div class="search-input-navbar">
+        <i class="fas fa-search"></i>
+        <input
+          type="text"
+          id="searchNavbar"
+          placeholder="Search"
+          class="search-input-section"
+        />
+      </div>
+    <% } %>
+    <% if (showProfile === true) { %>
+      <img class="profile-icon" src="/images/big.jpg" alt="profile" />
+    <% } else { %>
+      <a href="/login">Login</a>
+      <a href="/signup">Signup</a>
+    <% } %>
   </nav>
 </header>
