@@ -19,49 +19,66 @@
   <body>
     <% include components/navbar.ejs %>
     <div class="add-plant-container">
-      <form>
-        <div class="add-plant-left">
+      <div class="add-plant-left">
+        <form>
           <label for="plantImage" class="image-drop-area">
-            <input type="file" class="image-file"/>
+            <input type="file" class="image-file" />
             <div class="image-preview">
               <p>Drag and drop or click here to upload an image</p>
             </div>
           </label>
-          <label for="plantName">Plant name</label>
-          <input
-            type="text"
-            id="plantName"
-            placeholder="Enter the plant name"
-          />
-          <label for="time" class="plant-time">Time</label>
-          <input type="datetime" id="time" value="<%= dateTime %>" readonly />
-          <label for="location" class="plant-location">Location</label>
-          <input
-            type="text"
-            id="location"
-            placeholder="Enter the plant location"
-          />
-        </div>
-        <div class="add-plant-right">
-          <label for="plantSize" class="plant-size">Plant size</label>
-          <input
-            type="text"
-            id="plantSize"
-            placeholder="Enter the plant size"
-          />
-          <label for="categories" class="plant-categories"
-            >Categories (Characteristics)</label
-          >
-          <input
-            type="text"
-            id="categories"
-            placeholder="Enter the plant categories"
-          />
-          <label for="plantDescription" class="plant-description">Description</label>
-          <textarea id="plantDescription" placeholder="Enter the plant description">
-          </textarea>
-        </div>
-      </form>
+          <div class="item">
+            <label for="plantName">Plant name</label>
+            <input
+              type="text"
+              id="plantName"
+              placeholder="Enter the plant name"
+            />
+          </div>
+          <div class="item">
+            <label for="time" class="plant-time">Time</label>
+            <input type="datetime" id="time" value="<%= dateTime %>" readonly />
+          </div>
+          <div class="item">
+            <label for="location" class="plant-location">Location</label>
+            <input
+              type="text"
+              id="location"
+              placeholder="Enter the plant location"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="add-plant-right">
+        <form>
+          <div class="item">
+            <label for="plantSize" class="plant-size">Plant size</label>
+            <input
+              type="text"
+              id="plantSize"
+              placeholder="Enter the plant size"
+            />
+          </div>
+          <div class="item">
+            <label for="categories" class="plant-categories"
+              >Categories (Characteristics)</label
+            >
+            <input
+              type="text"
+              id="categories"
+              placeholder="Enter the plant categories"
+            />
+          </div>
+          <div class="item">
+            <label for="plantDescription" class="plant-description">Description</label>
+            <textarea
+              id="plantDescription"
+              placeholder="Enter the plant description"
+            >
+            </textarea>
+          </div>
+        </form>
+      </div>
     </div>
     <script src="/javascripts/imageUpload.js"></script>
   </body>
