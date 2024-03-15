@@ -19,63 +19,70 @@
   <body>
     <% include components/navbar.ejs %>
     <div class="add-plant-container">
-      <div class="add-plant-left">
-        <form>
-          <div class="image-container">
-            <input type="file" class="image-file" id="imageFile" />
-            <label for="imageFile" class="image-label">Drag and drop or click here to upload an image</label>
-          </div>
-          <div class="item">
-            <label for="plantName">Plant name</label>
-            <input
-              type="text"
-              id="plantName"
-              placeholder="Enter the plant name"
-            />
-          </div>
-          <div class="item">
-            <label for="time" class="plant-time">Time</label>
-            <input type="datetime" id="time" value="<%= dateTime %>" readonly />
-          </div>
-          <div class="item">
-            <label for="location" class="plant-location">Location</label>
-            <input
-              type="text"
-              id="location"
-              placeholder="Enter the plant location"
-            />
-          </div>
-        </form>
-      </div>
-      <div class="add-plant-right">
-        <form>
-          <div class="item">
-            <label for="plantSize" class="plant-size">Plant size</label>
-            <input
-              type="text"
-              id="plantSize"
-              placeholder="Enter the plant size"
-            />
-          <label for="categories" class="plant-categories"
-            >Categories (Characteristics)</label
-          >
-          <input
-            type="text"
-            id="categories"
-            placeholder="Enter the plant categories"
-          />
-          </div>
-          <div class="item">
-            <label for="plantDescription" class="plant-description">Description</label>
-            <textarea
-              id="plantDescription"
-              placeholder="Enter the plant description"
-            >
-            </textarea>
-          </div>
-        </form>
+      <h1>Add Plant</h1>
+      <div class="add-plant-form-container">
+        <div class="add-plant-left">
+          <form>
+            <div class="image-container">
+              <input type="file" class="image-file" id="imageFile" />
+              <label for="imageFile" class="image-label">Drag and drop or click here to upload an image</label>
+            </div>
+            <div class="item">
+              <label for="plantName">Plant name</label>
+              <input
+                type="text"
+                id="plantName"
+                placeholder="Enter the plant name"
+              />
+            </div>
+            <div class="item">
+              <label for="time" class="plant-time">Time</label>
+              <input type="datetime" id="time" value="<%= dateTime %>" readonly />
+            </div>
+            <div class="item">
+              <label for="location" class="plant-location">Location</label>
+              <input
+                type="text"
+                id="location"
+                placeholder="Enter the plant location"
+              />
+            </div>
+          </form>
+        </div>
+        <div class="add-plant-right">
+          <form>
+            <div class="item">
+              <div>
+                <label for="plantSize" class="plant-size">Plant size</label>
+                <label for="categories" class="plant-categories"
+                >Categories (Characteristics)</label>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  id="plantSize"
+                  placeholder="Enter the plant size"
+                />
+                <input
+                  type="text"
+                  id="categories"
+                  placeholder="Enter the plant categories"
+                />
+              </div>
+            </div>
+            <div class="item">
+              <label for="plantDescription" class="plant-description">Description</label>
+              <textarea
+                id="plantDescription"
+                placeholder="Enter the plant description"
+              >
+              </textarea>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
+
     <script src="/javascripts/imageUpload.js"></script>
   </body>
 </html>

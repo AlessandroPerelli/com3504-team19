@@ -245,10 +245,22 @@ button:hover {
 
 .add-plant-container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  margin: 0% 20%;
+}
+.add-plant-container h1 {
+  align-self: center;
+  font-weight: 1000;
+}
+
+.add-plant-form-container {
+  display: flex;
   flex-direction: row;
   justify-content: center;
 }
-.add-plant-container input {
+.add-plant-form-container input {
   background-color: transparent;
   border: solid 1px #F4F0E5;
   border-radius: 1rem;
@@ -258,44 +270,44 @@ button:hover {
   width: 100%;
   box-sizing: border-box;
 }
-.add-plant-container input::-moz-placeholder {
+.add-plant-form-container input::-moz-placeholder {
   color: #A1824A;
   font-size: larger;
   font-weight: 200;
 }
-.add-plant-container input::placeholder {
+.add-plant-form-container input::placeholder {
   color: #A1824A;
   font-size: larger;
   font-weight: 200;
 }
-.add-plant-container input:focus {
+.add-plant-form-container input:focus {
   outline: none;
 }
-.add-plant-container textarea {
+.add-plant-form-container textarea {
   background-color: transparent;
   border: solid 1px #F4F0E5;
   border-radius: 1rem;
-  padding: 1.5rem 1rem;
+  padding: 4rem 1rem;
   padding-right: 12rem;
   font-size: 16px;
   width: 100%;
   box-sizing: border-box;
   resize: none;
 }
-.add-plant-container textarea::-moz-placeholder {
+.add-plant-form-container textarea::-moz-placeholder {
   color: #A1824A;
   font-size: larger;
   font-weight: 200;
 }
-.add-plant-container textarea::placeholder {
+.add-plant-form-container textarea::placeholder {
   color: #A1824A;
   font-size: larger;
   font-weight: 200;
 }
-.add-plant-container textarea:focus {
+.add-plant-form-container textarea:focus {
   outline: none;
 }
-.add-plant-container .item {
+.add-plant-form-container .item {
   display: flex;
   flex-direction: column;
 }
@@ -317,7 +329,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding: 2rem 0.5rem;
   width: 50%;
 }
 .add-plant-left .form-item {
@@ -328,7 +340,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding: 2rem 0.5rem;
   width: 50%;
 }
 .add-plant-right .form-item {

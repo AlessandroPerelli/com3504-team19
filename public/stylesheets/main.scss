@@ -256,6 +256,19 @@ button {
 
 .add-plant-container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  margin: 0% 20%;
+
+  h1 {
+    align-self: center;
+    font-weight: 1000;
+  }
+}
+
+.add-plant-form-container {
+  display: flex;
   flex-direction: row;
   justify-content: center;
 
@@ -284,7 +297,7 @@ button {
     background-color: transparent;
     border: solid 1px #F4F0E5;
     border-radius: 1rem;
-    padding: 1.5rem 1rem;
+    padding: 4rem 1rem;
     padding-right: 12rem;
     font-size: 16px;
     width: 100%;
@@ -326,7 +339,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding: 2rem 0.5rem;
   width: 50%;
 
   .form-item {
@@ -338,7 +351,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding: 2rem 0.5rem;
   width: 50%;
 
   .form-item {
