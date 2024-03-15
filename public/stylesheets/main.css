@@ -24,6 +24,7 @@ header {
   justify-content: space-around;
   align-items: center;
   padding: 5px 10px;
+  min-height: 5vh;
 }
 
 .logo {
