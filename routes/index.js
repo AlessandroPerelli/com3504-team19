@@ -21,7 +21,7 @@ router.get("/main", function (req, res, next) {
 });
 
 router.get("/addplant", function (req, res, next) {
-  res.render("addplant", { dateTime: getCurrentDateTime(), showSearch: false, showProfile: true});
+  res.render("addplant", { showSearch: false, showProfile: true});
 });
 
 router.get("/viewplant", function (req, res, next) {
