@@ -13,15 +13,15 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/login", function (req, res, next) {
-  res.render("login", { title: "Welcome to Plant Viewer", showSearch: false});
+  res.render("login", { title: "Welcome to Plant Viewer", showSearch: false, showProfile: false });
 });
 
 router.get("/main", function (req, res, next) {
-  res.render("mainpage", { categoryData: categories, showSearch: true });
+  res.render("mainpage", { categoryData: categories, showSearch: true, showProfile: true });
 });
 
 router.get("/addplant", function (req, res, next) {
-  res.render("addplant", { dateTime: getCurrentDateTime(), showSearch: false});
+  res.render("addplant", { dateTime: getCurrentDateTime(), showSearch: false, showProfile: true});
 });
 
 router.get("/viewplant", function (req, res, next) {
@@ -29,7 +29,7 @@ router.get("/viewplant", function (req, res, next) {
   const plantData = getPlantById(plantId, categories);
 
   if (plantData) {
-    res.render("viewplant", { plant: plantData, showSearch: false});
+    res.render("viewplant", { plant: plantData, showSearch: false, showProfile: true});
   } else {
     res.status(404).send("Plant not found");
   }

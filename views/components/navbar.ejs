@@ -15,6 +15,11 @@
         />
       </div>
     <% } %>
-    <img class="profile-icon" src="/images/big.jpg" alt="profile" />
+    <% if (showProfile === true) { %>
+      <img class="profile-icon" src="/images/big.jpg" alt="profile" />
+    <% } else { %>
+      <a href="/login">Login</a>
+      <a href="/signup">Signup</a>
+    <% } %>
   </nav>
 </header>
