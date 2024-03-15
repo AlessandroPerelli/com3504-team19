@@ -21,4 +21,8 @@ router.get("/addplant", function (req, res, next) {
   res.render("addplant", { dateTime: getCurrentDateTime() });
 });
 
+router.get("/viewplant", function (req, res, next) {
+  res.render("viewplant");
+});
+
 module.exports = router;
