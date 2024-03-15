@@ -359,3 +359,36 @@ button {
     width: 100%;
   }
 }
+
+.view-plant-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  margin: 0% 20%;
+
+  h1 {
+    align-self: center;
+    font-weight: 1000;
+  }
+
+  .plant-information-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: solid 3px #F4F0E5;
+    padding: 2rem 3rem;
+
+    .information-side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0rem 2rem;
+    }
+
+    .image-side {
+      
+    }
+  }
+}
