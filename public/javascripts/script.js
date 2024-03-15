@@ -30,7 +30,19 @@ function getCurrentDateTime() {
   return dateTime;
 }
 
+function getPlantById(plantId) {
+  for (let category of categories) {
+    for (let plant of category.plants) {
+      if (plant.id === parseInt(plantId, 10)) {
+        return plant;
+      }
+    }
+  }
+  return null;
+}
+
 module.exports = {
   getCurrentDateTime,
   handleCredentialsFormSwitch,
+  getPlantById,
 };
