@@ -21,12 +21,10 @@
     <div class="add-plant-container">
       <div class="add-plant-left">
         <form>
-          <label for="plantImage" class="image-drop-area">
-            <input type="file" class="image-file" />
-            <div class="image-preview">
-              <p>Drag and drop or click here to upload an image</p>
-            </div>
-          </label>
+          <div class="image-container">
+            <input type="file" class="image-file" id="imageFile" />
+            <label for="imageFile" class="image-label">Drag and drop or click here to upload an image</label>
+          </div>
           <div class="item">
             <label for="plantName">Plant name</label>
             <input
@@ -58,16 +56,14 @@
               id="plantSize"
               placeholder="Enter the plant size"
             />
-          </div>
-          <div class="item">
-            <label for="categories" class="plant-categories"
-              >Categories (Characteristics)</label
-            >
-            <input
-              type="text"
-              id="categories"
-              placeholder="Enter the plant categories"
-            />
+          <label for="categories" class="plant-categories"
+            >Categories (Characteristics)</label
+          >
+          <input
+            type="text"
+            id="categories"
+            placeholder="Enter the plant categories"
+          />
           </div>
           <div class="item">
             <label for="plantDescription" class="plant-description">Description</label>
