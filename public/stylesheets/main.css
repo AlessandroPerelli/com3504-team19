@@ -346,4 +346,61 @@ button:hover {
 }
 .add-plant-right .form-item {
   width: 100%;
+}
+
+.view-plant-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  margin: 0% 20%;
+}
+.view-plant-container h1 {
+  align-self: center;
+  font-weight: 1000;
+}
+.view-plant-container .plant-information-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: solid 3px #F4F0E5;
+  padding: 2rem 3rem;
+}
+.view-plant-container .plant-information-container .information-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0rem 2rem;
+  justify-content: space-around;
+}
+.view-plant-container .plant-information-container .information-side input {
+  background-color: transparent;
+  border: solid 1px #F4F0E5;
+  border-radius: 1rem;
+  padding: 1.5rem 1rem;
+  padding-right: 12rem;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.view-plant-container .plant-information-container .information-side input::-moz-placeholder {
+  color: #A1824A;
+  font-size: larger;
+  font-weight: 200;
+}
+.view-plant-container .plant-information-container .information-side input::placeholder {
+  color: #A1824A;
+  font-size: larger;
+  font-weight: 200;
+}
+.view-plant-container .plant-information-container .information-side input:focus {
+  outline: none;
+}
+.view-plant-container .plant-information-container .image-side {
+  border-right: solid 3px #F4F0E5;
+}
+.view-plant-container .plant-information-container .image-side img {
+  width: 100%;
+  height: auto;
 }/*# sourceMappingURL=main.css.map */
