@@ -25,7 +25,9 @@
           <form>
             <div class="image-container">
               <input type="file" class="image-file" id="imageFile" />
-              <label for="imageFile" class="image-label">Drag and drop or click here to upload an image</label>
+              <label for="imageFile" class="image-label"
+                >Drag and drop or click here to upload an image</label
+              >
             </div>
             <div class="item">
               <label for="plantName">Plant name</label>
@@ -37,7 +39,12 @@
             </div>
             <div class="item">
               <label for="time" class="plant-time">Time</label>
-              <input type="datetime" id="time" value="<%= dateTime %>" readonly />
+              <input
+                type="datetime"
+                id="time"
+                value="<%= dateTime %>"
+                readonly
+              />
             </div>
             <div class="item">
               <label for="location" class="plant-location">Location</label>
@@ -52,17 +59,18 @@
         <div class="add-plant-right">
           <form>
             <div class="item">
-              <div>
+                <div>
                 <label for="plantSize" class="plant-size">Plant size</label>
-                <label for="categories" class="plant-categories"
-                >Categories (Characteristics)</label>
-              </div>
-              <div>
                 <input
                   type="text"
                   id="plantSize"
                   placeholder="Enter the plant size"
                 />
+              </div>
+              <div>
+                <label for="categories" class="plant-categories"
+                  >Categories (Characteristics)</label
+                >
                 <input
                   type="text"
                   id="categories"
@@ -71,18 +79,25 @@
               </div>
             </div>
             <div class="item">
-              <label for="plantDescription" class="plant-description">Description</label>
+              <label for="plantDescription" class="plant-description"
+                >Description</label
+              >
               <textarea
                 id="plantDescription"
                 placeholder="Enter the plant description"
               >
               </textarea>
             </div>
+            <div class="item">
+              <button class="add-button">Upload</button>
+              <a href="/main">
+                <button class="back-button">Back</button>
+              </a>
+            </div>
           </form>
         </div>
       </div>
     </div>
-
     <script src="/javascripts/imageUpload.js"></script>
   </body>
 </html>
