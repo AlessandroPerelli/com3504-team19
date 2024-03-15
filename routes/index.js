@@ -22,7 +22,14 @@ router.get("/addplant", function (req, res, next) {
 });
 
 router.get("/viewplant", function (req, res, next) {
-  res.render("viewplant");
+  const plantId = req.query.id;
+  const plantData = getPlantById(plantId);
+
+  if (plantData) {
+    res.render("viewplant", { plant: plantData });
+  } else {
+    res.status(404).send("Plant not found");
+  }
 });
 
 module.exports = router;
