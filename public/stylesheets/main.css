@@ -293,6 +293,8 @@ button:hover {
   width: 100%;
   box-sizing: border-box;
   resize: none;
+  text-align: left;
+  justify-self: baseline;
 }
 .add-plant-form-container textarea::-moz-placeholder {
   color: #A1824A;
@@ -373,6 +375,14 @@ button:hover {
   align-items: center;
   padding: 0rem 2rem;
   justify-content: space-around;
+}
+.view-plant-container .plant-information-container .information-side .message-area {
+  margin: 20px 0;
+  padding: 2rem 20rem;
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  min-height: 10rem;
 }
 .view-plant-container .plant-information-container .information-side input {
   background-color: transparent;
