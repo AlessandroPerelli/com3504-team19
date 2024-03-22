@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var plants = require('../controllers/database')
+var plants = require('../controllers/plants')
 var multer = require('multer')
 
 const categories = require("../public/javascripts/categories");
