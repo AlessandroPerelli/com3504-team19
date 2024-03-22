@@ -1,18 +1,20 @@
 [{
   "_id": {
-    "$oid": "65fda14866b31def9f09ffbe"
+    "$oid": "65fda40661e55b21aecb098d"
   },
-  "email": "test@test.com",
-  "password": "$2b$10$TC65Pl8EYJB2Rja8YbUTJO7sFzivioFGKQfR9IYkAVS9.u37G4.D6",
+  "email": "tester@test.com",
+  "username": "tester",
+  "password": "$2b$10$K9NhyHIpwUcPeXDP99L8KuTTC0f57HkJ3v6/4bVfkedQyKm4BBYvS",
   "avatar": "C:\\Users\\Daniel\\OneDrive\\Documents\\GitHub\\com3504-team19\\public\\images\\avatar.png",
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "65fda16866b31def9f09ffc0"
+    "$oid": "65fda44c61e55b21aecb0991"
   },
   "email": "admin@gmail.com",
-  "password": "$2b$10$V6p8CggqthEWJJWpJ.qzIOMqBXJESbjM/inPSz5qX0iJqUtpEHUKa",
+  "username": "admin",
+  "password": "$2b$10$cVQq2jT6VmvVNtzqi0A9buLFpALVGFf1Vnvh2dmjF8FEff6YshMgG",
   "avatar": "C:\\Users\\Daniel\\OneDrive\\Documents\\GitHub\\com3504-team19\\public\\images\\avatar.png",
   "__v": 0
 }]
