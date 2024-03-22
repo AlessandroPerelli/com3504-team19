@@ -23,8 +23,8 @@ let PlantSchema = new Schema(
 // and virtuals when converting to an object
 PlantSchema.set('toObject', { getters: true, virtuals: true });
 
-// Create the mongoose model 'Student' based on the defined schema
-let Plant = mongoose.model('student', PlantSchema);
+// Create the mongoose model 'Plant' based on the defined schema
+let Plants = mongoose.model('plant', PlantSchema);
 
 // Export the Student model for use in other modules
-module.exports = Plant;
+module.exports = Plants;

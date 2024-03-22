@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Define the MongoDB connection URL, including
-const mongoDB = 'mongodb://localhost:27017/db';
+const mongoDB = 'mongodb://localhost:27017/plants';
 let connection;
 
 // Set Mongoose to use the global Promise library
