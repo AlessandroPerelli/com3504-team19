@@ -17,4 +17,3 @@ mongoose.connect(mongoDB).then(result => {
     // Log an error message if the connection fails
     console.log("Connection Failed!", err);
 });
-

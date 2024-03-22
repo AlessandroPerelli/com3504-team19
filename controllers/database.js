@@ -1,7 +1,5 @@
 // Import the db model
-const studentModel = require('../models/database');
-
-
+const studentModel = require('../models/plant');
 
 ////////////////// Functions need to be deleted and altered for plants
 // Function to create new students
@@ -44,4 +42,3 @@ exports.getAll = function () {
         return null;
     });
 };
-
