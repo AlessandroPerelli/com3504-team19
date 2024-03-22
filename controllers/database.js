@@ -6,19 +6,22 @@ const plantModel = require('../models/plants');
 exports.create = function (userData, filePath) {
     // Create a new plant instance using the provided user data
     let plant = new plantModel({
-        first_name: userData.first_name,
-        last_name: userData.last_name,
-        dob: userData.dob,
+        name: userData.name,
+        time: userData.time,
+        location: userData.location,
+        size: userData.size,
+        desc: userData.desc,
+        categories: userData.categories,
         img: filePath,
     });
 
     // Save the plant to the database and handle success or failure
-    return plant.save().then(student => {
+    return plant.save().then(plant => {
         // Log the created plant
-        console.log(student);
+        console.log(plant);
 
         // Return the plant data as a JSON string
-        return JSON.stringify(student);
+        return JSON.stringify(plant);
     }).catch(err => {
         // Log the error if saving fails
         console.log(err);

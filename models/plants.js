@@ -3,17 +3,33 @@ let mongoose = require('mongoose');
 // Get the Schema class from mongoose
 let Schema = mongoose.Schema;
 
+//     name: userData.name,
+//     time: userData.time,
+//     location: userData.location,
+//     size: userData.size,
+//     desc: userData.desc,
+//     categories: userData.categories,
+//     img: filePath,
+
 // Define the schema for the Plant model
 let PlantSchema = new Schema(
     {
-        // Define the first_name field with type String, required,
-        // and max length of 100 characters
-        first_name: { type: String, required: true, max: 100 },
-        // Define the last_name field with type String, required,
-        // and max length of 100 characters
-        last_name: { type: String, required: true, max: 100 },
-        // Define the dob (date of birth) field with type Date
-        dob: { type: Date },
+        // Define the name
+        name: { type: String, required: true, max: 100 },
+        time: { type: Date },
+        // Define location as two values Lat and Long
+        location: {
+            type: {
+                Latitude: Number,
+                Longitude: Number },
+        required: true},
+        // size of plant
+        size: { type: Number},
+        // description of plant
+        desc: { type: String},
+        // categories should probably be from a select list
+        // so use an array of those options
+        categories: { type: Array },
         // Define the img field with type String
         img: {type: String }
     }
