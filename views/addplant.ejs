@@ -19,12 +19,13 @@
   <body>
     <% include components/navbar.ejs %>
     <div class="add-plant-container">
+      <form action="/add" method="POST" enctype="multipart/form-data">
       <h1>Add Plant</h1>
       <div class="add-plant-form-container">
         <div class="add-plant-left">
           <form>
             <div class="image-container">
-              <input type="file" class="image-file" id="imageFile" />
+              <input type="file" class="image-file" id="imageFile" name="img" />
               <label for="imageFile" class="image-label"
                 >Drag and drop or click here to upload an image</label
               >
@@ -34,6 +35,7 @@
               <input
                 type="text"
                 id="plantName"
+                name="name"
                 placeholder="Enter the plant name"
               />
             </div>
@@ -42,6 +44,7 @@
               <input
                 type="datetime"
                 id="time"
+                name="time"
                 value="<%= dateTime %>"
                 readonly
               />
@@ -51,6 +54,7 @@
               <input
                 type="text"
                 id="location"
+                name="location"
                 placeholder="Enter the plant location"
               />
             </div>
@@ -64,6 +68,7 @@
                 <input
                   type="text"
                   id="plantSize"
+                  name="size"
                   placeholder="Enter the plant size"
                 />
               </div>
@@ -74,6 +79,7 @@
                 <input
                   type="text"
                   id="categories"
+                  name="categories"
                   placeholder="Enter the plant categories"
                 />
               </div>
@@ -84,12 +90,13 @@
               >
               <textarea
                 id="plantDescription"
+                name="desc"
                 placeholder="Enter the plant description"
               >
               </textarea>
             </div>
             <div class="item">
-              <button class="add-button">Upload</button>
+              <button type="submit" class="add-button">Upload</button>
               <a href="/main">
                 <button class="back-button">Back</button>
               </a>
@@ -97,6 +104,7 @@
           </form>
         </div>
       </div>
+      </form>
     </div>
     <script src="/javascripts/imageUpload.js"></script>
   </body>

@@ -1,16 +1,16 @@
 <div id="signupForm" style="display: none">
-  <form>
+  <form action='/adduser' method='post'>
     <div class="form-item">
       <label for="email">Email</label>
-      <input type="email" placeholder="Enter your email" />
+      <input type="email" name="email" placeholder="Enter your email" />
     </div>
     <div class="form-item">
       <label for="password">Password</label>
-      <input type="password" placeholder="Enter your password" />
+      <input type="password" name="password" placeholder="Enter your password" />
     </div>
     <div class="form-item">
-      <label for="confirmPassword">Confirm Password</label>
-      <input type="password" placeholder="Confirm your password" />
+      <label for="confirmpassword">Confirm Password</label>
+      <input type="password" name="confirmpassword" placeholder="Confirm your password" />
     </div>
     <div class="form-item">
       <button class="active" type="submit">Signup</button>
