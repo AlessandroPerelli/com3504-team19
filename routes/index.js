@@ -1,11 +1,27 @@
 var express = require("express");
 var router = express.Router();
+var plants = require('../controllers/database')
+var multer = require('multer')
 
 const categories = require("../public/javascripts/categories");
 const {
   getCurrentDateTime,
   getPlantById,
 } = require("../public/javascripts/script");
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/images/uploads/');
+  },
+  filename: function (req, file, cb) {
+    var original = file.originalname;
+    var file_extension = original.split(".");
+    // Make the file name the date + the file extension
+    filename =  Date.now() + '.' + file_extension[file_extension.length-1];
+    cb(null, filename);
+  }
+});
+let upload = multer({ storage: storage });
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
@@ -33,6 +49,14 @@ router.get("/viewplant", function (req, res, next) {
   } else {
     res.status(404).send("Plant not found");
   }
+});
+
+router.post('/add', upload.single('img'), function (req, res, next) {
+  let userData = req.body;
+  let filePath = req.file.path;
+  let result = plants.create(userData, filePath);
+  console.log(result);
+  res.redirect('/main');
 });
 
 module.exports = router;
