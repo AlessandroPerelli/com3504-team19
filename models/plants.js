@@ -15,14 +15,13 @@ let Schema = mongoose.Schema;
 let PlantSchema = new Schema(
     {
         // Define the name
-        name: { type: String, required: true, max: 100 },
+        name: { type: String, required: true },
         time: { type: Date },
         // Define location as two values Lat and Long
         location: {
             type: {
                 Latitude: Number,
-                Longitude: Number },
-        required: true},
+                Longitude: Number }},
         // size of plant
         size: { type: Number},
         // description of plant
