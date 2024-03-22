@@ -1,13 +1,15 @@
-var express = require("express");
+var express = require('express');
 var router = express.Router();
 var plants = require('../controllers/plants')
+var users = require('../models/users');
 var multer = require('multer')
+const bcrypt = require('bcrypt');
 
-const categories = require("../public/javascripts/categories");
+const categories = require('../public/javascripts/categories');
 const {
   getCurrentDateTime,
   getPlantById,
-} = require("../public/javascripts/script");
+} = require('../public/javascripts/script');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -54,6 +56,23 @@ router.post('/add', upload.single('img'), function (req, res, next) {
   let filePath = req.file.path;
   let result = plants.create(userData, filePath);
   console.log(result);
+  res.redirect('/main');
+});
+
+router.post('/adduser', function (req, res) {
+  const user = new users({
+    password : req.body.password,
+    confirmpassword: req.body.confirmpassword,
+    email : req.body.email
+  });
+  bcrypt.hash(user.password, 10, function (err, hash){
+    user.password = hash;
+    user.save().then(data => {
+      console.log('Successfully created a new User');
+    }).catch(err => {
+      console.log(err);
+    })
+  });
   res.redirect('/main');
 });
 
