@@ -1,16 +1,18 @@
 [{
   "_id": {
-    "$oid": "65fd94d039bd7e599c4cdd77"
+    "$oid": "65fda14866b31def9f09ffbe"
   },
-  "email": "dmoy1@sheffield.ac.uk",
-  "password": "$2b$10$RmIrAvluqQQOrWpq4SZfxu8ppvjjtYKgoMOudQZyWrfP9TVAQnJjq",
+  "email": "test@test.com",
+  "password": "$2b$10$TC65Pl8EYJB2Rja8YbUTJO7sFzivioFGKQfR9IYkAVS9.u37G4.D6",
+  "avatar": "C:\\Users\\Daniel\\OneDrive\\Documents\\GitHub\\com3504-team19\\public\\images\\avatar.png",
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "65fd976d888e0cc72d183990"
+    "$oid": "65fda16866b31def9f09ffc0"
   },
-  "email": "test@test.ac.uk",
-  "password": "$2b$10$hXUE0ySQSzMR3WCqjd6m4upSwzWHGloKYx8F35B4br1JKkVohzCCi",
+  "email": "admin@gmail.com",
+  "password": "$2b$10$V6p8CggqthEWJJWpJ.qzIOMqBXJESbjM/inPSz5qX0iJqUtpEHUKa",
+  "avatar": "C:\\Users\\Daniel\\OneDrive\\Documents\\GitHub\\com3504-team19\\public\\images\\avatar.png",
   "__v": 0
 }]

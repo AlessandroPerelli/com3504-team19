@@ -4,6 +4,7 @@ var plants = require('../controllers/plants')
 var users = require('../models/users');
 var multer = require('multer')
 var bcrypt = require('bcrypt');
+var path = require('path');
 
 const categories = require('../public/javascripts/categories');
 const {
@@ -13,7 +14,7 @@ const {
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/images/uploads/');
+    cb(null, 'public/images/');
   },
   filename: function (req, file, cb) {
     // Make the file name the date + the file name
@@ -72,9 +73,11 @@ router.post('/adduser', function (req, res) {
     }
 
     // Create a user instance
+    const defaultAvatar = path.join(__dirname, '../public/images/avatar.png');
     const user = new users({
       email: req.body.email,
-      password: hash
+      password: hash,
+      avatar: defaultAvatar
     });
 
     // Save the user to the database
