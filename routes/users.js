@@ -4,16 +4,18 @@ var router = express.Router();
 const bcrypt = require('bcrypt');
 
 /* GET users listing. */
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
+// router.get("/", function (req, res, next) {
+//   res.send("respond with a resource");
+// });
+
+router.get('/',function(req,res){
+  res.sendFile(path.join(__dirname+'/views/components/signupform'));
 });
 
 router.post('/users', (request, response) => {
   const user = new users({
-    firstName : request.body.firstName,
-    lastName : request.body.lastName,
-    userName : request.body.userName,
     password : request.body.password,
+    passwordconfirm: request.body.passwordconfirm,
     email : request.body.email
   });
   bcrypt.hash(user.password, 10, function (err, hash){
