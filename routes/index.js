@@ -3,7 +3,7 @@ var router = express.Router();
 var plants = require('../controllers/plants')
 var users = require('../models/users');
 var multer = require('multer')
-const bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt');
 
 const categories = require('../public/javascripts/categories');
 const {
@@ -74,6 +74,34 @@ router.post('/adduser', function (req, res) {
     })
   });
   res.redirect('/main');
+});
+
+router.post('/login', function(req, res, next) {
+  const { email, password } = req.body;
+
+  // Find user by email
+  users.findOne({ email })
+      .then(user => {
+        if (!user) {
+          // User with the provided email does not exist
+          return res.status(401).send('Invalid email or password');
+        }
+
+        // Compare password hashes
+        bcrypt.compare(password, user.password, function(err, result) {
+          if (result) {
+            // Passwords match, user is authenticated
+            res.redirect('/main');
+          } else {
+            // Passwords don't match
+            res.status(401).send('Invalid email or password');
+          }
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).send('Internal server error');
+      });
 });
 
 module.exports = router;
