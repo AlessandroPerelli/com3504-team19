@@ -76,6 +76,7 @@ router.post('/adduser', function (req, res) {
     const defaultAvatar = path.join(__dirname, '../public/images/avatar.png');
     const user = new users({
       email: req.body.email,
+      username: req.body.username,
       password: hash,
       avatar: defaultAvatar
     });
@@ -91,14 +92,14 @@ router.post('/adduser', function (req, res) {
 });
 
 router.post('/login', function(req, res, next) {
-  const { email, password } = req.body;
+  const { identifier, password } = req.body;
 
   // Find user by email
-  users.findOne({ email })
+  users.findOne({ $or: [{ email: identifier }, { username: identifier }] })
       .then(user => {
         if (!user) {
           // User with the provided email does not exist
-          return res.status(401).send('Invalid email or password');
+          return res.status(401).send('Invalid email/username or password');
         }
 
         // Compare password hashes
@@ -108,7 +109,7 @@ router.post('/login', function(req, res, next) {
             res.redirect('/main');
           } else {
             // Passwords don't match
-            res.status(401).send('Invalid email or password');
+            res.status(401).send('Invalid email/username or password');
           }
         });
       })
