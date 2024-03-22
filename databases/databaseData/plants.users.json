@@ -1,0 +1,16 @@
+[{
+  "_id": {
+    "$oid": "65fd94d039bd7e599c4cdd77"
+  },
+  "email": "dmoy1@sheffield.ac.uk",
+  "password": "$2b$10$RmIrAvluqQQOrWpq4SZfxu8ppvjjtYKgoMOudQZyWrfP9TVAQnJjq",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65fd976d888e0cc72d183990"
+  },
+  "email": "test@test.ac.uk",
+  "password": "$2b$10$hXUE0ySQSzMR3WCqjd6m4upSwzWHGloKYx8F35B4br1JKkVohzCCi",
+  "__v": 0
+}]
