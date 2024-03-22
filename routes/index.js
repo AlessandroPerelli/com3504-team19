@@ -60,20 +60,31 @@ router.post('/add', upload.single('img'), function (req, res, next) {
 });
 
 router.post('/adduser', function (req, res) {
-  const user = new users({
-    password : req.body.password,
-    confirmpassword: req.body.confirmpassword,
-    email : req.body.email
-  });
-  bcrypt.hash(user.password, 10, function (err, hash){
-    user.password = hash;
+  // Check if passwords match
+  if (req.body.password !== req.body.confirmpassword) {
+    return res.status(400).send('Passwords do not match');
+  }
+
+  // Hash the password
+  bcrypt.hash(req.body.password, 10, function (err, hash) {
+    if (err) {
+      return res.status(500).send('Error hashing password');
+    }
+
+    // Create a user instance
+    const user = new users({
+      email: req.body.email,
+      password: hash
+    });
+
+    // Save the user to the database
     user.save().then(data => {
       console.log('Successfully created a new User');
+      res.redirect('/main');
     }).catch(err => {
       console.log(err);
-    })
+    });
   });
-  res.redirect('/main');
 });
 
 router.post('/login', function(req, res, next) {
