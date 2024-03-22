@@ -14,10 +14,8 @@ var storage = multer.diskStorage({
     cb(null, 'public/images/uploads/');
   },
   filename: function (req, file, cb) {
-    var original = file.originalname;
-    var file_extension = original.split(".");
-    // Make the file name the date + the file extension
-    filename =  Date.now() + '.' + file_extension[file_extension.length-1];
+    // Make the file name the date + the file name
+    filename =  Date.now() + '-' + file.originalname;
     cb(null, filename);
   }
 });
