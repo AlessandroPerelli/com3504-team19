@@ -65,7 +65,7 @@ router.get("/viewplant", function (req, res, next) {
 
 router.get("/user", function (req, res, next) {
   if (req.session.user) {
-    res.render("user",{ user: req.session.user });
+    res.render("user",{ user: req.session.user, showSearch: true, showProfile: true});
   } else {
     res.redirect("/login");
   }
@@ -92,7 +92,7 @@ router.post('/adduser', function (req, res) {
     }
 
     // Create a user instance
-    const defaultAvatar = path.join(__dirname, '../public/images/avatar.png');
+    const defaultAvatar = '/images/avatar.png';
     const user = new users({
       email: req.body.email,
       username: req.body.username,
