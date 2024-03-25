@@ -5,6 +5,7 @@ var users = require('../models/users');
 var multer = require('multer')
 var bcrypt = require('bcrypt');
 var path = require('path');
+var session = require('express-session');
 
 const categories = require('../public/javascripts/categories');
 const {
@@ -24,6 +25,12 @@ var storage = multer.diskStorage({
 });
 let upload = multer({ storage: storage });
 
+router.use(session({
+  secret: 'changeme',
+  resave: false,
+  saveUninitialized: false
+}));
+
 /* GET home page. */
 router.get("/", function (req, res, next) {
   res.redirect("/login");
@@ -38,7 +45,11 @@ router.get("/main", function (req, res, next) {
 });
 
 router.get("/addplant", function (req, res, next) {
-  res.render("addplant", { dateTime: getCurrentDateTime(), showSearch: false, showProfile: true});
+  if (req.session.user) {
+    res.render("addplant", {dateTime: getCurrentDateTime(), showSearch: false, showProfile: true});
+  } else {
+    res.redirect("/login");
+  }
 });
 
 router.get("/viewplant", function (req, res, next) {
@@ -106,6 +117,7 @@ router.post('/login', function(req, res, next) {
         bcrypt.compare(password, user.password, function(err, result) {
           if (result) {
             // Passwords match, user is authenticated
+            req.session.user = user;
             res.redirect('/main');
           } else {
             // Passwords don't match
