@@ -63,6 +63,14 @@ router.get("/viewplant", function (req, res, next) {
   }
 });
 
+router.get("/user", function (req, res, next) {
+  if (req.session.user) {
+    res.render("user",{ user: req.session.user });
+  } else {
+    res.redirect("/login");
+  }
+});
+
 router.post('/add', upload.single('img'), function (req, res, next) {
   let userData = req.body;
   let filePath = req.file.path;
