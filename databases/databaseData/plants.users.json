@@ -5,7 +5,7 @@
   "email": "tester@test.com",
   "username": "tester",
   "password": "$2b$10$K9NhyHIpwUcPeXDP99L8KuTTC0f57HkJ3v6/4bVfkedQyKm4BBYvS",
-  "avatar": "C:\\Users\\Daniel\\OneDrive\\Documents\\GitHub\\com3504-team19\\public\\images\\avatar.png",
+  "avatar": "\\images\\avatar.png",
   "__v": 0
 },
 {
@@ -15,6 +15,6 @@
   "email": "admin@gmail.com",
   "username": "admin",
   "password": "$2b$10$cVQq2jT6VmvVNtzqi0A9buLFpALVGFf1Vnvh2dmjF8FEff6YshMgG",
-  "avatar": "C:\\Users\\Daniel\\OneDrive\\Documents\\GitHub\\com3504-team19\\public\\images\\avatar.png",
+  "avatar": "\\images\\avatar.png",
   "__v": 0
 }]
