@@ -57,7 +57,7 @@ router.get("/viewplant", function (req, res, next) {
   const plantData = getPlantById(plantId, categories);
 
   if (plantData) {
-    res.render("viewplant", { plant: plantData, showSearch: false, showProfile: true});
+    res.render("viewplant", { plant: plantData, showSearch: false, showProfile: true, user: req.session.user });
   } else {
     res.status(404).send("Plant not found");
   }
