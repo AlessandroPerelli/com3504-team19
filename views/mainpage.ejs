@@ -36,6 +36,13 @@
       category.categoryName; %> <% var plants = category.plants; %> <% include
       components/category.ejs %> <% }); %>
     </div>
+
+    <div id="overlay" class="overlay">
+      <div class="overlay-content">
+        
+      </div>
+    </div>
+
     <form action="/addplant" method="get">
       <button class="add-plant-button">Add plant</button>
     </form>
