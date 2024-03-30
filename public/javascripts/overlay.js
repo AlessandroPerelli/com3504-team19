@@ -2,10 +2,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const overlay = document.getElementById("overlay");
   const overlayContent = document.querySelector(".overlay-content");
 
-  // Add event listener to each plant image
-  const plantImages = document.querySelectorAll(".plant-image");
-  plantImages.forEach(function (image) {
-    image.addEventListener("click", function () {
+  // Add event listener to each plant item
+  const plantItems = document.querySelectorAll(".plant-item");
+  plantItems.forEach(function (item) {
+    item.addEventListener("click", function () {
       const plantId = this.dataset.plantId;
       fetchPlantDetails(plantId);
     });
