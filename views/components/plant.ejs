@@ -1,17 +1,20 @@
-<div class="plant-information-container">
-  <div class="image-side">
-    <img src="<%= plant.image %>" alt="plant" />
-  </div>
-  <div class="information-side">
-    <div class="plant-information">
-      <h3><%= plant.name %></h3>
-      <p>Look at how cute this plant is</p>
-      <h3>Creator of post goes here</h3>
+<div class="view-plant-container">
+  <div class="plant-information-container">
+    <div class="image-side">
+      <img src="<%= plant.image %>" alt="plant" />
     </div>
-    <!-- Message Area for comments -->
-    <div id="messageArea" class="message-area">
-      <!-- Messages will be dynamically inserted here -->
+    <div class="information-side">
+      <div class="plant-information">
+        <h3><%= plant.name %></h3>
+        <p>Look at how cute this plant is</p>
+        <h3>Creator of post goes here</h3>
+      </div>
+      <!-- Message Area for comments -->
+      <div id="messageArea" class="message-area">
+        <!-- Messages will be dynamically inserted here -->
+      </div>
+      <input type="text" placeholder="Comment" />
     </div>
-    <input type="text" placeholder="Comment" />
   </div>
 </div>
+
