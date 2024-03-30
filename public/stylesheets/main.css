@@ -434,7 +434,9 @@ button:hover {
   transform: translate(-50%, -50%);
   background-color: #fff;
   padding: 20px;
-  max-width: 600px;
+  max-width: none;
+  max-height: none;
+  overflow-y: auto;
   width: 90%;
   z-index: 10000;
 }/*# sourceMappingURL=main.css.map */
