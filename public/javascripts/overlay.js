@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to fetch plant details and display in the overlay
   function fetchPlantDetails(plantId) {
-    // Make an AJAX request to fetch the plant details
+    // Make an AJAX request to fetch the plant component
     fetch(`/viewplant?id=${plantId}`)
       .then((response) => response.text())
       .then((data) => {
