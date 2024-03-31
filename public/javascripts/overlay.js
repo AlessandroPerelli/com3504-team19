@@ -31,4 +31,29 @@ document.addEventListener("DOMContentLoaded", function () {
       overlay.style.display = "none";
     }
   });
+
+  const addPlantOverlay = document.getElementById("addPlantOverlay");
+  const addPlantButton = document.getElementById("addPlantButton");
+
+  addPlantButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    fetchAddPlantForm();
+  });
+
+  function fetchAddPlantForm() {
+    fetch("/addplant")
+      .then((response) => response.text())
+      .then((data) => {
+        addPlantOverlay.querySelector(".overlay-content").innerHTML = data;
+        addPlantOverlay.style.display = "block";
+      })
+      .catch((error) => {
+        console.error("Error fetching add plant form:", error);
+      });
+  }
+
+  window.closeAddPlantOverlay = function () {
+    addPlantOverlay.style.display = "none";
+  };
+
 });
