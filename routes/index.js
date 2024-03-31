@@ -57,8 +57,7 @@ router.get("/addplant", function (req, res, next) {
   if (req.session.user) {
     res.render("addplant", {
       dateTime: new Date().toISOString().split("T")[0],
-      showSearch: false,
-      showProfile: true,
+      layout: false,
     });
   } else {
     res.redirect("/login");
