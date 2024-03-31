@@ -22,6 +22,7 @@
       <h1>Explore plants</h1>
       <i class="fa-solid fa-filter"></i>
       <div class="category-links">
+        <button class="category-link" data-category="all">All</button>
         <% categoryData.forEach(function(category) { %> <% var categoryName =
         category.categoryName; %> <% include components/categoryfilter.ejs %> <%
         }); %>
