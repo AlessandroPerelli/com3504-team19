@@ -356,7 +356,6 @@ button:hover {
   flex-direction: column;
   align-items: center;
   padding: 2rem;
-  margin: 0% 20%;
 }
 .view-plant-container h1 {
   align-self: center;
@@ -433,10 +432,10 @@ button:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #fff;
-  padding: 20px;
   max-width: none;
   max-height: none;
   overflow-y: auto;
   width: 90%;
   z-index: 10000;
+  border-radius: 2rem;
 }/*# sourceMappingURL=main.css.map */
