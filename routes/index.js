@@ -9,7 +9,6 @@ var session = require("express-session");
 
 const categories = require("../public/javascripts/categories");
 const {
-  getCurrentDateTime,
   getPlantById,
 } = require("../public/javascripts/script");
 
@@ -57,7 +56,7 @@ router.get("/main", function (req, res, next) {
 router.get("/addplant", function (req, res, next) {
   if (req.session.user) {
     res.render("addplant", {
-      dateTime: getCurrentDateTime(),
+      dateTime: new Date().toISOString().split("T")[0],
       showSearch: false,
       showProfile: true,
     });
