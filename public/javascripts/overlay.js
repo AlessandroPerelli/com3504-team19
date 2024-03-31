@@ -52,8 +52,10 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  window.closeAddPlantOverlay = function () {
-    addPlantOverlay.style.display = "none";
-  };
+  addPlantOverlay.addEventListener('click', function(event) {
+    if (event.target === addPlantOverlay) {
+      addPlantOverlay.style.display = 'none';
+    }
+  });
 
 });
