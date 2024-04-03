@@ -81,6 +81,7 @@ router.get("/user", function (req, res, next) {
       user: req.session.user,
       showSearch: true,
       showProfile: true,
+      categoryData: categories,
     });
   } else {
     res.redirect("/login");
