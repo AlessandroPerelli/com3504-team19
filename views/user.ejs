@@ -18,15 +18,19 @@
 </head>
 <body>
     <% include components/navbar.ejs %>
-    <h1>Welcome <%= user.username %>!</h1>
-    <div>
-        <h2>User Information</h2>
-        <p><strong>Email:</strong> <%= user.email %></p>
-        <p><strong>Avatar:</strong> <img src="<%= user.avatar %>" alt="User Avatar"></p>
-    </div>
-    <div>
-        <h2>Additional Information</h2>
-        <p>Plan to include plants they have uploaded here</p>
+    <div class="user-page-content">
+        <div class="user-information">
+            <div class="profile-picture">
+                <img src="<%= user.avatar %>" alt="User Avatar">
+            </div>
+            <div class="username-email">
+                <h1>Welcome <%= user.username %>!</h1>
+                <p><strong>Email:</strong> <%= user.email %></p>
+            </div>
+        </div>
+        <div class="user-posts">
+            <h2>Posts</h2>
+        </div>
     </div>
 </body>
 </html>
