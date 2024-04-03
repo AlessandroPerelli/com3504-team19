@@ -438,4 +438,32 @@ button:hover {
   width: 90%;
   z-index: 10000;
   border-radius: 2rem;
+}
+
+.user-page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.user-page-content .user-information {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.user-page-content .user-information .profile-picture {
+  width: 10rem;
+  height: 10rem;
+}
+.user-page-content .user-information .profile-picture img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.user-page-content .user-information .username-email h1 {
+  margin-bottom: 0%;
+}
+.user-page-content .user-information .username-email p {
+  margin-top: 0%;
+  color: #A1824A;
 }/*# sourceMappingURL=main.css.map */
