@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-
   const categoryButtons = document.querySelectorAll(".category-link");
   categoryButtons.forEach(function (button) {
     button.addEventListener("click", function () {
@@ -9,14 +8,13 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function filterPlants(category) {
-    const plantItems = document.querySelectorAll(".plant-item");
-    plantItems.forEach(function (item) {
-      if (category === "all" || item.dataset.category === category) {
-        item.style.display = "block";
+    const categories = document.querySelectorAll(".category");
+    categories.forEach(function (categoryElement) {
+      if (category === "all" || categoryElement.dataset.category === category) {
+        categoryElement.style.display = "block";
       } else {
-        item.style.display = "none";
+        categoryElement.style.display = "none";
       }
     });
   }
-
 });
