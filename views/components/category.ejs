@@ -1,5 +1,7 @@
 <div class="category" data-category="<%= categoryName %>">
-  <h3><%= categoryName %></h3>
+  <% if (showCategoryName) { %>
+    <h3><%= categoryName %></h3>
+  <% } %>
   <div class="plant-grid">
     <% plants.forEach(plant => { %>
       <div class="plant-item" data-plant-id="<%= plant.id %>">

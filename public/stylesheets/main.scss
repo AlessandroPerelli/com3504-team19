@@ -458,6 +458,8 @@ button {
   border-radius: 2rem;
 }
 
+// User Page //
+
 .user-page-content {
   display: flex;
   flex-direction: column;
@@ -499,4 +501,11 @@ button {
       }
     }
   }
+
+  .user-posts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
 }

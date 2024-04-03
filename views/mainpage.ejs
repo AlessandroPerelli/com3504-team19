@@ -27,9 +27,12 @@
         category.categoryName; %> <% include components/categoryfilter.ejs %> <%
         }); %>
       </div>
-      <% categoryData.forEach(function(category) { %> <% var categoryName =
-      category.categoryName; %> <% var plants = category.plants; %> <% include
-      components/category.ejs %> <% }); %>
+      <% categoryData.forEach(function(category) { %>
+        <% var categoryName = category.categoryName; %>
+        <% var plants = category.plants; %>
+        <% var showCategoryName = true; %>
+        <% include components/category.ejs %>
+      <% }); %>
     </div>
 
     <div id="addPlantOverlay" class="overlay">

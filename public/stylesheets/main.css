@@ -475,4 +475,9 @@ button:hover {
 .user-page-content .user-information .username-email p {
   margin-top: 0%;
   color: #A1824A;
+}
+.user-page-content .user-posts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }/*# sourceMappingURL=main.css.map */

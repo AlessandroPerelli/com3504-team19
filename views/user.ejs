@@ -33,9 +33,12 @@
         </div>
         <div class="user-posts">
             <h2>Posts</h2>
-            <% categoryData.forEach(function(category) { %> <% var categoryName =
-            category.categoryName; %> <% var plants = category.plants; %> <% include
-            components/category.ejs %> <% }); %>
+            <% categoryData.forEach(function(category) { %>
+                <% var categoryName = category.categoryName; %>
+                <% var plants = category.plants; %>
+                <% var showCategoryName = false; %>
+                <% include components/category.ejs %>
+            <% }); %>
         </div>
     </div>
 </body>
