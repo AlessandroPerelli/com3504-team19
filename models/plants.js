@@ -15,21 +15,19 @@ let Schema = mongoose.Schema;
 let PlantSchema = new Schema(
     {
         // Define the name
-        name: { type: String, required: true },
-        time: { type: Date },
-        // Define location as two values Lat and Long
-        location: {
-            type: {
-                Latitude: Number,
-                Longitude: Number }},
-        // size of plant
-        size: { type: Number},
-        // description of plant
-        desc: { type: String},
-        // categories should probably be from a select list
-        // so use an array of those options
-        categories: { type: Array },
-        // Define the img field with type String
+        plant_name: { type: String, required: true },
+        post_time: {type: String},
+        sight_time: {type: String},
+
+        longitude: {type: Number},
+        Latitude: {type: Number},
+
+        height: {type: Number},
+        spread: {type: Number},
+
+        description: {type: String, max: 250},
+
+
         img: {type: String }
     }
 );

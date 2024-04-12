@@ -1,111 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
-      src="https://kit.fontawesome.com/8adee5f06e.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/stylesheets/main.css" />
-    <title>Add Plant</title>
-  </head>
-  <body>
-    <% include components/navbar.ejs %>
-    <div class="add-plant-container">
-      <form action="/add" method="POST" enctype="multipart/form-data">
-      <h1>Add Plant</h1>
-      <div class="add-plant-form-container">
-        <div class="add-plant-left">
-          <form>
-            <div class="image-container">
-              <input type="file" class="image-file" id="imageFile" name="img" />
-              <label for="imageFile" class="image-label"
-                >Drag and drop or click here to upload an image</label
-              >
-            </div>
-            <div class="item">
-              <label for="plantName">Plant name</label>
-              <input
-                type="text"
-                id="plantName"
-                name="name"
-                placeholder="Enter the plant name"
-              />
-            </div>
-            <div class="item">
-              <label for="time" class="plant-time">Time</label>
-              <input
-                type="datetime"
-                id="time"
-                name="time"
-                value="<%= dateTime %>"
-                readonly
-              />
-            </div>
-            <div class="item">
-              <label for="location" class="plant-location">Location</label>
-              <input
-                type="text"
-                id="location"
-                name="location"
-                placeholder="Enter the plant location"
-              />
-            </div>
-          </form>
-        </div>
-        <div class="add-plant-right">
-          <form>
-            <div class="item">
-                <div>
-                <label for="plantSize" class="plant-size">Plant size</label>
-                <input
-                  type="text"
-                  id="plantSize"
-                  name="size"
-                  placeholder="Enter the plant size"
-                />
-              </div>
-              <div>
-                <label for="categories" class="plant-categories"
-                  >Categories (Characteristics)</label
-                >
-                <input
-                  type="text"
-                  id="categories"
-                  name="categories"
-                  placeholder="Enter the plant categories"
-                />
-              </div>
-            </div>
-            <div class="item">
-              <label for="plantDescription" class="plant-description"
-                >Description</label
-              >
-              <textarea
-                id="plantDescription"
-                name="desc"
-                placeholder="Enter the plant description"
-              >
-              </textarea>
-            </div>
-            <div class="item">
-              <button type="submit" class="add-button">Upload</button>
-              <a href="/main">
-                <button class="back-button">Back</button>
-              </a>
-            </div>
-          </form>
-        </div>
-      </div>
-      </form>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script
+          src="https://kit.fontawesome.com/8adee5f06e.js"
+          crossorigin="anonymous"
+  ></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+          rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/stylesheets/main.css" />
+  <title>Add Plant</title>
+</head>
+<% include components/navbar.ejs %>
+
+<body>
+<div class="add-plant-container">
+  <form class="add-plant-form-container" action="/add" method="POST" enctype="multipart/form-data">
+  <div class="add-plant-left">
+    <div class="form-item">
+      <label  for="plantName">Plant name:</label>
+      <input type="text" id="plantName" name="plant_name" required>
     </div>
-    <script src="/javascripts/imageUpload.js"></script>
-  </body>
+    <div class="form-item">
+      <label for="myImage">Choose an Image</label>
+      <input type="file" id="myImage" name='myImg' accept="image/*" required>
+      <button type="submit">Submit</button>
+    </div>
+    <div class="form-item">
+      <label for="postTime">Time of post</label>
+      <input type="date" id="postTime" name="post_time">
+    </div>
+    <div class="form-item">
+      <label for="sightTime">Time of sighting</label>
+      <input type="datetime-local" id="sightTime" name="sight_time">
+    </div>
+    <div class="form-item">
+      <label for="lat">Location (lat)</label>
+      <input type="number" id="lat" name="latitude">
+    </div>
+    <div class="form-item">
+      <label for="long">Location (long)</label>
+      <input type="number" id="long" name="longitude">
+    </div>
+  </div>
+  <div class="add-plant-right">
+    <div class="form-item">
+      <label for="height">Size (height)</label>
+      <input type="number" id="height" name="height">
+    </div>
+    <div class="form-item">
+      <label for="spread">Size (spread)</label>
+      <input type="number" id="spread" name="spread">
+    </div>
+    <div class="form-item">
+      <label for="description">Description</label>
+      <input type="text" id="description" name="description">
+    </div>
+  </div>
+  </form>
+</div>
+</body>
 </html>

@@ -6,12 +6,13 @@ const plantModel = require('../models/plants');
 exports.create = function (userData, filePath) {
     // Create a new plant instance using the provided user data
     let plant = new plantModel({
-        name: userData.name,
-        time: userData.time,
-        location: userData.location,
-        size: userData.size,
-        desc: userData.desc,
-        categories: userData.categories,
+        plant_name: userData.plant_name,
+        post_time: userData.post_time,
+        sight_time: userData.sight_time,
+        longitude: userData.longitude,
+        latitude: userData.latitude,
+        height: userData.height,
+        spread: userData.spread,
         img: filePath,
     });
 
