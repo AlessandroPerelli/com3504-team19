@@ -27,20 +27,18 @@
         category.categoryName; %> <% include components/categoryfilter.ejs %> <%
         }); %>
       </div>
-      <% categoryData.forEach(function(category) { %>
-        <% var categoryName = category.categoryName; %>
-        <% var plants = category.plants; %>
-        <% var showCategoryName = true; %>
-        <% include components/category.ejs %>
-      <% }); %>
+      <% categoryData.forEach(function(category) { %> <% var categoryName =
+      category.categoryName; %> <% var plants = category.plants; %> <% var
+      showCategoryName = true; %> <% include components/category.ejs %> <% });
+      %>
     </div>
 
     <div id="addPlantOverlay" class="overlay">
-      <div class="overlay-content"></div>
+      <div class="overlay-content-add"></div>
     </div>
 
     <div id="overlay" class="overlay">
-      <div class="overlay-content"></div>
+      <div class="overlay-content-view"></div>
     </div>
 
     <button id="addPlantButton" class="add-plant-button">Add Plant</button>

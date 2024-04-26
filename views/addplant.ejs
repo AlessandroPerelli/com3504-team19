@@ -5,39 +5,81 @@
       <div class="add-plant-left">
         <div class="image-container">
           <input type="file" class="image-file" id="imageFile" name="img" />
-          <label for="imageFile" class="image-label">Drag and drop or click here to upload an image</label>
+          <label for="imageFile" class="image-label"
+            >Drag and drop or click here to upload an image</label
+          >
         </div>
         <div class="item">
           <label for="plantName">Plant name</label>
-          <input type="text" id="plantName" name="name" placeholder="Enter the plant name" />
+          <input
+            type="text"
+            id="plantName"
+            name="name"
+            placeholder="Enter the plant name"
+          />
         </div>
         <div class="item">
           <label for="time" class="plant-time">Time</label>
-          <input type="datetime" id="time" name="time" value="<%= dateTime %>" readonly />
+          <input
+            type="datetime"
+            id="time"
+            name="time"
+            value="<%= dateTime %>"
+            readonly
+          />
         </div>
         <div class="item">
           <label for="location" class="plant-location">Location</label>
-          <input type="text" id="location" name="location" placeholder="Enter the plant location" />
+          <input
+            type="text"
+            id="location"
+            name="location"
+            placeholder="Enter the plant location"
+          />
         </div>
       </div>
       <div class="add-plant-right">
         <div class="item">
           <div>
             <label for="plantSize" class="plant-size">Plant size</label>
-            <input type="text" id="plantSize" name="size" placeholder="Enter the plant size" />
+            <input
+              type="text"
+              id="plantSize"
+              name="size"
+              placeholder="Enter the plant size"
+            />
           </div>
           <div>
-            <label for="categories" class="plant-categories">Categories (Characteristics)</label>
-            <input type="text" id="categories" name="categories" placeholder="Enter the plant categories" />
+            <label for="categories" class="plant-categories"
+              >Categories (Characteristics)</label
+            >
+            <input
+              type="text"
+              id="categories"
+              name="categories"
+              placeholder="Enter the plant categories"
+            />
           </div>
         </div>
         <div class="item">
-          <label for="plantDescription" class="plant-description">Description</label>
-          <textarea id="plantDescription" name="desc" placeholder="Enter the plant description"></textarea>
+          <label for="plantDescription" class="plant-description"
+            >Description</label
+          >
+          <textarea
+            id="plantDescription"
+            name="desc"
+            placeholder="Enter the plant description"
+          ></textarea>
         </div>
         <div class="item">
           <button type="submit" class="add-button">Upload</button>
-          <button type="button" class="back-button" onclick="closeAddPlantOverlay()">Back</button>
+          <button
+            type="button"
+            class="back-button"
+            onclick="closeAddPlantOverlay()"
+          >
+            Back
+          </button>
         </div>
       </div>
     </div>

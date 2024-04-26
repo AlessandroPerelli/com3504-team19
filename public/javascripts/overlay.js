@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const overlay = document.getElementById("overlay");
-  const overlayContent = document.querySelector(".overlay-content");
+  const overlayContent = document.getElementById("overlay");
 
   // Add event listener to each plant item
   const plantItems = document.querySelectorAll(".plant-item");
@@ -17,7 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch(`/viewplant?id=${plantId}`)
       .then((response) => response.text())
       .then((data) => {
-        overlayContent.innerHTML = data;
+        console.log(data);
+        overlayContent.querySelector(".overlay-content-view").innerHTML = data;
         overlay.style.display = "block";
       })
       .catch((error) => {
@@ -44,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch("/addplant")
       .then((response) => response.text())
       .then((data) => {
-        addPlantOverlay.querySelector(".overlay-content").innerHTML = data;
+        addPlantOverlay.querySelector(".overlay-content-add").innerHTML = data;
         addPlantOverlay.style.display = "block";
       })
       .catch((error) => {
@@ -52,10 +53,9 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  addPlantOverlay.addEventListener('click', function(event) {
+  addPlantOverlay.addEventListener("click", function (event) {
     if (event.target === addPlantOverlay) {
-      addPlantOverlay.style.display = 'none';
+      addPlantOverlay.style.display = "none";
     }
   });
-
 });
