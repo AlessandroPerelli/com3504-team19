@@ -20,7 +20,7 @@ let PlantSchema = new Schema(
         sight_time: {type: String},
 
         longitude: {type: Number},
-        Latitude: {type: Number},
+        latitude: {type: Number},
 
         height: {type: Number},
         spread: {type: Number},

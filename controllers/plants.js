@@ -13,6 +13,7 @@ exports.create = function (userData, filePath) {
         latitude: userData.latitude,
         height: userData.height,
         spread: userData.spread,
+        description: userData.description,
         img: filePath,
     });
 
