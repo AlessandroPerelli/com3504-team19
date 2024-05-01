@@ -12,7 +12,7 @@ socket.on('chat', function (room, userId, chatText) {
 });
 
 function connectToRoom() {
-    roomNo = "ROOM"
+    roomNo = "Room"
     name = "test"
     socket.emit('create or join', roomNo, name)
 }
