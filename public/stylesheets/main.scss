@@ -1,3 +1,5 @@
+@import 'userpage';
+
 body {
   font-family: "Plus Jakarta Sans", sans-serif;
   padding: 0;
@@ -368,7 +370,6 @@ button {
   flex-direction: column;
   align-items: center;
   padding: 2rem;
-  margin: 0% 20%;
 
   h1 {
     align-self: center;
@@ -432,4 +433,43 @@ button {
 
     }
   }
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+}
+
+.overlay-content-view {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  max-width: none;
+  max-height: none;
+  overflow-y: auto;
+  width: 90%;
+  z-index: 10000;
+  border-radius: 2rem;
+}
+
+.overlay-content-add {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  max-width: none;
+  max-height: none;
+  overflow-y: auto;
+  width: 90%;
+  z-index: 10000;
+  border-radius: 2rem;
 }
