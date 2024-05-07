@@ -34,7 +34,7 @@ router.use(
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.redirect("/login");
+  res.redirect("/main");
 });
 
 router.get("/login", function (req, res, next) {
