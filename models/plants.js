@@ -30,7 +30,9 @@ let PlantSchema = new Schema(
         // so use an array of those options
         categories: { type: Array },
         // Define the img field with type String
-        img: {type: String }
+        img: {type: String },
+
+        dbpedia_name: {type: String}
     }
 );
 

@@ -87,6 +87,52 @@ router.get("/user", function (req, res, next) {
     res.redirect("/login");
   }
 });
+router.get('/dbpedia', function (req, res, next) {
+  // The DBpedia resource to retrieve data from
+  const plantData = getPlantById(plantId, categories);
+  const plant = plantData.dbpedia_name;
+  const resource = `http://dbpedia.org/resource/${plant}`;
+
+  // The DBpedia SPARQL endpoint URL
+  const endpointUrl = 'https://dbpedia.org/sparql';
+
+  // The SPARQL query to retrieve data for the given resource
+  const sparqlQuery = ` 
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX dbo: <http://dbpedia.org/ontology/>
+    
+    SELECT ?label ?description ?taxon (URI("http://dbpedia.org/resource/${plant}") AS ?page)
+    WHERE {
+        <${resource}> rdfs:label ?label .
+        <${resource}> dbo:abstract ?description .
+        <${resource}> dbp:taxon ?taxon .
+
+    FILTER (langMatches(lang(?label), "en")) .
+    FILTER (langMatches(lang(?description), "en")) .
+
+    }`;
+
+  // Encode the query as a URL parameter
+  const encodedQuery = encodeURIComponent(sparqlQuery);
+
+  // Build the URL for the SPARQL query
+  const url = `${endpointUrl}?query=${encodedQuery}&format=json`;
+  // Use fetch to retrieve the data
+  fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        // The results are in the 'data' object
+        let bindings = data.results.bindings;
+        let result = JSON.stringify(bindings);
+        // Render the result in your paris.ejs page
+        res.render(`${plant}`, {  // NEED TO ADD A PROPER VIEW INSTEAD OF PLANT
+          title: bindings[0].label.value,
+          name: bindings[0].taxon.value,
+          abstract: bindings[0].description.value,
+          JSONresult: result
+        });
+      });
+});
 
 router.post("/add", upload.single("img"), function (req, res, next) {
   let userData = req.body;
