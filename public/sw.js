@@ -9,8 +9,10 @@ self.addEventListener('install', event => {
         try {
             const cache = await caches.open("static");
             await cache.addAll([
+                '/',
                 '/main',
                 '/login',
+                '/user',
                 '/javascripts/categories.js',
                 '/javascripts/changeUserProfile.js',
                 '/javascripts/imageUpload.js',
