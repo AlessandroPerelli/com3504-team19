@@ -13,6 +13,7 @@ self.addEventListener('install', event => {
                 '/main',
                 '/login',
                 '/user',
+                '/addplant',
                 '/javascripts/categories.js',
                 '/javascripts/changeUserProfile.js',
                 '/javascripts/imageUpload.js',
@@ -64,6 +65,23 @@ self.addEventListener('fetch', event => {
             return cachedResponse;
         }
         console.log('Service Worker: Fetching from URL: ', event.request.url);
+
+        // Handle specific requests for /viewplant pages
+        if (event.request.url.includes('/viewplant')) {
+            // Extract plant ID from URL
+            const url = new URL(event.request.url);
+            const plantId = url.searchParams.get('id');
+            if (plantId) {
+                // If plant ID is found, fetch and cache the response
+                const response = await fetch(event.request);
+                if (response && response.status === 200) {
+                    const clonedResponse = response.clone();
+                    await cache.put(event.request, clonedResponse);
+                    return response;
+                }
+            }
+        }
+
         return fetch(event.request);
     })());
 });
