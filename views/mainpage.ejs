@@ -23,11 +23,11 @@
       <i class="fa-solid fa-filter"></i>
       <div class="category-links">
         <button class="category-link" data-category="all">All</button>
-          <% plantData.forEach((plant) => { %>
-            <img src="/images/uploads/<%= plant.img %>" alt="plant">
-          <% }); %>
-      </div>
 
+      </div>
+      <% plantData.forEach((plant) => { %>
+        <img src="/images/uploads/<%= plant.img %>" alt="plant">
+      <% }); %>
     </div>
 
     <div id="addPlantOverlay" class="overlay">
