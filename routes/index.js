@@ -88,6 +88,30 @@ router.get("/user", function (req, res, next) {
   }
 });
 
+router.get('/dbpedia', function (req, res, next) {
+  // The DBpedia resource to retrieve data from
+  const plantData = getPlantById(plantId, categories); //Get plant from database
+  const plant = plantData.name;
+  const resource = `http://dbpedia.org/resource/${plant}`;
+
+  // The DBpedia SPARQL endpoint URL
+  const endpointUrl = 'https://dbpedia.org/sparql';
+
+  // The SPARQL query to retrieve data for the given resource
+  const sparqlQuery = ` 
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX dbo: <http://dbpedia.org/ontology/>
+    
+    SELECT ?label ?description ?taxon (URI("http://dbpedia.org/resource/${plant}") AS ?page)
+    WHERE {
+        <${resource}> rdfs:label ?label .
+        <${resource}> dbo:abstract ?description .
+        <${resource}> dbp:taxon ?taxon .
+
+    FILTER (langMatches(lang(?label), "en")) .
+    FILTER (langMatches(lang(?description), "en")) .
+
+    }`;
 router.post('/add', upload.single('img'), function(req, res){
   let userData = req.body;
   if(!req.file) {
