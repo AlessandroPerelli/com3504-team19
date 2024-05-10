@@ -1,3 +1,5 @@
+importScripts('/javascripts/idb-utility.js');
+
 console.log('Service Worker Called...');
 
 // Use the install event to pre-cache all initial resources.
@@ -22,6 +24,8 @@ self.addEventListener('install', event => {
                 '/javascripts/script.js',
                 '/javascripts/index.js',
                 '/javascripts/switchCategory.js',
+                '/javascripts/idb-utility.js',
+                '/javascripts/chat.js',
                 '/stylesheets/main.scss',
                 '/stylesheets/main.css',
                 '/stylesheets/main.css.map',
@@ -132,3 +136,41 @@ function extractImageUrls(htmlText) {
     }
     return imageUrls;
 }
+
+//Sync event to sync the todos
+self.addEventListener('sync', event => {
+    if (event.tag === 'sync-plants') {
+        console.log('Service Worker: Syncing new plants');
+        openSyncPlantsIDB().then((syncPostDB) => {
+            getAllSyncPlants(syncPostDB).then((syncPlants) => {
+                for (const syncPlant of syncPlants) {
+                    console.log('Service Worker: Syncing new plants: ', syncPlant);
+                    console.log(syncPlant.text)
+                    // Create a FormData object
+                    const formData = new URLSearchParams();
+
+                    // Iterate over the properties of the JSON object and append them to FormData
+                    formData.append("text", syncPlant.text);
+
+                    // Fetch with FormData instead of JSON
+                    fetch('http://localhost:3000/add', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                    }).then(() => {
+                        console.log('Service Worker: Syncing new Plant: ', syncPlant, ' done');
+                        deleteSyncPlantFromIDB(syncPostDB,syncPlant.id);
+                        // Send a notification
+                        self.registration.showNotification('Plant Synced', {
+                            body: 'Plant synced successfully!',
+                        });
+                    }).catch((err) => {
+                        console.error('Service Worker: Syncing new Plant: ', syncPlant, ' failed');
+                    });
+                }
+            });
+        });
+    }
+});
