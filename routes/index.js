@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var plants = require("../controllers/plants");
 var users = require("../models/users");
+var categories = require("../public/javascripts/categories")
 var multer = require("multer");
 var bcrypt = require("bcrypt");
 var path = require("path");
@@ -47,11 +48,12 @@ router.get("/login", function (req, res, next) {
 
 router.get("/main", function (req, res, next) {
   let result = plants.getAll();
-  result.then(categories => {
-    let data = JSON.parse(categories);
+  result.then(plant => {
+    let data = JSON.parse(plant);
     console.log(data);
     res.render("mainpage", {
       plantData: data,
+      categoryData: categories,
       showSearch: true,
       showProfile: true,
     });
@@ -72,7 +74,6 @@ router.get("/addplant", function (req, res, next) {
 router.get("/viewplant", function (req, res, next) {
   const plantId = req.query.id;
   const plantData = getPlantById(plantId, categories);
-
   if (plantData) {
     res.render("components/plant", { plant: plantData, layout: false });
   } else {
