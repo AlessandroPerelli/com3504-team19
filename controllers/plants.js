@@ -13,8 +13,6 @@ exports.create = function (userData, filePath) {
     desc: userData.desc,
     categories: userData.categories,
     img: filePath,
-
-    dbpedia_name: userData.dbpedia_name,
   });
 
   // Save the plant to the database and handle success or failure

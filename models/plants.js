@@ -31,8 +31,6 @@ let PlantSchema = new Schema(
         categories: { type: Array },
         // Define the img field with type String
         img: {type: String },
-
-        dbpedia_name: {type: String}
     }
 );
 
