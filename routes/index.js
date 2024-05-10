@@ -89,7 +89,7 @@ router.get("/user", function (req, res, next) {
 });
 router.get('/dbpedia', function (req, res, next) {
   // The DBpedia resource to retrieve data from
-  const plantData = getPlantById(plantId, categories);
+  const plantData = getPlantById(plantId, categories); //Get plant from database
   const plant = plantData.name;
   const resource = `http://dbpedia.org/resource/${plant}`;
 
