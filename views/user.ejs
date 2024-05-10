@@ -18,15 +18,34 @@
 </head>
 <body>
     <% include components/navbar.ejs %>
-    <h1>Welcome <%= user.username %>!</h1>
-    <div>
-        <h2>User Information</h2>
-        <p><strong>Email:</strong> <%= user.email %></p>
-        <p><strong>Avatar:</strong> <img src="<%= user.avatar %>" alt="User Avatar"></p>
+    <div class="user-page-content">
+        <div class="user-information">
+            <div class="profile-picture">
+                <label for="avatar-upload">
+                    <img src="<%= user.avatar %>" alt="User Avatar">
+                </label>
+                <input id="avatar-upload" type="file" accept="image/*" style="display: none;">
+            </div>
+            <div class="username-email">
+                <h1><%= user.username %></h1>
+                <p><%= user.email %></p>
+            </div>
+        </div>
+        <div class="user-posts">
+            <h2>Posts</h2>
+            <% categoryData.forEach(function(category) { %>
+                <% var categoryName = category.categoryName; %>
+                <% var plants = category.plants; %>
+                <% var showCategoryName = false; %>
+                <% include components/category.ejs %>
+            <% }); %>
+        </div>
     </div>
-    <div>
-        <h2>Additional Information</h2>
-        <p>Plan to include plants they have uploaded here</p>
+
+    <div id="overlay" class="overlay">
+        <div class="overlay-content"></div>
     </div>
+
+    <script src="/javascripts/overlay.js"></script>
 </body>
 </html>

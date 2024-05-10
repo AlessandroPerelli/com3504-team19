@@ -20,24 +20,30 @@
     <% include components/navbar.ejs %>
     <div class="main-page-container flex">
       <h1>Explore plants</h1>
-      <input
-        type="text"
-        id="search"
-        class="search-input"
-        placeholder="Search for a plant"
-      />
       <i class="fa-solid fa-filter"></i>
       <div class="category-links">
+        <button class="category-link" data-category="all">All</button>
         <% categoryData.forEach(function(category) { %> <% var categoryName =
         category.categoryName; %> <% include components/categoryfilter.ejs %> <%
         }); %>
       </div>
       <% categoryData.forEach(function(category) { %> <% var categoryName =
-      category.categoryName; %> <% var plants = category.plants; %> <% include
-      components/category.ejs %> <% }); %>
+      category.categoryName; %> <% var plants = category.plants; %> <% var
+      showCategoryName = true; %> <% include components/category.ejs %> <% });
+      %>
     </div>
-    <form action="/addplant" method="get">
-      <button class="add-plant-button">Add plant</button>
-    </form>
+
+    <div id="addPlantOverlay" class="overlay">
+      <div class="overlay-content-add"></div>
+    </div>
+
+    <div id="overlay" class="overlay">
+      <div class="overlay-content-view"></div>
+    </div>
+
+    <button id="addPlantButton" class="add-plant-button">Add Plant</button>
+
+    <script src="/javascripts/overlay.js"></script>
+    <script src="/javascripts/switchCategory.js"></script>
   </body>
 </html>

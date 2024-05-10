@@ -20,16 +20,6 @@ function handleCredentialsFormSwitch() {
     });
 }
 
-function getCurrentDateTime() {
-  var today = new Date();
-  var date =
-    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-  var time =
-    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  var dateTime = date + " " + time;
-  return dateTime;
-}
-
 function getPlantById(plantId, categories) {
   for (let category of categories) {
     for (let plant of category.plants) {
@@ -42,7 +32,6 @@ function getPlantById(plantId, categories) {
 }
 
 module.exports = {
-  getCurrentDateTime,
   handleCredentialsFormSwitch,
   getPlantById,
 };

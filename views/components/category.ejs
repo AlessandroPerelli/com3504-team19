@@ -1,12 +1,12 @@
-<div class="category">
-  <h3><%= categoryName %></h3>
+<div class="category" data-category="<%= categoryName %>">
+  <% if (showCategoryName) { %>
+    <h3><%= categoryName %></h3>
+  <% } %>
   <div class="plant-grid">
     <% plants.forEach(plant => { %>
-      <a href="/viewplant?id=<%= plant.id %>">
-        <div class="plant-item">
-          <img src="<%= plant.image %>" alt="plant" />
-        </div>
-      </a>
+      <div class="plant-item" data-plant-id="<%= plant.id %>">
+        <img src="<%= plant.image %>" alt="plant" />
+      </div>
     <% }) %>
   </div>
 </div>

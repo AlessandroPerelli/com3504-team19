@@ -1,8 +1,4 @@
-<head>
-  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-  <script src="/javascripts/chat.js"></script>
-</head>
-<body onLoad = init()>
+<div class="view-plant-container">
   <div class="plant-information-container">
     <div class="image-side">
       <img src="<%= plant.image %>" alt="plant" />
@@ -14,17 +10,11 @@
         <h3>Creator of post goes here</h3>
       </div>
       <!-- Message Area for comments -->
-      <div id="message_area" class="message-area">
-        <div id="history" class="boxed"></div>
+      <div id="messageArea" class="message-area">
+        <!-- Messages will be dynamically inserted here -->
       </div>
-      <form onsubmit="return false;" >
-        <p>
-          <label for="name"> Comment: </label>
-          <input type="text" id="comment_input" style="width: 80%">
-          <button id="chat_send" onclick="sendComment()">Send</button>
-        </p>
-      </form>
+      <input type="text" placeholder="Comment" />
     </div>
   </div>
-</body>
+</div>
 
