@@ -34,7 +34,7 @@ router.use(
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.redirect("/login");
+  res.redirect("/main");
 });
 
 router.get("/login", function (req, res, next) {
@@ -54,14 +54,14 @@ router.get("/main", function (req, res, next) {
 });
 
 router.get("/addplant", function (req, res, next) {
-  if (req.session.user) {
-    res.render("addplant", {
-      dateTime: new Date().toISOString().split("T")[0],
-      layout: false,
-    });
-  } else {
-    res.redirect("/login");
-  }
+  // if (req.session.user) {
+  res.render("addplant", {
+    dateTime: new Date().toISOString().split("T")[0],
+    layout: false,
+  });
+  // } else {
+  //   res.redirect("/login");
+  // }
 });
 
 router.get("/viewplant", function (req, res, next) {
