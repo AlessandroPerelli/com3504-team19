@@ -8,7 +8,9 @@ self.addEventListener('install', event => {
         console.log('Service Worker: Caching App Shell at the moment......');
         try {
             const cache = await caches.open("static");
-            await cache.addAll([
+            const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+            const urlsToCache = [
                 '/',
                 '/main',
                 '/login',
@@ -29,7 +31,13 @@ self.addEventListener('install', event => {
                 '/stylesheets/main.scss',
                 '/stylesheets/main.css',
                 '/stylesheets/main.css.map',
-            ]);
+            ];
+
+            numbers.forEach(number => {
+                urlsToCache.push(`/viewplant?id=${number}`);
+            });
+
+            await cache.addAll(urlsToCache);
             console.log('Service Worker: App Shell Cached');
         }
         catch{
