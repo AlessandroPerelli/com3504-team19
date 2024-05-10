@@ -19,12 +19,14 @@ function connectToRoom() {
 
 
 function writeOnHistory(text) {
-    let history = document.getElementById('message_area')
-    let paragraph = document.createElement('p')
-    paragraph.innerHTML = text
-    history.appendChild(paragraph)
-    document.getElementById('comment_input').value = ''
+  let history = document.getElementById("message_area");
+  let paragraph = document.createElement("p");
+  paragraph.innerHTML = text;
+  paragraph.classList.add("text-message");
+  history.appendChild(paragraph);
+  document.getElementById("comment_input").value = "";
 }
+
 
 function sendComment() {
     connectToRoom();
