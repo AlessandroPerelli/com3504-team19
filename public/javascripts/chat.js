@@ -19,7 +19,7 @@ function connectToRoom() {
 
 
 function writeOnHistory(text) {
-    let history = document.getElementById('history')
+    let history = document.getElementById('message_area')
     let paragraph = document.createElement('p')
     paragraph.innerHTML = text
     history.appendChild(paragraph)
@@ -27,6 +27,7 @@ function writeOnHistory(text) {
 }
 
 function sendComment() {
+    connectToRoom();
     let chatText = document.getElementById('comment_input').value;
     name = "test"
     socket.emit('chat', roomNo ,name, chatText)
