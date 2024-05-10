@@ -23,11 +23,6 @@ self.addEventListener('install', event => {
                 '/javascripts/script.js',
                 '/javascripts/index.js',
                 '/javascripts/switchCategory.js',
-                '/images/avatar.png',
-                '/images/big.jpg',
-                '/images/marigold.jpg',
-                '/images/peashooter.png',
-                '/images/sunflower.jpg',
                 '/stylesheets/main.scss',
                 '/stylesheets/main.css',
                 '/stylesheets/main.css.map',
@@ -36,6 +31,15 @@ self.addEventListener('install', event => {
             numbers.forEach(number => {
                 urlsToCache.push(`/viewplant?id=${number}`);
             });
+
+            // Extract image URLs from main page (/main)
+            const response = await fetch('/main');
+            const responseClone = await response.clone();
+            const text = await responseClone.text();
+            const imageUrls = extractImageUrls(text);
+
+            // Add main page image URLs to urlsToCache
+            urlsToCache.push(...imageUrls);
 
             await cache.addAll(urlsToCache);
             console.log('Service Worker: App Shell Cached');
@@ -90,6 +94,42 @@ self.addEventListener('fetch', event => {
             }
         }
 
+        // Handle specific requests for the main page (/main)
+        if (event.request.url.includes('/main')) {
+            // Fetch the main page
+            const response = await fetch(event.request);
+            if (response && response.status === 200) {
+                const clonedResponse = response.clone();
+                const text = await clonedResponse.text();
+                // Extract image URLs from the main page
+                const imageUrls = extractImageUrls(text);
+                // Cache the images
+                for (const imageUrl of imageUrls) {
+                    const imageRequest = new Request(imageUrl);
+                    const imageResponse = await fetch(imageRequest);
+                    if (imageResponse && imageResponse.status === 200) {
+                        await cache.put(imageRequest, imageResponse);
+                    }
+                }
+                // Return the original response
+                return response;
+            }
+        }
+
         return fetch(event.request);
     })());
 });
+
+// Function to extract image URLs from HTML text using regular expressions and prevent duplicates
+function extractImageUrls(htmlText) {
+    const regex = /<img.*?src=["'](.*?)["']/g;
+    const imageUrls = [];
+    let match;
+    while ((match = regex.exec(htmlText)) !== null) {
+        const imageUrl = match[1];
+        if (!imageUrls.includes(imageUrl)) {
+            imageUrls.push(imageUrl);
+        }
+    }
+    return imageUrls;
+}
