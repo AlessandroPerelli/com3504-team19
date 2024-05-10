@@ -387,18 +387,9 @@ button {
     .information-side {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       padding: 0rem 2rem;
       justify-content: space-around;
-
-    .message-area {
-        margin: 20px 0;
-        padding: 2rem 20rem;
-        background-color: #f7f7f7;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        min-height: 10rem;
-      }
 
     input {
       background-color: transparent;
