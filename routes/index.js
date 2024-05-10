@@ -118,16 +118,20 @@ router.get('/dbpedia', function (req, res, next) {
 
     }`;
 });
-router.post('/add', upload.single('img'), function(req, res){
+router.post("/add", upload.single("img"), function (req, res) {
   let userData = req.body;
-  if(!req.file) {
-    return res.status(400).send('No file');
+  if (!req.file) {
+    return res.status(400).send("No file");
   }
+
   let filePath = req.file.path;
-  let result = plants.create(userData, filePath);
-  console.log(result)
-  res.redirect('/');
+  let filename = filePath.split(/\\|\//).pop();
+
+  let result = plants.create(userData, filename);
+  console.log(result);
+  res.redirect("/");
 });
+
 
 router.post("/adduser", function (req, res) {
   // Check if passwords match
