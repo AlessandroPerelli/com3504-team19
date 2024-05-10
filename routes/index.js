@@ -7,7 +7,7 @@ var bcrypt = require("bcrypt");
 var path = require("path");
 var session = require("express-session");
 
-const categories = require("../public/javascripts/categories");
+
 const {
   getPlantById,
 } = require("../public/javascripts/script");
@@ -46,10 +46,15 @@ router.get("/login", function (req, res, next) {
 });
 
 router.get("/main", function (req, res, next) {
-  res.render("mainpage", {
-    categoryData: categories,
-    showSearch: true,
-    showProfile: true,
+  let result = plants.getAll();
+  result.then(categories => {
+    let data = JSON.parse(categories);
+    console.log(data);
+    res.render("mainpage", {
+      plantData: data,
+      showSearch: true,
+      showProfile: true,
+    });
   });
 });
 

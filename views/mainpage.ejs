@@ -23,14 +23,11 @@
       <i class="fa-solid fa-filter"></i>
       <div class="category-links">
         <button class="category-link" data-category="all">All</button>
-        <% categoryData.forEach(function(category) { %> <% var categoryName =
-        category.categoryName; %> <% include components/categoryfilter.ejs %> <%
-        }); %>
+          <% plantData.forEach((plant) => { %>
+            <img src="<%= plant.img %>" alt="plant">
+          <% }); %>
       </div>
-      <% categoryData.forEach(function(category) { %> <% var categoryName =
-      category.categoryName; %> <% var plants = category.plants; %> <% var
-      showCategoryName = true; %> <% include components/category.ejs %> <% });
-      %>
+
     </div>
 
     <div id="addPlantOverlay" class="overlay">

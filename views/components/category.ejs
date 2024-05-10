@@ -4,8 +4,8 @@
   <% } %>
   <div class="plant-grid">
     <% plants.forEach(plant => { %>
-      <div class="plant-item" data-plant-id="<%= plant.id %>">
-        <img src="<%= plant.image %>" alt="plant" />
+      <div class="plant-item" data-plant-id="<%= plant._id %>">
+        <img src="<%= plant.img %>" alt="plant" />
       </div>
     <% }) %>
   </div>
