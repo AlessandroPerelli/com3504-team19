@@ -1,133 +1,154 @@
-<div class="add-plant-container">
-  <form action="/add" method="POST" enctype="multipart/form-data">
-    <h1>Add Plant</h1>
-    <div class="add-plant-form-container">
-      <div class="add-plant-left">
-        <div class="image-container">
-          <input type="file" class="image-file" id="imageFile" name="img" />
-          <label for="imageFile" class="image-label"
-            >Drag and drop or click here to upload an image</label
-          >
-        </div>
-        <div class="item">
-          <label for="plantName">Plant name</label>
-          <input
-            type="text"
-            id="plantName"
-            name="name"
-            placeholder="Enter the plant name"
-          />
-        </div>
-        <div class="item">
-          <label for="time" class="plant-time">Time</label>
-          <input
-            type="datetime"
-            id="time"
-            name="time"
-            value="<%= dateTime %>"
-            readonly
-          />
-        </div>
-        <div class="item">
-          <label for="location" class="plant-location">Location</label>
-          <input
-            type="text"
-            id="location"
-            name="location"
-            placeholder="Enter the plant location"
-          />
-        </div>
-      </div>
-      <div class="add-plant-right">
-        <div class="item">
-          <div>
-            <label for="plantSize" class="plant-size">Plant size</label>
-            <input
-              type="text"
-              id="plantSize"
-              name="size"
-              placeholder="Enter the plant size"
-            />
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/8adee5f06e.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/stylesheets/main.css" />
+    <title>Main</title>
+  </head>
+  <body>
+    <div class="add-plant-container">
+      <form action="/add" method="POST" enctype="multipart/form-data">
+        <h1>Add Plant</h1>
+        <div class="add-plant-form-container">
+          <div class="add-plant-left">
+            <div class="image-container">
+              <input type="file" class="image-file" id="imageFile" name="img" />
+              <label for="imageFile" class="image-label"
+                >Drag and drop or click here to upload an image</label
+              >
+            </div>
+            <div class="item">
+              <label for="plantName">Plant name</label>
+              <input
+                type="text"
+                id="plantName"
+                name="name"
+                placeholder="Enter the plant name"
+              />
+            </div>
+            <div class="item">
+              <label for="time" class="plant-time">Time</label>
+              <input
+                type="datetime"
+                id="time"
+                name="time"
+                value="<%= dateTime %>"
+                readonly
+              />
+            </div>
+            <div class="item">
+              <label for="location" class="plant-location">Location</label>
+              <input
+                type="text"
+                id="location"
+                name="location"
+                placeholder="Enter the plant location"
+              />
+            </div>
           </div>
-          <div>
-            <label for="categories" class="plant-categories"
-              >Categories (Characteristics)</label
-            >
-            <input
-              type="text"
-              id="categories"
-              name="categories"
-              placeholder="Enter the plant categories"
-            />
+          <div class="add-plant-right">
+            <div class="item">
+              <div>
+                <label for="plantSize" class="plant-size">Plant size</label>
+                <input
+                  type="text"
+                  id="plantSize"
+                  name="size"
+                  placeholder="Enter the plant size"
+                />
+              </div>
+              <div>
+                <label for="categories" class="plant-categories"
+                  >Categories (Characteristics)</label
+                >
+                <input
+                  type="text"
+                  id="categories"
+                  name="categories"
+                  placeholder="Enter the plant categories"
+                />
+              </div>
+            </div>
+            <div class="item">
+              <label for="plantDescription" class="plant-description"
+                >Description</label
+              >
+              <textarea
+                id="plantDescription"
+                name="desc"
+                placeholder="Enter the plant description"
+              ></textarea>
+            </div>
+            <div class="item">
+              <label for="sighttime" class="plant-sighttime">Sight time</label>
+              <input
+                type="datetime-local"
+                id="sighttime"
+                name="sighttime"
+              >
+              </input>
+            </div>
+            <div class="item">
+              <label for="flowers" class="plant-flowers">Has flowers?</label>
+              <input type="checkbox" id="flowers" name="flowers" />
+            </div>
+            <div class="item">
+              <label for="leaves" class="plant-leaves">Has leaves?</label>
+              <input type="checkbox" id="leaves" name="leaves" />
+            </div>
+            <div class="item">
+              <label for="fruit" class="plant-fruit">Has fruit?</label>
+              <input type="checkbox" id="fruit" name="fruit" />
+            </div>
+            <div class="item">
+              <label for="full-sunlight" class="plant-full-sunlight">Needs full sunlight exposure?</label>
+              <input type="checkbox" id="full-sunlight" name="full-sunlight" />
+            </div>
+            <div class="item">
+              <label for="partial-shade" class="plant-shade">Needs to have partial shade?</label>
+              <input type="checkbox" id="partial-shade" name="partial-shade" />
+            </div>
+            <div class="item">
+              <label for="full-shade" class="plant-full-shade">Needs full shade?</label>
+              <input type="checkbox" id="full-shade" name="full-shade" />
+            </div>
+            <div class="item">
+              <label for="evergreen" class="plant-evergreen">Is the plant an evergreen?</label>
+              <input type="checkbox" id="evergreen" name="evergreen" />
+            </div>
+            <div class="item">
+              <label for="succulent" class="plant-succulent">Is the plant a succulent?</label>
+              <input type="checkbox" id="succulent" name="succulent" />
+            </div>
+            <div class="item">
+              <label for="forest" class="plant-forest">Is the plant in a forest?</label>
+              <input type="checkbox" id="forest" name="forest" />
+            </div>
+            <div class="item">
+              <label for="colour" class="plant-colour">What colour is the plant?</label>
+              <input type="text" id="colour" name="colour" />
+            </div>
+            <div class="item">
+              <label for="user-nickname" class="user-nickname">Enter your nickname</label>
+              <input type="text" id="user-nickname" name="user-nickname" />
+            </div>
+            <div class="item">
+              <button type="submit" class="add-button">Upload</button>
+            </div>
           </div>
         </div>
-        <div class="item">
-          <label for="plantDescription" class="plant-description"
-            >Description</label
-          >
-          <textarea
-            id="plantDescription"
-            name="desc"
-            placeholder="Enter the plant description"
-          ></textarea>
-        </div>
-        <div class="item">
-          <label for="sighttime" class="plant-sighttime">Sight time</label>
-          <input
-            type="datetime-local"
-            id="sighttime"
-            name="sighttime"
-          >
-          </input>
-        </div>
-        <div class="item">
-          <label for="flowers" class="plant-flowers">Has flowers?</label>
-          <input type="checkbox" id="flowers" name="flowers" />
-        </div>
-        <div class="item">
-          <label for="leaves" class="plant-leaves">Has leaves?</label>
-          <input type="checkbox" id="leaves" name="leaves" />
-        </div>
-        <div class="item">
-          <label for="fruit" class="plant-fruit">Has fruit?</label>
-          <input type="checkbox" id="fruit" name="fruit" />
-        </div>
-        <div class="item">
-          <label for="full-sunlight" class="plant-full-sunlight">Needs full sunlight exposure?</label>
-          <input type="checkbox" id="full-sunlight" name="full-sunlight" />
-        </div>
-        <div class="item">
-          <label for="partial-shade" class="plant-shade">Needs to have partial shade?</label>
-          <input type="checkbox" id="partial-shade" name="partial-shade" />
-        </div>
-        <div class="item">
-          <label for="full-shade" class="plant-full-shade">Needs full shade?</label>
-          <input type="checkbox" id="full-shade" name="full-shade" />
-        </div>
-        <div class="item">
-          <label for="evergreen" class="plant-evergreen">Is the plant an evergreen?</label>
-          <input type="checkbox" id="evergreen" name="evergreen" />
-        </div>
-        <div class="item">
-          <label for="succulent" class="plant-succulent">Is the plant a succulent?</label>
-          <input type="checkbox" id="succulent" name="succulent" />
-        </div>
-        <div class="item">
-          <label for="forest" class="plant-forest">Is the plant in a forest?</label>
-          <input type="checkbox" id="forest" name="forest" />
-        </div>
-        <div class="item">
-          <label for="colour" class="plant-colour">What colour is the plant?</label>
-          <input type="text" id="colour" name="colour" />
-        </div>
-        <div class="item">
-          <label for="user-nickname" class="user-nickname">Enter your nickname</label>
-          <input type="text" id="user-nickname" name="user-nickname" />
-        </div>
-        <div class="item">
-          <button type="submit" class="add-button">Upload</button>
-        </div>
-      </div>
+      </form>
     </div>
-  </form>
-</div>
+  </body>
+</html>
