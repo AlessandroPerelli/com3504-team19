@@ -112,6 +112,7 @@ router.get('/dbpedia', function (req, res, next) {
     FILTER (langMatches(lang(?description), "en")) .
 
     }`;
+});
 router.post('/add', upload.single('img'), function(req, res){
   let userData = req.body;
   if(!req.file) {
