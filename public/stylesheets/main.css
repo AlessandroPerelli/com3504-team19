@@ -414,12 +414,9 @@ button:hover {
 .view-plant-container .plant-information-container .information-side {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   padding: 0rem 2rem;
   justify-content: space-around;
-}
-.view-plant-container .plant-information-container .information-side .text-message {
-  align-self: flex-start;
 }
 .view-plant-container .plant-information-container .information-side input {
   background-color: transparent;
