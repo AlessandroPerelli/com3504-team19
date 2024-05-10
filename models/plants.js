@@ -15,22 +15,36 @@ let Schema = mongoose.Schema;
 let PlantSchema = new Schema(
     {
         // Define the name
-        name: { type: String, required: true },
+        name: { type: String, default: 'UNKNOWN' },
         time: { type: Date },
         // Define location as two values Lat and Long
-        location: {
-            type: {
-                Latitude: Number,
-                Longitude: Number }},
-        // size of plant
-        size: { type: Number},
+        location: { type: String},
         // description of plant
-        desc: { type: String},
-        // categories should probably be from a select list
-        // so use an array of those options
-        categories: { type: Array },
+        desc: { type: String, maxLength: 250},
         // Define the img field with type String
-        img: {type: String }
+        img: {type: String },
+
+
+        // Time of sighting
+        sight_time: {type: Date},
+
+        //Plant Characteristics
+        height: {type: Number},
+        spread: {type: Number},
+        does_the_plant_have_flowers: {type: Boolean},
+        flower_colour: {type: String},
+        does_the_plant_have_leaves: {type: Boolean},
+        does_the_plant_have_fruit: {type: Boolean},
+        full_sun: {type: Boolean},
+        partial_shade: {type: Boolean},
+        full_shade: {type: Boolean},
+        evergreen: {type: Boolean},
+        succulent: {type: Boolean},
+        forest: {type: Boolean},
+
+        identification_status: {type: Boolean}, // Don't do
+
+        user_nickname: {type: String},
     }
 );
 

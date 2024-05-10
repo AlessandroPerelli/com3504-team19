@@ -14,7 +14,7 @@ const {
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "public/images/");
+    cb(null, '../public/images/uploads');
   },
   filename: function (req, file, cb) {
     // Make the file name the date + the file name
@@ -88,12 +88,15 @@ router.get("/user", function (req, res, next) {
   }
 });
 
-router.post("/add", upload.single("img"), function (req, res, next) {
+router.post('/add', upload.single('img'), function(req, res){
   let userData = req.body;
+  if(!req.file) {
+    return res.status(400).send('No file');
+  }
   let filePath = req.file.path;
   let result = plants.create(userData, filePath);
-  console.log(result);
-  res.redirect("/main");
+  console.log(result)
+  res.redirect('/');
 });
 
 router.post("/adduser", function (req, res) {
