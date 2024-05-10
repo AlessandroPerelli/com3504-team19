@@ -59,28 +59,6 @@
           </div>
           <div class="add-plant-right">
             <div class="item">
-              <div>
-                <label for="plantSize" class="plant-size">Plant size</label>
-                <input
-                  type="text"
-                  id="plantSize"
-                  name="size"
-                  placeholder="Enter the plant size"
-                />
-              </div>
-              <div>
-                <label for="categories" class="plant-categories"
-                  >Categories (Characteristics)</label
-                >
-                <input
-                  type="text"
-                  id="categories"
-                  name="categories"
-                  placeholder="Enter the plant categories"
-                />
-              </div>
-            </div>
-            <div class="item">
               <label for="plantDescription" class="plant-description"
                 >Description</label
               >
@@ -95,33 +73,33 @@
               <input
                 type="datetime-local"
                 id="sighttime"
-                name="sighttime"
+                name="sight_time"
               >
               </input>
             </div>
             <div class="item">
               <label for="flowers" class="plant-flowers">Has flowers?</label>
-              <input type="checkbox" id="flowers" name="flowers" />
+              <input type="checkbox" id="flowers" name="does_the_plant_have_flowers" />
             </div>
             <div class="item">
               <label for="leaves" class="plant-leaves">Has leaves?</label>
-              <input type="checkbox" id="leaves" name="leaves" />
+              <input type="checkbox" id="leaves" name="does_the_plant_have_leaves" />
             </div>
             <div class="item">
               <label for="fruit" class="plant-fruit">Has fruit?</label>
-              <input type="checkbox" id="fruit" name="fruit" />
+              <input type="checkbox" id="fruit" name="does_the_plant_have_fruit" />
             </div>
             <div class="item">
               <label for="full-sunlight" class="plant-full-sunlight">Needs full sunlight exposure?</label>
-              <input type="checkbox" id="full-sunlight" name="full-sunlight" />
+              <input type="checkbox" id="full-sunlight" name="full_sun" />
             </div>
             <div class="item">
               <label for="partial-shade" class="plant-shade">Needs to have partial shade?</label>
-              <input type="checkbox" id="partial-shade" name="partial-shade" />
+              <input type="checkbox" id="partial-shade" name="partial_shade" />
             </div>
             <div class="item">
               <label for="full-shade" class="plant-full-shade">Needs full shade?</label>
-              <input type="checkbox" id="full-shade" name="full-shade" />
+              <input type="checkbox" id="full-shade" name="full_shade" />
             </div>
             <div class="item">
               <label for="evergreen" class="plant-evergreen">Is the plant an evergreen?</label>
@@ -137,23 +115,24 @@
             </div>
             <div class="item">
               <label for="colour" class="plant-colour">What colour is the plant?</label>
-              <input type="text" id="colour" name="colour" />
+              <input type="text" id="colour" name="flower_colour" />
             </div>
             <div class="item">
               <label for="height" class="plant-height">Enter the plant height</label>
-              <input type="text" id="height" name="height" />
+              <input type="number" id="height" name="height" />
             </div>
             <div class="item">
               <label for="spread" class="plant-spread">Enter the plant spread</label>
-              <input type="text" id="spread" name="spread" />
+              <input type="number" id="spread" name="spread" />
             </div>
             <div class="item">
               <label for="user-nickname" class="user-nickname">Enter your nickname</label>
-              <input type="text" id="user-nickname" name="user-nickname" />
+              <input type="text" id="user-nickname" name="user_nickname" />
             </div>            
             <div class="item">
               <button type="submit" class="add-button">Upload</button>
             </div>
+          </div>
           </div>
         </div>
       </form>

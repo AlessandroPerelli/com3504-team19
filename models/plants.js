@@ -29,6 +29,8 @@ let PlantSchema = new Schema(
         sight_time: {type: Date},
 
         //Plant Characteristics
+        height: {type: Number},
+        spread: {type: Number},
         does_the_plant_have_flowers: {type: Boolean},
         flower_colour: {type: String},
         does_the_plant_have_leaves: {type: Boolean},
