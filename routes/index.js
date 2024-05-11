@@ -191,7 +191,7 @@ router.post("/login", function (req, res, next) {
 // route to get all plants
 router.get('/plants', function (req, res, next) {
   plants.getAll().then(plantList => {
-    console.log(todos);
+    console.log(plantList);
     return res.status(200).send(plantList);
   }).catch(err => {
     console.log(err);
