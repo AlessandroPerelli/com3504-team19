@@ -15,7 +15,6 @@ self.addEventListener('install', event => {
             const urlsToCache = [
                 '/main',
                 '/login',
-                '/user',
                 '/addplant',
                 '/javascripts/categories.js',
                 '/javascripts/changeUserProfile.js',
@@ -57,44 +56,6 @@ self.addEventListener('install', event => {
 
     })());
 });
-
-// Function to fetch data from MongoDB
-async function fetchMongoDBData() {
-    const response = await fetch('http://localhost:3000/plants');
-    const data = await response.json();
-    return data;
-}
-
-// Function to add MongoDB data to IndexedDB
-async function addMongoDBDataToIndexedDB(data) {
-    try {
-        const db = await openIDB('plants', 1);
-        const tx = db.transaction('plants', 'readwrite');
-        const store = tx.objectStore('plants');
-        for (const item of data) {
-            store.add(item);
-        }
-        await tx.complete;
-        console.log('Service Worker: MongoDB data added to IndexedDB');
-    } catch (error) {
-        console.error('Service Worker: Error adding MongoDB data to IndexedDB', error);
-    }
-}
-
-// Function to open IndexedDB
-async function openIDB(name, version) {
-    return new Promise((resolve, reject) => {
-        const request = indexedDB.open(name, version);
-        request.onerror = () => reject(request.error);
-        request.onsuccess = () => resolve(request.result);
-        request.onupgradeneeded = () => {
-            const db = request.result;
-            if (!db.objectStoreNames.contains('plants')) {
-                db.createObjectStore('plants', { keyPath: '_id' });
-            }
-        };
-    });
-}
 
 //clear cache on reload
 self.addEventListener('activate', event => {
@@ -187,7 +148,6 @@ self.addEventListener('sync', event => {
             getAllSyncPlants(syncPostDB).then((syncPlants) => {
                 for (const syncPlant of syncPlants) {
                     console.log('Service Worker: Syncing new plants: ', syncPlant);
-                    console.log(syncPlant.text)
                     // Create a FormData object
                     const formData = new URLSearchParams();
 
