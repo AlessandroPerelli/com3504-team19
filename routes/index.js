@@ -9,10 +9,6 @@ var path = require("path");
 var session = require("express-session");
 
 
-const {
-  getPlantById,
-} = require("../public/javascripts/script");
-
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './public/images/uploads');
@@ -73,13 +69,27 @@ router.get("/addplant", function (req, res, next) {
 
 router.get("/viewplant", function (req, res, next) {
   const plantId = req.query.id;
-  const plantData = getPlantById(plantId, categories);
-  if (plantData) {
-    res.render("components/plant", { plant: plantData, layout: false });
-  } else {
-    res.status(404).send("Plant not found");
-  }
+
+  // Fetch all plants then find the requested one
+  plants
+    .getAll()
+    .then((plant) => {
+      const allPlantsData = JSON.parse(plant);
+      console.log(plantId);
+      const plantData = allPlantsData.find((p) => p._id === plantId);
+
+      if (plantData) {
+        res.render("components/plant", { plant: plantData, layout: false });
+      } else {
+        res.status(404).send("Plant not found");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching plant details:", error);
+      res.status(500).send("Error processing request");
+    });
 });
+
 
 router.get("/user", function (req, res, next) {
   if (req.session.user) {
