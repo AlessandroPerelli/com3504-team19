@@ -46,7 +46,6 @@ router.get("/main", function (req, res, next) {
   let result = plants.getAll();
   result.then(plant => {
     let data = JSON.parse(plant);
-    console.log(data);
     res.render("mainpage", {
       plantData: data,
       categoryData: categories,
@@ -70,12 +69,13 @@ router.get("/addplant", function (req, res, next) {
 router.get("/viewplant", function (req, res, next) {
   const plantId = req.query.id;
 
+  console.log("Requested plant ID:", plantId);
+
   // Fetch all plants then find the requested one
   plants
     .getAll()
     .then((plant) => {
       const allPlantsData = JSON.parse(plant);
-      console.log(plantId);
       const plantData = allPlantsData.find((p) => p._id === plantId);
 
       if (plantData) {
