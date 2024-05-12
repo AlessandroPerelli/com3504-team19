@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
-
-  </head>
+  <head> </head>
   <body>
     <div class="view-plant-container">
       <div class="plant-information-container">
@@ -19,17 +17,20 @@
           <div id="message_area" class="message-area">
             <!-- Messages will be dynamically inserted here -->
           </div>
-          <form onSubmit="return false;" style = "width: 100%">
+          <form onSubmit="return false;" style="width: 100%">
             <p>
               <label for="name"> Comment: </label>
-              <input type="text" id = "comment_input" name="chat_input" style="width: 80%">
-              <button  id="chat_send", onclick = sendComment()> Send </button>
+              <input
+                type="text"
+                id="comment_input"
+                name="chat_input"
+                style="width: 80%"
+              />
+              <button id="chat_send" , onclick="sendComment()">Send</button>
             </p>
           </form>
         </div>
       </div>
-    </div>    
+    </div>
   </body>
 </html>
-
-
