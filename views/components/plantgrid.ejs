@@ -1,7 +1,7 @@
 <div class="plant-grid">
-  <% plants.forEach(plant => { %>
+  <% plantData.forEach(plant => { %>
   <div class="plant-item" data-plant-id="<%= plant._id %>">
-    <img src="<%= plant.img %>" alt="plant" />
+    <img src="/images/uploads/<%= plant.img %>" alt="plant" />
   </div>
   <% }) %>
 </div>
