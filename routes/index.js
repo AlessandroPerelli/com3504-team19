@@ -46,6 +46,7 @@ router.get("/main", function (req, res, next) {
   let result = plants.getAll();
   result.then(plant => {
     let data = JSON.parse(plant);
+    console.log(data);
     res.render("mainpage", {
       plantData: data,
       categoryData: categories,
@@ -67,8 +68,9 @@ router.get("/addplant", function (req, res, next) {
 });
 
 router.get("/viewplant", function (req, res, next) {
-  const plantId = req.query.id;
+  console.log("Route /viewplant called"); // Added log
 
+  const plantId = req.query.id;
   console.log("Requested plant ID:", plantId);
 
   // Fetch all plants then find the requested one
@@ -77,7 +79,6 @@ router.get("/viewplant", function (req, res, next) {
     .then((plant) => {
       const allPlantsData = JSON.parse(plant);
       const plantData = allPlantsData.find((p) => p._id === plantId);
-
       if (plantData) {
         res.render("components/plant", { plant: plantData, layout: false });
       } else {
@@ -85,10 +86,11 @@ router.get("/viewplant", function (req, res, next) {
       }
     })
     .catch((error) => {
-      console.error("Error fetching plant details:", error);
+      console.error("Error fetching plant details:", error); // Existing log
       res.status(500).send("Error processing request");
     });
 });
+
 
 
 router.get("/user", function (req, res, next) {
