@@ -22,6 +22,7 @@ self.addEventListener('install', event => {
                 '/javascripts/overlay.js',
                 '/javascripts/script.js',
                 '/javascripts/index.js',
+                '/javascripts/insert.js',
                 '/javascripts/switchCategory.js',
                 '/javascripts/idb-utility.js',
                 '/javascripts/chat.js',
@@ -55,7 +56,7 @@ self.addEventListener('install', event => {
             }
         }
         catch{
-            console.log("error occured while caching...")
+            console.log("error occurred while caching...")
         }
 
     })());
@@ -167,7 +168,7 @@ self.addEventListener('fetch', event => {
 
 //Sync event to sync the todos
 self.addEventListener('sync', event => {
-    if (event.tag === 'sync-plants') {
+    if (event.tag === 'sync-plant') {
         console.log('Service Worker: Syncing new Plants');
         openSyncPlantsIDB().then((syncPostDB) => {
             getAllSyncPlants(syncPostDB).then((syncPlants) => {
@@ -178,7 +179,11 @@ self.addEventListener('sync', event => {
                     const formData = new URLSearchParams();
 
                     // Iterate over the properties of the JSON object and append them to FormData
-                    formData.append("user_nickname", syncPlant.user_nickname);
+                    for (const key in syncPlant) {
+                        if (syncPlant.hasOwnProperty(key)) {
+                            formData.append(key, syncPlant[key]);
+                        }
+                    }
 
                     // Fetch with FormData instead of JSON
                     fetch('http://localhost:3000/add', {

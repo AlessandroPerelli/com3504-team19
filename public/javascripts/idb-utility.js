@@ -24,8 +24,6 @@ async function addMongoDBDataToIndexedDB(data) {
 // Function to handle adding a new plant
 const addNewPlantToSync = (syncPlantIDB, form_data) => {
 
-    console.log("PROOF???");
-
     const transaction = syncPlantIDB.transaction(["sync-plants"], "readwrite")
     const plantStore = transaction.objectStore("sync-plants")
     const addRequest = plantStore.add(Object.fromEntries(form_data))
@@ -61,7 +59,6 @@ const addNewPlantsToIDB = (plantIDB, plants) => {
                     getRequest.addEventListener("success", () => {
                         console.log("Found " + JSON.stringify(getRequest.result));
                         // Assume insertPlantInList is defined elsewhere
-                        insertPlantInList(getRequest.result);
                         resolveAdd(); // Resolve the add promise
                     });
                     getRequest.addEventListener("error", (event) => {
@@ -114,30 +111,6 @@ function extractImageUrls(htmlText) {
     return imageUrls;
 }
 
-// Function to initialize IndexedDB for syncing plants
-async function initSyncPlantsIDB() {
-    return new Promise((resolve, reject) => {
-        const request = indexedDB.open('sync-plants', 1);
-
-        request.onerror = () => {
-            console.error('Service Worker: Error opening sync-plants IndexedDB');
-            reject(request.error);
-        };
-
-        request.onsuccess = () => {
-            console.log('Service Worker: sync-plants IndexedDB opened');
-            resolve(request.result);
-        };
-
-        request.onupgradeneeded = event => {
-            const db = event.target.result;
-            if (!db.objectStoreNames.contains('sync-plants')) {
-                db.createObjectStore('sync-plants', { keyPath: '_id' });
-            }
-        };
-    });
-}
-
 // Function to open IndexedDB
 async function openIDB(name, version) {
     return new Promise((resolve, reject) => {
@@ -157,6 +130,9 @@ async function openIDB(name, version) {
 async function syncPlantsWithIndexedDB() {
     console.log('Service Worker: Syncing plants with IndexedDB');
     try {
+        openIDB('plants',1).then((db) => {
+            deleteAllExistingPlantsFromIDB(db);
+        });
         const mongoDBData = await fetchMongoDBData();
         await addMongoDBDataToIndexedDB(mongoDBData);
         console.log('Service Worker: Plants synced with IndexedDB');
