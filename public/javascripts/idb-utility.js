@@ -22,28 +22,28 @@ async function addMongoDBDataToIndexedDB(data) {
 }
 
 // Function to handle adding a new plant
-const addNewPlantToSync = (syncPlantIDB, txt_val) => {
+const addNewPlantToSync = (syncPlantIDB, form_data) => {
 
-    if (txt_val !== "") {
-        const transaction = syncPlantIDB.transaction(["sync-plants"], "readwrite")
-        const plantStore = transaction.objectStore("sync-plants")
-        const addRequest = plantStore.add({text: txt_val})
-        addRequest.addEventListener("success", () => {
-            console.log("Added " + "#" + addRequest.result + ": " + txt_val)
-            const getRequest = plantStore.get(addRequest.result)
-            getRequest.addEventListener("success", () => {
-                console.log("Found " + JSON.stringify(getRequest.result))
-                // Send a sync message to the service worker
-                navigator.serviceWorker.ready.then((sw) => {
-                    sw.sync.register("sync-plant")
-                }).then(() => {
-                    console.log("Sync registered");
-                }).catch((err) => {
-                    console.log("Sync registration failed: " + JSON.stringify(err))
-                })
+    console.log("PROOF???");
+
+    const transaction = syncPlantIDB.transaction(["sync-plants"], "readwrite")
+    const plantStore = transaction.objectStore("sync-plants")
+    const addRequest = plantStore.add(Object.fromEntries(form_data))
+    addRequest.addEventListener("success", () => {
+        console.log("Added " + "#" + addRequest.result + ": " + form_data)
+        const getRequest = plantStore.get(addRequest.result)
+        getRequest.addEventListener("success", () => {
+            console.log("Found " + JSON.stringify(getRequest.result))
+            // Send a sync message to the service worker
+            navigator.serviceWorker.ready.then((sw) => {
+                sw.sync.register("sync-plant")
+            }).then(() => {
+                console.log("Sync registered");
+            }).catch((err) => {
+                console.log("Sync registration failed: " + JSON.stringify(err))
             })
         })
-    }
+    })
 }
 
 // Function to add new plants to IndexedDB and return a promise
@@ -222,7 +222,7 @@ function openSyncPlantsIDB() {
 
         request.onupgradeneeded = function (event) {
             const db = event.target.result;
-            db.createObjectStore('sync-plants', {keyPath: 'id', autoIncrement: true});
+            db.createObjectStore('sync-plants', {keyPath: '_id', autoIncrement: true});
         };
 
         request.onsuccess = function (event) {

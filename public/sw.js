@@ -161,21 +161,6 @@ self.addEventListener('fetch', event => {
             }
         }
 
-        // if (event.request.url.includes('/add') && event.request.method === 'POST') {
-        //     event.respondWith((async () => {
-        //         const response = await fetch(event.request);
-        //         if (response.ok) {
-        //             const db = await openSyncPlantsIDB();
-        //             const tx = db.transaction('sync-plants', 'readwrite');
-        //             const store = tx.objectStore('sync-plants');
-        //             // const plant = await response.json();
-        //             // store.add(plant);
-        //             console.log('Service Worker: Plant added to sync-plants IndexedDB');
-        //         }
-        //         return response;
-        //     })());
-        // }
-
         return fetch(event.request);
     })());
 });
@@ -183,17 +168,17 @@ self.addEventListener('fetch', event => {
 //Sync event to sync the todos
 self.addEventListener('sync', event => {
     if (event.tag === 'sync-plants') {
-        console.log('Service Worker: Syncing new Todos');
+        console.log('Service Worker: Syncing new Plants');
         openSyncPlantsIDB().then((syncPostDB) => {
             getAllSyncPlants(syncPostDB).then((syncPlants) => {
                 for (const syncPlant of syncPlants) {
-                    console.log('Service Worker: Syncing new Todo: ', syncPlant);
-                    console.log(syncPlant.name)
+                    console.log('Service Worker: Syncing new Plant: ', syncPlant);
+                    console.log(syncPlant.user_nickname)
                     // Create a FormData object
                     const formData = new URLSearchParams();
 
                     // Iterate over the properties of the JSON object and append them to FormData
-                    formData.append("name", syncPlant.name);
+                    formData.append("user_nickname", syncPlant.user_nickname);
 
                     // Fetch with FormData instead of JSON
                     fetch('http://localhost:3000/add', {
@@ -203,10 +188,10 @@ self.addEventListener('sync', event => {
                             'Content-Type': 'application/x-www-form-urlencoded',
                         },
                     }).then(() => {
-                        console.log('Service Worker: Syncing new Todo: ', syncPlant, ' done');
+                        console.log('Service Worker: Syncing new Plant: ', syncPlant, ' done');
                         deleteSyncPlantFromIDB(syncPostDB,syncPlant._id);
                     }).catch((err) => {
-                        console.error('Service Worker: Syncing new Todo: ', syncPlant, ' failed');
+                        console.error('Service Worker: Syncing new Plant: ', syncPlant, ' failed');
                     });
                 }
             });
