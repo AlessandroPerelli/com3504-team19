@@ -122,27 +122,6 @@ a {
   cursor: pointer;
 }
 
-.search-input {
-  background-color: #F4F0E5;
-  border: none;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  font-size: 16px;
-  width: 35%;
-  box-sizing: border-box;
-}
-.search-input::-moz-placeholder {
-  color: #A1824A;
-  font-size: larger;
-}
-.search-input::placeholder {
-  color: #A1824A;
-  font-size: larger;
-}
-.search-input:focus {
-  outline: none;
-}
-
 button {
   cursor: pointer;
   border: none;
@@ -164,6 +143,9 @@ button:hover {
 }
 
 .login-container {
+  margin-top: 10%;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
