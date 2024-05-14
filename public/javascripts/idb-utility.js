@@ -16,28 +16,10 @@ async function addMongoDBDataToIndexedDB(data) {
             store.add(item);
         }
         await tx.complete;
-        console.log('Service Worker: MongoDB data added to IndexedDB');
     } catch (error) {
         console.error('Service Worker: Error adding MongoDB data to IndexedDB', error);
     }
 }
-
-// Function to open IndexedDB
-async function openIDB(name, version) {
-    return new Promise((resolve, reject) => {
-        const request = indexedDB.open(name, version);
-        request.onerror = () => reject(request.error);
-        request.onsuccess = () => resolve(request.result);
-        request.onupgradeneeded = () => {
-            const db = request.result;
-            if (!db.objectStoreNames.contains('plants')) {
-                db.createObjectStore('plants', { keyPath: '_id' });
-            }
-        };
-    });
-}
-
-
 
 // Function to handle adding a new plant
 const addNewPlantToSync = (syncPlantIDB, txt_val) => {
@@ -101,7 +83,6 @@ const addNewPlantsToIDB = (plantIDB, plants) => {
     });
 };
 
-
 // Function to remove all plants from idb
 const deleteAllExistingPlantsFromIDB = (plantIDB) => {
     const transaction = plantIDB.transaction(["plants"], "readwrite");
@@ -119,28 +100,70 @@ const deleteAllExistingPlantsFromIDB = (plantIDB) => {
     });
 };
 
+// Function to extract image URLs from HTML text using regular expressions and prevent duplicates
+function extractImageUrls(htmlText) {
+    const regex = /<img.*?src=["'](.*?)["']/g;
+    const imageUrls = [];
+    let match;
+    while ((match = regex.exec(htmlText)) !== null) {
+        const imageUrl = match[1];
+        if (!imageUrls.includes(imageUrl)) {
+            imageUrls.push(imageUrl);
+        }
+    }
+    return imageUrls;
+}
 
-
-
-// Function to get the plant list from the IndexedDB
-const getAllPlants = (plantIDB) => {
+// Function to initialize IndexedDB for syncing plants
+async function initSyncPlantsIDB() {
     return new Promise((resolve, reject) => {
-        const transaction = plantIDB.transaction(["plants"]);
-        const plantStore = transaction.objectStore("plants");
-        const getAllRequest = plantStore.getAll();
+        const request = indexedDB.open('sync-plants', 1);
 
-        // Handle success event
-        getAllRequest.addEventListener("success", (event) => {
-            resolve(event.target.result); // Use event.target.result to get the result
-        });
+        request.onerror = () => {
+            console.error('Service Worker: Error opening sync-plants IndexedDB');
+            reject(request.error);
+        };
 
-        // Handle error event
-        getAllRequest.addEventListener("error", (event) => {
-            reject(event.target.error);
-        });
+        request.onsuccess = () => {
+            console.log('Service Worker: sync-plants IndexedDB opened');
+            resolve(request.result);
+        };
+
+        request.onupgradeneeded = event => {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains('sync-plants')) {
+                db.createObjectStore('sync-plants', { keyPath: '_id' });
+            }
+        };
     });
 }
 
+// Function to open IndexedDB
+async function openIDB(name, version) {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open(name, version);
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => resolve(request.result);
+        request.onupgradeneeded = () => {
+            const db = request.result;
+            if (!db.objectStoreNames.contains('plants')) {
+                db.createObjectStore('plants', { keyPath: '_id' });
+            }
+        };
+    });
+}
+
+// Function to sync plants with IndexedDB
+async function syncPlantsWithIndexedDB() {
+    console.log('Service Worker: Syncing plants with IndexedDB');
+    try {
+        const mongoDBData = await fetchMongoDBData();
+        await addMongoDBDataToIndexedDB(mongoDBData);
+        console.log('Service Worker: Plants synced with IndexedDB');
+    } catch (error) {
+        console.error('Service Worker: Failed to sync plants with IndexedDB', error);
+    }
+}
 
 // Function to get the plant list from the IndexedDB
 const getAllSyncPlants = (syncPlantIDB) => {
