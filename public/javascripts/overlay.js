@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch(`/viewplant?id=${plantId}`)
       .then((response) => response.text())
       .then((data) => {
+        console.log(plantId);
         console.log(data);
         overlayContent.querySelector(".overlay-content-view").innerHTML = data;
         overlay.style.display = "block";

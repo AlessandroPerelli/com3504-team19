@@ -2,15 +2,12 @@ var express = require("express");
 var router = express.Router();
 var plants = require("../controllers/plants");
 var users = require("../models/users");
+var categories = require("../public/javascripts/categories")
 var multer = require("multer");
 var bcrypt = require("bcrypt");
 var path = require("path");
 var session = require("express-session");
 
-const categories = require("../public/javascripts/categories");
-const {
-  getPlantById,
-} = require("../public/javascripts/script");
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -46,10 +43,16 @@ router.get("/login", function (req, res, next) {
 });
 
 router.get("/main", function (req, res, next) {
-  res.render("mainpage", {
-    categoryData: categories,
-    showSearch: true,
-    showProfile: true,
+  let result = plants.getAll();
+  result.then(plant => {
+    let data = JSON.parse(plant);
+    console.log(data);
+    res.render("mainpage", {
+      plantData: data,
+      categoryData: categories,
+      showSearch: true,
+      showProfile: true,
+    });
   });
 });
 
@@ -65,15 +68,30 @@ router.get("/addplant", function (req, res, next) {
 });
 
 router.get("/viewplant", function (req, res, next) {
-  const plantId = req.query.id;
-  const plantData = getPlantById(plantId, categories);
+  console.log("Route /viewplant called"); // Added log
 
-  if (plantData) {
-    res.render("components/plant", { plant: plantData, layout: false });
-  } else {
-    res.status(404).send("Plant not found");
-  }
+  const plantId = req.query.id;
+  console.log("Requested plant ID:", plantId);
+
+  // Fetch all plants then find the requested one
+  plants
+    .getAll()
+    .then((plant) => {
+      const allPlantsData = JSON.parse(plant);
+      const plantData = allPlantsData.find((p) => p._id === plantId);
+      if (plantData) {
+        res.render("components/plant", { plant: plantData, layout: false });
+      } else {
+        res.status(404).send("Plant not found");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching plant details:", error); // Existing log
+      res.status(500).send("Error processing request");
+    });
 });
+
+
 
 router.get("/user", function (req, res, next) {
   if (req.session.user) {
@@ -113,16 +131,20 @@ router.get('/dbpedia', function (req, res, next) {
 
     }`;
 });
-router.post('/add', upload.single('img'), function(req, res){
+router.post("/add", upload.single("img"), function (req, res) {
   let userData = req.body;
-  if(!req.file) {
-    return res.status(400).send('No file');
+  if (!req.file) {
+    return res.status(400).send("No file");
   }
+
   let filePath = req.file.path;
-  let result = plants.create(userData, filePath);
-  console.log(result)
-  res.redirect('/');
+  let filename = filePath.split(/\\|\//).pop();
+
+  let result = plants.create(userData, filename);
+  console.log(result);
+  res.redirect("/");
 });
+
 
 router.post("/adduser", function (req, res) {
   // Check if passwords match
