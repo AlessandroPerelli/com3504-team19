@@ -375,62 +375,6 @@ button:hover {
   width: 100%;
 }
 
-.view-plant-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-}
-.view-plant-container h1 {
-  align-self: center;
-  font-weight: 1000;
-}
-.view-plant-container .plant-information-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border: solid 3px #F4F0E5;
-  padding: 2rem 3rem;
-}
-.view-plant-container .plant-information-container .information-side {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0rem 2rem;
-  justify-content: space-around;
-}
-.view-plant-container .plant-information-container .information-side input {
-  background-color: transparent;
-  border: solid 1px #F4F0E5;
-  border-radius: 1rem;
-  padding: 1.5rem 1rem;
-  padding-right: 12rem;
-  font-size: 16px;
-  width: 100%;
-  box-sizing: border-box;
-}
-.view-plant-container .plant-information-container .information-side input::-moz-placeholder {
-  color: #A1824A;
-  font-size: larger;
-  font-weight: 200;
-}
-.view-plant-container .plant-information-container .information-side input::placeholder {
-  color: #A1824A;
-  font-size: larger;
-  font-weight: 200;
-}
-.view-plant-container .plant-information-container .information-side input:focus {
-  outline: none;
-}
-.view-plant-container .plant-information-container .image-side {
-  border-right: solid 3px #F4F0E5;
-}
-.view-plant-container .plant-information-container .image-side img {
-  width: 100%;
-  height: auto;
-}
-
 .overlay {
   display: none;
   position: fixed;
@@ -451,21 +395,62 @@ button:hover {
   max-width: none;
   max-height: none;
   overflow-y: auto;
-  width: 90%;
+  height: 60%;
+  width: 60%;
   z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6rem;
+  padding-top: 0rem;
   border-radius: 2rem;
 }
-
-.overlay-content-add {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  max-width: none;
-  max-height: none;
-  overflow-y: auto;
-  width: 90%;
-  z-index: 10000;
-  border-radius: 2rem;
+.overlay-content-view h1 {
+  align-self: center;
+  font-weight: 1000;
+}
+.overlay-content-view .plant-information-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 2rem;
+}
+.overlay-content-view .plant-information-container .information-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0rem 2rem;
+  justify-content: space-around;
+}
+.overlay-content-view .plant-information-container .information-side input {
+  background-color: transparent;
+  border: solid 1px #F4F0E5;
+  border-radius: 1rem;
+  padding: 1.5rem 1rem;
+  padding-right: 12rem;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.overlay-content-view .plant-information-container .information-side input::-moz-placeholder {
+  color: #A1824A;
+  font-size: larger;
+  font-weight: 200;
+}
+.overlay-content-view .plant-information-container .information-side input::placeholder {
+  color: #A1824A;
+  font-size: larger;
+  font-weight: 200;
+}
+.overlay-content-view .plant-information-container .information-side input:focus {
+  outline: none;
+}
+.overlay-content-view .plant-information-container .image-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.overlay-content-view .plant-information-container .image-side img {
+  width: 100%;
+  height: auto;
 }/*# sourceMappingURL=main.css.map */
