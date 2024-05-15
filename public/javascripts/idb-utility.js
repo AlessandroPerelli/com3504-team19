@@ -44,37 +44,48 @@ const addNewPlantToSync = (syncPlantIDB, form_data) => {
     })
 }
 
-// Function to add new plants to IndexedDB and return a promise
-const addNewPlantsToIDB = (plantIDB, plants) => {
+// Function to add new plants to IndexedDB from MongoDB and return a promise
+const addNewPlantsToIDB = (plantIDB) => {
     return new Promise((resolve, reject) => {
-        const transaction = plantIDB.transaction(["plants"], "readwrite");
-        const plantStore = transaction.objectStore("plants");
+        fetch('/plants') // Assuming '/plants' returns JSON array of plant objects
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(plants => {
+            const transaction = plantIDB.transaction(["plants"], "readwrite");
+            const plantStore = transaction.objectStore("plants");
 
-        const addPromises = plants.map(plant => {
-            return new Promise((resolveAdd, rejectAdd) => {
-                const addRequest = plantStore.add(plant);
-                addRequest.addEventListener("success", () => {
-                    console.log("Added " + "#" + addRequest.result + ": " + plant.text);
-                    const getRequest = plantStore.get(addRequest.result);
-                    getRequest.addEventListener("success", () => {
-                        console.log("Found " + JSON.stringify(getRequest.result));
-                        // Assume insertPlantInList is defined elsewhere
-                        resolveAdd(); // Resolve the add promise
+            const addPromises = plants.map(plant => {
+                return new Promise((resolveAdd, rejectAdd) => {
+                    const addRequest = plantStore.add(plant);
+                    addRequest.addEventListener("success", () => {
+                        console.log("Added " + "#" + addRequest.result + ": " + plant.text);
+                        const getRequest = plantStore.get(addRequest.result);
+                        getRequest.addEventListener("success", () => {
+                            console.log("Found " + JSON.stringify(getRequest.result));
+                            resolveAdd(); // Resolve the add promise
+                        });
+                        getRequest.addEventListener("error", (event) => {
+                            rejectAdd(event.target.error); // Reject the add promise if there's an error
+                        });
                     });
-                    getRequest.addEventListener("error", (event) => {
+                    addRequest.addEventListener("error", (event) => {
                         rejectAdd(event.target.error); // Reject the add promise if there's an error
                     });
                 });
-                addRequest.addEventListener("error", (event) => {
-                    rejectAdd(event.target.error); // Reject the add promise if there's an error
-                });
             });
-        });
 
-        // Resolve the main promise when all add operations are completed
-        Promise.all(addPromises).then(() => {
-            resolve();
-        }).catch((error) => {
+            // Resolve the main promise when all add operations are completed
+            Promise.all(addPromises).then(() => {
+                resolve();
+            }).catch((error) => {
+                reject(error);
+            });
+        })
+        .catch(error => {
             reject(error);
         });
     });
@@ -97,19 +108,37 @@ const deleteAllExistingPlantsFromIDB = (plantIDB) => {
     });
 };
 
-// Function to extract image URLs from HTML text using regular expressions and prevent duplicates
-function extractImageUrls(htmlText) {
-    const regex = /<img.*?src=["'](.*?)["']/g;
-    const imageUrls = [];
-    let match;
-    while ((match = regex.exec(htmlText)) !== null) {
-        const imageUrl = match[1];
-        if (!imageUrls.includes(imageUrl)) {
-            imageUrls.push(imageUrl);
+// Function to extract image URLs from plant objects
+const extractImageURLsFromPlants = (plants) => {
+    const imageURLs = [];
+    plants.forEach(plant => {
+        if (plant.img && typeof plant.img === 'string') {
+            imageURLs.push(plant.img);
         }
-    }
-    return imageUrls;
-}
+    });
+    return imageURLs;
+};
+
+// Function to cache images
+const cacheImages = async (imageURLs) => {
+    const cache = await caches.open("static");
+    const imagePromises = imageURLs.map(async (url) => {
+        const imageURL = `/images/uploads/${url}`; // Append "/public/images/" to the image URL
+        try {
+            const response = await fetch(imageURL);
+            if (!response.ok) {
+                throw new Error('Failed to fetch');
+            }
+            await cache.put(imageURL, response);
+            console.log('Cached image:', imageURL);
+        } catch (error) {
+            console.error('Failed to cache image:', imageURL, error);
+        }
+    });
+
+    await Promise.all(imagePromises);
+    console.log('All images cached successfully');
+};
 
 // Function to open IndexedDB
 async function openIDB(name, version) {

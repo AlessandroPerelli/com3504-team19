@@ -16,9 +16,8 @@ window.onload = function () {
                 return res.json();
             }).then(function (newPlants) {
             openIDB('plants', 1).then((db) => {
-                // insertPlantInList(db, newPlants)
                 deleteAllExistingPlantsFromIDB(db).then(() => {
-                    addNewPlantsToIDB(db, newPlants).then(() => {
+                    addNewPlantsToIDB(db).then(() => {
                         console.log("All new plants added to IDB")
                     })
                 });
@@ -35,6 +34,5 @@ window.onload = function () {
     //             }
     //         });
     //     });
-    
     // }
 }

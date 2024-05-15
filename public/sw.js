@@ -10,7 +10,6 @@ self.addEventListener('install', event => {
         console.log('Service Worker: Caching App Shell at the moment......');
         try {
             const cache = await caches.open("static");
-            const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
             const urlsToCache = [
                 '/main',
@@ -18,31 +17,18 @@ self.addEventListener('install', event => {
                 '/addplant',
                 '/javascripts/categories.js',
                 '/javascripts/changeUserProfile.js',
+                '/javascripts/chat.js',
+                '/javascripts/idb-utility.js',
                 '/javascripts/imageUpload.js',
-                '/javascripts/overlay.js',
-                '/javascripts/script.js',
                 '/javascripts/index.js',
                 '/javascripts/insert.js',
+                '/javascripts/overlay.js',
+                '/javascripts/plantViewLogic.js',
                 '/javascripts/switchCategory.js',
-                '/javascripts/idb-utility.js',
-                '/javascripts/chat.js',
                 '/stylesheets/main.scss',
                 '/stylesheets/main.css',
                 '/stylesheets/main.css.map',
             ];
-
-            numbers.forEach(number => {
-                urlsToCache.push(`/viewplant?id=${number}`);
-            });
-
-            // Extract image URLs from main page (/main)
-            const response = await fetch('/main');
-            const responseClone = await response.clone();
-            const text = await responseClone.text();
-            const imageUrls = extractImageUrls(text);
-
-            // Add main page image URLs to urlsToCache
-            urlsToCache.push(...imageUrls);
 
             await cache.addAll(urlsToCache);
             console.log('Service Worker: App Shell Cached');
@@ -53,6 +39,9 @@ self.addEventListener('install', event => {
                 await addMongoDBDataToIndexedDB(mongoDBData);
 
                 await syncPlantsWithIndexedDB();
+
+                const imageURLs = extractImageURLsFromPlants(mongoDBData);
+                await cacheImages(imageURLs);
             }
         }
         catch{
