@@ -48,7 +48,6 @@ function sendComment() {
     .then((response) => {
       if (response.ok) {
         console.log("Comment added successfully");
-        writeOnHistory(`<b>${name}:</b> ${chatText}`); // Optional: update UI after successful response
       } else {
         console.error("Failed to add comment");
       }

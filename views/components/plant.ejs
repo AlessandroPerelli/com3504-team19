@@ -19,7 +19,9 @@
         </div>
         <!-- Message Area for comments -->
         <div id="message_area" class="message-area">
-          <!-- Messages will be dynamically inserted here -->
+          <% comments.forEach(function(comment) { %>
+            <p><%= comment.message %></p>
+          <% }); %>
         </div>
         <form onSubmit="return false;" style="width: 100%">
           <p>

@@ -83,7 +83,7 @@ router.get("/viewplant", function (req, res, next) {
       if (plantData) {
           plantData.sight_time_formatted = formatDateTime(plantData.sight_time);
           plantData.time_formatted = formatDateTime(plantData.time);
-        res.render("components/plant", { plant: plantData, layout: false });
+        res.render("components/plant", { plant: plantData, layout: false, comments: plantData.comments});
       } else {
         res.status(404).send("Plant not found");
       }
