@@ -122,6 +122,20 @@ self.addEventListener('fetch', event => {
             console.log('Service Worker: Fetching from Cache: ', event.request.url);
             return cachedResponse;
         }
+
+        if (!navigator.onLine) {
+            // Check if the URL includes "/add"
+            if (event.request.url.includes('/add')) {
+                // Construct a redirect response to "/main"
+                return new Response(null, {
+                    status: 302,
+                    headers: {
+                        'Location': '/main'
+                    }
+                });
+            }
+        }
+
         console.log('Service Worker: Fetching from URL: ', event.request.url);
 
         // Handle specific requests for /viewplant pages

@@ -18,7 +18,7 @@
   </head>
   <body>
     <div class="add-plant-container">
-      <form id="add-plant">
+      <form action="/add" method="POST" enctype="multipart/form-data" id="add-plant">
         <h1>Add Plant</h1>
         <div class="add-plant-form-container">
           <div class="add-plant-left">
@@ -130,7 +130,7 @@
               <input type="text" id="user-nickname" name="user_nickname" />
             </div>            
             <div class="item">
-              <button type="submit" class="add-button">Upload</button>
+              <button class="add-button">Upload</button>
             </div>
           </div>
           </div>

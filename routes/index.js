@@ -122,7 +122,7 @@ router.post('/add', upload.single('img'), function(req, res){
   let filePath = req.file.path;
   let result = plants.create(userData, filePath);
   console.log(result)
-  res.redirect('/');
+  res.redirect('/main');
 });
 
 router.post("/adduser", function (req, res) {
