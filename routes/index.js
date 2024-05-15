@@ -83,7 +83,7 @@ router.get("/viewplant", function (req, res, next) {
       if (plantData) {
           plantData.sight_time_formatted = formatDateTime(plantData.sight_time);
           plantData.time_formatted = formatDateTime(plantData.time);
-        res.render("components/plant", { plant: plantData, layout: false });
+        res.render("components/plant", { plant: plantData, layout: false, comments: plantData.comments});
       } else {
         res.status(404).send("Plant not found");
       }
@@ -93,6 +93,19 @@ router.get("/viewplant", function (req, res, next) {
       res.status(500).send("Error processing request");
     });
 });
+
+router.post("/updateComments", async (req, res) => {
+  const { plantId, name, comment, date } = req.body;
+  try {
+    await plants.updateComments(plantId, name, comment, date);
+    res.status(200).send("Comment added successfully");
+  } catch (error) {
+    console.error("Error in /updateComments endpoint:", error.message);
+    res.status(500).send("Error adding comment");
+  }
+});
+
+
 
 router.get("/user", function (req, res, next) {
   if (req.session.user) {

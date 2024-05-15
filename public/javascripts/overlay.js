@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     item.addEventListener("click", function () {
       const plantId = this.dataset.plantId;
       fetchPlantDetails(plantId);
+      init(plantId);
     });
   });
 
@@ -29,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error fetching plant details:", error);
       });
   }
-
+  
   // Add event listener to close the overlay when clicking outside the content
   overlay.addEventListener("click", function (event) {
     if (event.target === overlay) {

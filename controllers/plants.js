@@ -31,6 +31,8 @@ exports.create = function (userData, filePath) {
     identification_status: userData.identification_status,
 
     user_nickname: userData.user_nickname,
+
+    comments: [],
   });
 
   // Save the plant to the database and handle success or failure
@@ -52,7 +54,7 @@ exports.create = function (userData, filePath) {
     });
 };
 
-// Function to get all students
+// Function to get all plants
 exports.getAll = function () {
   // Retrieve all Plants from the database
   return plantModel
@@ -68,4 +70,31 @@ exports.getAll = function () {
       // Return null in case of an error
       return null;
     });
+};
+
+exports.updateComments = async function (plantId, name, comment, date) {
+  try {
+    const newComment = {
+      name: name,
+      message: comment,
+      timeOfMessage: date,
+    };
+
+    const result = await plantModel.updateOne(
+      { _id: plantId },
+      { $push: { comments: newComment } }
+    );
+
+    if (result.nModified === 0) {
+      console.error(
+        `No documents were updated. Check if the plantId ${plantId} exists.`
+      );
+      throw new Error("Document not updated");
+    }
+
+    console.log(`${result.nModified} document(s) updated`);
+  } catch (error) {
+    console.error("Error updating value:", error.message);
+    throw error;
+  }
 };
