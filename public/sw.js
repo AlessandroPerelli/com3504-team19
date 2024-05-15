@@ -166,7 +166,6 @@ self.addEventListener('fetch', event => {
     })());
 });
 
-//Sync event to sync the todos
 self.addEventListener('sync', event => {
     if (event.tag === 'sync-plant') {
         console.log('Service Worker: Syncing new Plants');
@@ -174,9 +173,8 @@ self.addEventListener('sync', event => {
             getAllSyncPlants(syncPostDB).then((syncPlants) => {
                 for (const syncPlant of syncPlants) {
                     console.log('Service Worker: Syncing new Plant: ', syncPlant);
-                    console.log(syncPlant.user_nickname)
                     // Create a FormData object
-                    const formData = new URLSearchParams();
+                    const formData = new FormData();
 
                     // Iterate over the properties of the JSON object and append them to FormData
                     for (const key in syncPlant) {
@@ -185,18 +183,23 @@ self.addEventListener('sync', event => {
                         }
                     }
 
-                    // Fetch with FormData instead of JSON
+                    // Fetch with FormData
                     fetch('http://localhost:3000/add', {
                         method: 'POST',
                         body: formData,
                         headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
                         },
-                    }).then(() => {
-                        console.log('Service Worker: Syncing new Plant: ', syncPlant, ' done');
-                        deleteSyncPlantFromIDB(syncPostDB,syncPlant._id);
+                    }).then(response => {
+                        console.log(response);
+                        if (response.ok) {
+                            console.log('Service Worker: Syncing new Plant: ', syncPlant, ' done');
+                            // If the plant was successfully added, delete it from IndexedDB
+                            deleteSyncPlantFromIDB(syncPostDB, syncPlant._id);
+                        } else {
+                            console.error('Service Worker: Syncing new Plant: ', syncPlant, ' failed');
+                        }
                     }).catch((err) => {
-                        console.error('Service Worker: Syncing new Plant: ', syncPlant, ' failed');
+                        console.error('Service Worker: Syncing new Plant: ', syncPlant, ' failed:', err);
                     });
                 }
             });
