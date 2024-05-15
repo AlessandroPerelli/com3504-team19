@@ -2,7 +2,7 @@
 <html>
   <head></head>
   <body>
-    <div class="view-plant-container", onload = init()>
+    <div class="view-plant-container" , onload="init()">
       <div class="plant-information-container">
         <div class="image-side">
           <img src="/images/uploads/<%= plant.img %>" alt="plant" />
@@ -15,16 +15,12 @@
           </div>
           <!-- Message Area for comments -->
           <div id="message_area" class="message-area">
-            <p> <%= plant.comments %></p>
+            <p><%= plant.comments %></p>
           </div>
           <form onSubmit="return false;" style="width: 100%">
             <p>
               <label for="name"> Comment: </label>
-              <input
-                type="text"
-                id="comment_input"
-                style="width: 80%"
-              />
+              <input type="text" id="comment_input" style="width: 80%" />
               <button id="chat_send" , onclick="sendComment()">Send</button>
             </p>
           </form>
