@@ -37,6 +37,6 @@ function sendComment() {
 
 
 
-export default {
+module.exports =  {
     init,
 }
