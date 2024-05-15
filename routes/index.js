@@ -94,9 +94,10 @@ router.get("/viewplant", function (req, res, next) {
 router.post("/updateComments", async (req, res) => {
   const { plantId, name, comment, date } = req.body;
   try {
-    await plantController.updateComments(plantId, name, comment, date);
+    await plants.updateComments(plantId, name, comment, date);
     res.status(200).send("Comment added successfully");
   } catch (error) {
+    console.error("Error in /updateComments endpoint:", error.message);
     res.status(500).send("Error adding comment");
   }
 });

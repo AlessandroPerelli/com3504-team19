@@ -85,9 +85,16 @@ exports.updateComments = async function (plantId, name, comment, date) {
       { $push: { comments: newComment } }
     );
 
+    if (result.nModified === 0) {
+      console.error(
+        `No documents were updated. Check if the plantId ${plantId} exists.`
+      );
+      throw new Error("Document not updated");
+    }
+
     console.log(`${result.nModified} document(s) updated`);
   } catch (error) {
-    console.error("Error updating value:", error);
+    console.error("Error updating value:", error.message);
+    throw error;
   }
 };
-
