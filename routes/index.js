@@ -7,7 +7,7 @@ var multer = require("multer");
 var bcrypt = require("bcrypt");
 var path = require("path");
 var session = require("express-session");
-const { formatDateTime } = require("../public/javascripts/plantViewLogic");
+const { formatDateTime } = require("../public/javascripts/plantUtilities");
 
 
 var storage = multer.diskStorage({

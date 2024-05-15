@@ -19,8 +19,8 @@
   <body>
     <% include components/navbar.ejs %>
     <div class="add-plant-container">
+      <h1>Add Plant</h1>
       <form action="/add" method="POST" enctype="multipart/form-data" id="add-plant">
-        <h1>Add Plant</h1>
         <div class="add-plant-form-container">
           <div class="add-plant-left">
             <div class="image-container">
@@ -93,15 +93,15 @@
             </div>
             <div class="item">
               <label for="full-sunlight" class="plant-full-sunlight">Needs full sunlight exposure?</label>
-              <input type="checkbox" id="full-sunlight" name="full_sun" />
+              <input type="checkbox" id="full-sunlight" class="sunlight-option" name="full_sun" onclick="toggleExclusiveCheckboxes(this)" />
             </div>
             <div class="item">
               <label for="partial-shade" class="plant-shade">Needs to have partial shade?</label>
-              <input type="checkbox" id="partial-shade" name="partial_shade" />
+              <input type="checkbox" id="partial-shade" class="sunlight-option" name="partial_shade" onclick="toggleExclusiveCheckboxes(this)" />
             </div>
             <div class="item">
               <label for="full-shade" class="plant-full-shade">Needs full shade?</label>
-              <input type="checkbox" id="full-shade" name="full_shade" />
+              <input type="checkbox" id="full-shade" class="sunlight-option" name="full_shade" onclick="toggleExclusiveCheckboxes(this)" />
             </div>
             <div class="item">
               <label for="evergreen" class="plant-evergreen">Is the plant an evergreen?</label>
@@ -141,5 +141,6 @@
     </div>
     <script src="/javascripts/insert.js"></script>
     <script src="/javascripts/idb-utility.js"></script>
+    <script src="/javascripts/plantUtilities.js"></script>
   </body>
 </html>
