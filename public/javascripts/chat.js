@@ -28,12 +28,35 @@ function writeOnHistory(text) {
 }
 
 function sendComment() {
-    let chatText = document.getElementById('comment_input').value;
-    name = "test"
-    date = Date.now();
-    socket.emit('chat', roomNo ,name, chatText)
-    updateComments(roomNo,name,chatText,date)
+  let chatText = document.getElementById("comment_input").value;
+  let name = "test";
+  let date = Date.now();
+  socket.emit("chat", roomNo, name, chatText);
+
+  fetch("/updateComments", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      plantId: roomNo,
+      name: name,
+      comment: chatText,
+      date: date,
+    }),
+  })
+    .then((response) => {
+      if (response.ok) {
+        updateComments(roomNo, name, chatText, date); // Optional: update UI after successful response
+      } else {
+        console.error("Failed to add comment");
+      }
+    })
+    .catch((error) => {
+      console.error("Error adding comment:", error);
+    });
 }
+
 
 
 

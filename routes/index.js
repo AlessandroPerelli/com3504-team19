@@ -91,6 +91,16 @@ router.get("/viewplant", function (req, res, next) {
     });
 });
 
+router.post("/updateComments", async (req, res) => {
+  const { plantId, name, comment, date } = req.body;
+  try {
+    await plantController.updateComments(plantId, name, comment, date);
+    res.status(200).send("Comment added successfully");
+  } catch (error) {
+    res.status(500).send("Error adding comment");
+  }
+});
+
 
 
 router.get("/user", function (req, res, next) {

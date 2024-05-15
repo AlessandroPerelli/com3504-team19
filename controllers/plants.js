@@ -72,23 +72,22 @@ exports.getAll = function () {
     });
 };
 
-exports.updateComments = function(plantId, name, comment, date) {
+exports.updateComments = async function (plantId, name, comment, date) {
   try {
-    const currentPlant = findById({_id: plantId})
-
-    const newComments = {
+    const newComment = {
       name: name,
       message: comment,
-      timeOfMessage: date
+      timeOfMessage: date,
     };
 
-    currentPlant.comments.push(newComments);
-    console.log(`${result.nModified} document(s) updated`);
-    plant.save();
-    
-  } catch (error) {
-    console.error('Error updating value:', error);
-  }
-}
+    const result = await plantModel.updateOne(
+      { _id: plantId },
+      { $push: { comments: newComment } }
+    );
 
+    console.log(`${result.nModified} document(s) updated`);
+  } catch (error) {
+    console.error("Error updating value:", error);
+  }
+};
 
