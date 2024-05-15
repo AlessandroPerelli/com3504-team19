@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
-  <head></head>
+  <head>
+    <script src="plantViewLogic.js" defer></script>
+  </head>
   <body>
     <div class="plant-information-container">
       <div class="image-side">
         <img src="/images/uploads/<%= plant.img %>" alt="plant" />
         <h3><%= plant.name %></h3>
-        <h3>Uploaded by: <%= plant.user_nickname %></h3>
-        <p><%= plant.time %></p>
+        <p>Picture taken in <%= plant.location %></p>
+        <p>Seen at <%= plant.sight_time_formatted %></p>
+        <p>Uploaded by: <%= plant.user_nickname %> at <%= plant.time_formatted %></p>
       </div>
       <div class="information-side">
         <div class="plant-information">

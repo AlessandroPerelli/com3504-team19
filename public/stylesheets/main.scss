@@ -376,7 +376,9 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding: 6rem;
+  padding-top: 0rem;
+  border-radius: 2rem;
   
     h1 {
       align-self: center;
@@ -388,6 +390,7 @@ button {
       flex-direction: row;
       justify-content: center;
       align-items: center;
+      padding: 2rem;
   
       .information-side {
         display: flex;
