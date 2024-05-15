@@ -3,6 +3,14 @@ let mongoose = require('mongoose');
 // Get the Schema class from mongoose
 let Schema = mongoose.Schema;
 
+let CommentSchema = new Schema(
+    {
+        name: {type: String},
+        message: {type: String},
+        timeOfMessage: {type: Date}
+    }
+)
+
 //     name: userData.name,
 //     time: userData.time,
 //     location: userData.location,
@@ -45,6 +53,8 @@ let PlantSchema = new Schema(
         identification_status: {type: Boolean}, // Don't do
 
         user_nickname: {type: String},
+
+        comments: [CommentSchema],
     }
 );
 

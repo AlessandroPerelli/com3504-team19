@@ -31,6 +31,8 @@ exports.create = function (userData, filePath) {
     identification_status: userData.identification_status,
 
     user_nickname: userData.user_nickname,
+
+    comments: [],
   });
 
   // Save the plant to the database and handle success or failure
@@ -52,7 +54,7 @@ exports.create = function (userData, filePath) {
     });
 };
 
-// Function to get all students
+// Function to get all plants
 exports.getAll = function () {
   // Retrieve all Plants from the database
   return plantModel
@@ -69,3 +71,24 @@ exports.getAll = function () {
       return null;
     });
 };
+
+exports.updateComments = function(plantId, name, comment, date) {
+  try {
+    const currentPlant = findById({_id: plantId})
+
+    const newComments = {
+      name: name,
+      message: comment,
+      timeOfMessage: date
+    };
+
+    currentPlant.comments.push(newComments);
+    console.log(`${result.nModified} document(s) updated`);
+    plant.save();
+    
+  } catch (error) {
+    console.error('Error updating value:', error);
+  }
+}
+
+
