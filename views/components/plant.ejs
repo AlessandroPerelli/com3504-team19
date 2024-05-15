@@ -20,7 +20,7 @@
         <!-- Message Area for comments -->
         <div id="message_area" class="message-area">
           <% comments.forEach(function(comment) { %>
-            <p><%= comment.message %></p>
+            <p><b> <%= comment.name %>:</b> <%= comment.message %></p>
           <% }); %>
         </div>
         <form onSubmit="return false;" style="width: 100%">

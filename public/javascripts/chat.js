@@ -8,7 +8,6 @@ function init(plantId) {
 
 socket.on("chat", function (room, userId, chatText) {
   let who = userId;
-  if (userId === name) who = "Me";
   writeOnHistory("<b>" + who + ":</b> " + chatText);
 });
 
