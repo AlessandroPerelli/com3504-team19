@@ -3,19 +3,19 @@ let roomNo = null;
 let socket = io();
 
 function init(plantId) {
-    connectToRoom(plantId);
+  connectToRoom(plantId);
 }
 
-socket.on('chat', function (room, userId, chatText) {
-    let who = userId
-    if (userId === name) who = 'Me'
-    writeOnHistory('<b>' + who + ':</b> ' + chatText)
+socket.on("chat", function (room, userId, chatText) {
+  let who = userId;
+  if (userId === name) who = "Me";
+  writeOnHistory("<b>" + who + ":</b> " + chatText);
 });
 
 function connectToRoom(plantId) {
-    roomNo = plantId
-    name = "test"
-    socket.emit('create or join', roomNo, name)
+  roomNo = plantId;
+  name = "test";
+  socket.emit("create or join", roomNo, name);
 }
 
 function writeOnHistory(text) {
@@ -47,7 +47,8 @@ function sendComment() {
   })
     .then((response) => {
       if (response.ok) {
-        updateComments(roomNo, name, chatText, date); // Optional: update UI after successful response
+        console.log("Comment added successfully");
+        writeOnHistory(`<b>${name}:</b> ${chatText}`); // Optional: update UI after successful response
       } else {
         console.error("Failed to add comment");
       }
@@ -55,11 +56,4 @@ function sendComment() {
     .catch((error) => {
       console.error("Error adding comment:", error);
     });
-}
-
-
-
-
-module.exports =  {
-    init,
 }
