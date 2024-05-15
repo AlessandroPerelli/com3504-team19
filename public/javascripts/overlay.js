@@ -14,8 +14,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to fetch plant details and display in the overlay
   function fetchPlantDetails(plantId) {
+    // Add a cache-busting parameter (timestamp)
+    const url = `/viewplant?id=${plantId}&_=${new Date().getTime()}`;
+
     // Make an AJAX request to fetch the plant component
-    fetch(`/viewplant?id=${plantId}`)
+    fetch(url)
       .then((response) => response.text())
       .then((data) => {
         console.log(plantId);

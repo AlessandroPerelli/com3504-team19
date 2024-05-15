@@ -82,24 +82,6 @@ a {
   cursor: pointer;
 }
 
-.search-input {
-  background-color: #F4F0E5;
-  border: none;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  font-size: 16px;
-  width: 35%;
-  box-sizing: border-box;
-
-  &::placeholder {
-    color: #A1824A;
-    font-size: larger;
-  }
-
-  &:focus {
-    outline: none;
-  }
-}
 
 button {
   cursor: pointer;
@@ -123,6 +105,9 @@ button {
 }
 
 .login-container {
+  margin-top: 10%;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
@@ -365,67 +350,6 @@ button {
   }
 }
 
-.view-plant-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-
-  h1 {
-    align-self: center;
-    font-weight: 1000;
-  }
-
-  .plant-information-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    border: solid 3px #F4F0E5;
-    padding: 2rem 3rem;
-
-    .information-side {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 0rem 2rem;
-      justify-content: space-around;
-
-    input {
-      background-color: transparent;
-      border: solid 1px #F4F0E5;
-      border-radius: 1rem;
-      padding: 1.5rem 1rem;
-      padding-right: 12rem;
-      font-size: 16px;
-      width: 100%;
-      box-sizing: border-box;
-  
-      &::placeholder {
-        color: #A1824A;
-        font-size: larger;
-        font-weight: 200;
-      }
-  
-      &:focus {
-        outline: none;
-      }
-    }
-
-    }
-
-    .image-side {
-      border-right: solid 3px #F4F0E5;
-
-      img {
-        width: 100%;
-        height: auto;
-      }
-
-    }
-  }
-}
-
 .overlay {
   display: none;
   position: fixed;
@@ -446,21 +370,66 @@ button {
   max-width: none;
   max-height: none;
   overflow-y: auto;
-  width: 90%;
+  height: 60%;
+  width: 60%;
   z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6rem;
+  padding-top: 0rem;
   border-radius: 2rem;
-}
-
-.overlay-content-add {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  max-width: none;
-  max-height: none;
-  overflow-y: auto;
-  width: 90%;
-  z-index: 10000;
-  border-radius: 2rem;
+  
+    h1 {
+      align-self: center;
+      font-weight: 1000;
+    }
+  
+    .plant-information-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      padding: 2rem;
+  
+      .information-side {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0rem 2rem;
+        justify-content: space-around;
+  
+        input {
+          background-color: transparent;
+          border: solid 1px #F4F0E5;
+          border-radius: 1rem;
+          padding: 1.5rem 1rem;
+          padding-right: 12rem;
+          font-size: 16px;
+          width: 100%;
+          box-sizing: border-box;
+  
+          &::placeholder {
+            color: #A1824A;
+            font-size: larger;
+            font-weight: 200;
+          }
+  
+          &:focus {
+            outline: none;
+          }
+        }
+  
+      }
+  
+      .image-side {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        img {
+          width: 100%;
+          height: auto;
+        }
+  
+      }
+    }
 }
