@@ -8,15 +8,20 @@ document.addEventListener("DOMContentLoaded", function () {
     item.addEventListener("click", function () {
       const plantId = this.dataset.plantId;
       fetchPlantDetails(plantId);
+      init(plantId);
     });
   });
 
   // Function to fetch plant details and display in the overlay
   function fetchPlantDetails(plantId) {
+    // Add a cache-busting parameter (timestamp)
+    const url = `/viewplant?id=${plantId}&_=${new Date().getTime()}`;
+
     // Make an AJAX request to fetch the plant component
-    fetch(`/viewplant?id=${plantId}`)
+    fetch(url)
       .then((response) => response.text())
       .then((data) => {
+        console.log(plantId);
         console.log(data);
         overlayContent.querySelector(".overlay-content-view").innerHTML = data;
         overlay.style.display = "block";
@@ -25,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error fetching plant details:", error);
       });
   }
-
+  
   // Add event listener to close the overlay when clicking outside the content
   overlay.addEventListener("click", function (event) {
     if (event.target === overlay) {

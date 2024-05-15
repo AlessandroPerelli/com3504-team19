@@ -2,11 +2,5 @@
   <% if (showCategoryName) { %>
     <h3><%= categoryName %></h3>
   <% } %>
-  <div class="plant-grid">
-    <% plants.forEach(plant => { %>
-      <div class="plant-item" data-plant-id="<%= plant.id %>">
-        <img src="<%= plant.image %>" alt="plant" />
-      </div>
-    <% }) %>
   </div>
 </div>
