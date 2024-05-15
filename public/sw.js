@@ -1,3 +1,5 @@
+importScripts('/javascripts/idb-utility.js');
+
 console.log('Service Worker Called...');
 
 // Use the install event to pre-cache all initial resources.
@@ -8,47 +10,80 @@ self.addEventListener('install', event => {
         console.log('Service Worker: Caching App Shell at the moment......');
         try {
             const cache = await caches.open("static");
-            const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
             const urlsToCache = [
                 '/main',
                 '/login',
-                '/user',
                 '/addplant',
                 '/javascripts/categories.js',
                 '/javascripts/changeUserProfile.js',
+                '/javascripts/chat.js',
+                '/javascripts/idb-utility.js',
                 '/javascripts/imageUpload.js',
-                '/javascripts/overlay.js',
-                '/javascripts/script.js',
                 '/javascripts/index.js',
+                '/javascripts/insert.js',
+                '/javascripts/overlay.js',
+                '/javascripts/plantViewLogic.js',
                 '/javascripts/switchCategory.js',
                 '/stylesheets/main.scss',
                 '/stylesheets/main.css',
                 '/stylesheets/main.css.map',
             ];
 
-            numbers.forEach(number => {
-                urlsToCache.push(`/viewplant?id=${number}`);
-            });
-
-            // Extract image URLs from main page (/main)
-            const response = await fetch('/main');
-            const responseClone = await response.clone();
-            const text = await responseClone.text();
-            const imageUrls = extractImageUrls(text);
-
-            // Add main page image URLs to urlsToCache
-            urlsToCache.push(...imageUrls);
-
             await cache.addAll(urlsToCache);
             console.log('Service Worker: App Shell Cached');
+
+            if (navigator.onLine) {
+                // Now, fetch data from MongoDB and add it to IndexedDB
+                const mongoDBData = await fetchMongoDBData();
+                await addMongoDBDataToIndexedDB(mongoDBData);
+
+                await syncPlantsWithIndexedDB();
+
+                const imageURLs = extractImageURLsFromPlants(mongoDBData);
+                await cacheImages(imageURLs);
+            }
         }
         catch{
-            console.log("error occured while caching...")
+            console.log("error occurred while caching...")
         }
 
     })());
 });
+
+// Function to sync plants with MongoDB
+async function syncPlantsWithMongoDB() {
+    console.log('Service Worker: Syncing plants with MongoDB');
+    const db = await openSyncPlantsIDB();
+    const tx = db.transaction('sync-plants', 'readonly');
+    const store = tx.objectStore('sync-plants');
+    const plants = await store.getAll();
+
+    if (plants.length > 0) {
+        try {
+            for (const plant of plants) {
+                const response = await fetch('http://localhost:3000/plants', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(plant),
+                });
+                if (response.ok) {
+                    console.log('Service Worker: Plant synced with MongoDB');
+                    // Remove synced plant from IndexedDB
+                    const deleteTx = db.transaction('sync-plants', 'readwrite');
+                    const deleteStore = deleteTx.objectStore('sync-plants');
+                    deleteStore.delete(plant._id);
+                } else {
+                    console.error('Service Worker: Failed to sync plant with MongoDB');
+                }
+            }
+        } catch (error) {
+            console.error('Service Worker: Failed to sync plants with MongoDB', error);
+        }
+    }
+}
 
 //clear cache on reload
 self.addEventListener('activate', event => {
@@ -64,6 +99,7 @@ self.addEventListener('activate', event => {
             })
         })()
     )
+    event.waitUntil(syncPlantsWithMongoDB());
 })
 
 // Fetch event to fetch from cache first
@@ -75,6 +111,20 @@ self.addEventListener('fetch', event => {
             console.log('Service Worker: Fetching from Cache: ', event.request.url);
             return cachedResponse;
         }
+
+        if (!navigator.onLine) {
+            // Check if the URL includes "/add"
+            if (event.request.url.includes('/add')) {
+                // Construct a redirect response to "/main"
+                return new Response(null, {
+                    status: 302,
+                    headers: {
+                        'Location': '/main'
+                    }
+                });
+            }
+        }
+
         console.log('Service Worker: Fetching from URL: ', event.request.url);
 
         // Handle specific requests for /viewplant pages
@@ -119,16 +169,43 @@ self.addEventListener('fetch', event => {
     })());
 });
 
-// Function to extract image URLs from HTML text using regular expressions and prevent duplicates
-function extractImageUrls(htmlText) {
-    const regex = /<img.*?src=["'](.*?)["']/g;
-    const imageUrls = [];
-    let match;
-    while ((match = regex.exec(htmlText)) !== null) {
-        const imageUrl = match[1];
-        if (!imageUrls.includes(imageUrl)) {
-            imageUrls.push(imageUrl);
-        }
+self.addEventListener('sync', event => {
+    if (event.tag === 'sync-plant') {
+        console.log('Service Worker: Syncing new Plants');
+        openSyncPlantsIDB().then((syncPostDB) => {
+            getAllSyncPlants(syncPostDB).then((syncPlants) => {
+                for (const syncPlant of syncPlants) {
+                    console.log('Service Worker: Syncing new Plant: ', syncPlant);
+                    // Create a FormData object
+                    const formData = new FormData();
+
+                    // Iterate over the properties of the JSON object and append them to FormData
+                    for (const key in syncPlant) {
+                        if (syncPlant.hasOwnProperty(key)) {
+                            formData.append(key, syncPlant[key]);
+                        }
+                    }
+
+                    // Fetch with FormData
+                    fetch('http://localhost:3000/add', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                        },
+                    }).then(response => {
+                        console.log(response);
+                        if (response.ok) {
+                            console.log('Service Worker: Syncing new Plant: ', syncPlant, ' done');
+                            // If the plant was successfully added, delete it from IndexedDB
+                            deleteSyncPlantFromIDB(syncPostDB, syncPlant._id);
+                        } else {
+                            console.error('Service Worker: Syncing new Plant: ', syncPlant, ' failed');
+                        }
+                    }).catch((err) => {
+                        console.error('Service Worker: Syncing new Plant: ', syncPlant, ' failed:', err);
+                    });
+                }
+            });
+        });
     }
-    return imageUrls;
-}
+});

@@ -145,6 +145,7 @@ router.get('/dbpedia', function (req, res, next) {
 
     }`;
 });
+
 router.post("/add", upload.single("img"), function (req, res) {
   let userData = req.body;
   if (!req.file) {
@@ -152,11 +153,12 @@ router.post("/add", upload.single("img"), function (req, res) {
   }
 
   let filePath = req.file.path;
+
   let filename = filePath.split(/\\|\//).pop();
 
   let result = plants.create(userData, filename);
   console.log(result);
-  res.redirect("/");
+  res.redirect("/main");
 });
 
 
@@ -223,5 +225,16 @@ router.post("/login", function (req, res, next) {
       res.status(500).send("Internal server error");
     });
 });
+
+// route to get all plants
+router.get('/plants', function (req, res, next) {
+  plants.getAll().then(plantList => {
+    console.log(plantList);
+    return res.status(200).send(plantList);
+  }).catch(err => {
+    console.log(err);
+    res.status(500).send(err);
+  });
+})
 
 module.exports = router;
