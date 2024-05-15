@@ -61,6 +61,10 @@ header {
   border-bottom: solid 3px #E5E8EB;
 }
 
+label {
+  font-weight: 500;
+}
+
 .navbar {
   display: flex;
   justify-content: space-around;
@@ -225,7 +229,7 @@ button:hover {
   transition: transform 0.2s;
 }
 .plant-grid .plant-item:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 .plant-grid .plant-item img {
   width: 100%;
@@ -273,7 +277,6 @@ button:hover {
   flex-direction: column;
   align-items: center;
   padding: 2rem;
-  margin: 0% 20%;
 }
 .add-plant-container h1 {
   align-self: center;
@@ -282,15 +285,17 @@ button:hover {
 
 .add-plant-form-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  gap: 2rem;
 }
 .add-plant-form-container input {
   background-color: transparent;
-  border: solid 1px #F4F0E5;
+  border: solid 1px #ebe8e0;
   border-radius: 1rem;
   padding: 1.5rem 1rem;
   padding-right: 12rem;
+  margin-top: 2%;
   font-size: 16px;
   width: 100%;
   box-sizing: border-box;
@@ -314,6 +319,7 @@ button:hover {
   border-radius: 1rem;
   padding: 4rem 1rem;
   padding-right: 12rem;
+  margin-top: 2%;
   font-size: 16px;
   width: 100%;
   box-sizing: border-box;
@@ -334,9 +340,29 @@ button:hover {
 .add-plant-form-container textarea:focus {
   outline: none;
 }
+.add-plant-form-container .times {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.add-plant-form-container .checkbox-items {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.add-plant-form-container .dimensions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 .add-plant-form-container .item {
   display: flex;
   flex-direction: column;
+}
+.add-plant-form-container button {
+  padding: 1rem 7rem;
+  border-radius: 2rem;
+  font-size: larger;
 }
 
 .image-container {
