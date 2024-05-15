@@ -47,11 +47,11 @@ self.addEventListener('install', event => {
             await cache.addAll(urlsToCache);
             console.log('Service Worker: App Shell Cached');
 
-            // Now, fetch data from MongoDB and add it to IndexedDB
-            const mongoDBData = await fetchMongoDBData();
-            await addMongoDBDataToIndexedDB(mongoDBData);
-
             if (navigator.onLine) {
+                // Now, fetch data from MongoDB and add it to IndexedDB
+                const mongoDBData = await fetchMongoDBData();
+                await addMongoDBDataToIndexedDB(mongoDBData);
+
                 await syncPlantsWithIndexedDB();
             }
         }
