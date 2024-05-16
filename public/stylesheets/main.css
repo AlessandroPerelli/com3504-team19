@@ -218,8 +218,7 @@ button:hover {
 .plant-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 0.5vh;
-  margin: 20px 0;
+  gap: 1vh;
 }
 .plant-grid .plant-item {
   background: #fff;
