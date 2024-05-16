@@ -1,20 +1,32 @@
-<div class="view-plant-container">
-  <div class="plant-information-container">
-    <div class="image-side">
-      <img src="<%= plant.image %>" alt="plant" />
-    </div>
-    <div class="information-side">
-      <div class="plant-information">
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="plantViewLogic.js" defer></script>
+  </head>
+  <body>
+    <div class="plant-information-container">
+      <div class="image-side">
+        <img src="/images/uploads/<%= plant.img %>" alt="plant" />
         <h3><%= plant.name %></h3>
-        <p>Look at how cute this plant is</p>
-        <h3>Creator of post goes here</h3>
+        <p>Picture taken in <%= plant.location %></p>
+        <p>Seen at <%= plant.sight_time_formatted %></p>
+        <p>Uploaded by: <%= plant.user_nickname %></p>
+        <p><%= plant.time_formatted %></p>
       </div>
-      <!-- Message Area for comments -->
-      <div id="messageArea" class="message-area">
-        <!-- Messages will be dynamically inserted here -->
-      </div>
-      <input type="text" placeholder="Comment" />
-    </div>
-  </div>
-</div>
+      <div class="information-side">
+        <div class="plant-information">
+          <p><%= plant.desc %></p>
+        </div>
+        <!-- Message Area for comments -->
+        <div id="message_area" class="message-area">
+          <% comments.forEach(function(comment) { %>
+            <p><b> <%= comment.name %>:</b> <%= comment.message %></p>
+          <% }); %>
+        </div>
+        <div id="send_message">
 
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

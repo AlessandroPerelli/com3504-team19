@@ -16,23 +16,23 @@
   </head>
   <body>
     <% include components/navbar %>
-    <div class="login-container flex">
+    <div class="login-container">
       <h1><%= title %></h1>
       <p>Discover the world of plants</p>
-      <div class="form-buttons">
-        <button
-          id="loginButton"
-          class="active"
-          onclick="handleCredentialsFormSwitch()"
-        >
-          Login
-        </button>
-        <button id="signupButton" onclick="handleCredentialsFormSwitch()">
-          Signup
-        </button>
+      <div id="loginForm">
+        <form action="/login" method="post">
+          <div class="form-item">
+            <label for="identifier">Username</label>
+            <input type="text" name="identifier" id="username" placeholder="Enter your username" />
+          </div>
+          <div class="form-item">
+            <button class="active" type="submit" onclick="setUsername()">Enter</button>
+          </div>
+        </form>
       </div>
-      <% include components/signupform %> <% include components/loginform %>
     </div>
     <script src="/javascripts/script.js"></script>
+    <script src="/javascripts/login.js"></script>
+
   </body>
 </html>
