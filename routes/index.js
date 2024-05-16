@@ -126,12 +126,17 @@ router.get("/user", function (req, res, next) {
   }
 });
 
+router.post('/dbpedia',function(req, res, next) {
+  
+});
+
 router.get('/dbpedia', function (req, res, next) {
   console.log(req.query);
   const plantName = req.query.plantName;
   console.log("Hello i have the "+plantName);
   const resource = `http://dbpedia.org/resource/${plantName}`;
   console.log(resource);
+  console.log("hellO");
   const endpointUrl = 'https://dbpedia.org/sparql';
   const sparqlQuery = ` 
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -147,31 +152,37 @@ router.get('/dbpedia', function (req, res, next) {
     FILTER (langMatches(lang(?description), "en")) .
 
     }`
-  const encodedQuery = encodeURIComponent(sparqlQuery)
-
+  const encodedQuery = encodeURIComponent(sparqlQuery);
+  console.log("hello 2");
   const url = `${endpointUrl}?query=${encodedQuery}&format=json`;
 
   fetch(url)
       .then(response => response.json())
       .then(data => {
+        console.log("hello3");
         if(data){
           let bindings = data.results.bindings;
           let results = JSON.stringify(bindings);
-  
-          console.log(bindings);
-  
+
+          console.log("hello4");
+          console.log("I did this right");
           res.render('dbpedia_results', {
             name: bindings[0].label.value,
             description: bindings[0].description.value,
             taxon: bindings[0].taxon.value,
-            JSONresult: results
+            page: bindings[0].page.value
           });
+          console.log("I did this right");
         }
         else{
           res.status(404).send("Plant not found"); 
         }
       });
+      res.redirect('/login')
 });
+
+
+
 
 router.post("/add", upload.single("img"), function (req, res) {
   let userData = req.body;

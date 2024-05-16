@@ -6,7 +6,8 @@ let socket = io();
 
 document.getElementById("overlay").addEventListener("overlayShown", function(){
   verifyUsername();
-  updateDBPediaLink();
+  var button = document.getElementById("DBPedia");
+  button.addEventListener("click", sendNameToDBPedia());
 });
 
 function init(plantId) {
@@ -107,12 +108,16 @@ function verifyUsername(){
   container.appendChild(form);
 }
 
-function updateDBPediaLink(){
-  if(navigator.onLine){
-    var plantName = document.getElementById("plant_name").innerText; 
-    var form = document.getElementById("DBPedia_form");
+function sendNameToDBPedia(){
+  var plantName = document.getElementById("plant_name").innerText;
   
-    form.setAttribute("action",`/dbpedia?plantName=${plantName}`);
-    console.log(form.action);
-  }
+  fetch('/dbpedia?plantName=' + encodeURIComponent(plantName), {
+    method: 'GET'
+  })
+  .then(response => {
+    console.log("Name sent to DBPedia")
+  })
+  .catch(error => {
+    console.error('Error sending DBPedia data:', error);
+  });
 }
