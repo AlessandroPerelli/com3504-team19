@@ -22,7 +22,6 @@ self.addEventListener('install', event => {
                 '/javascripts/idb-utility.js',
                 '/javascripts/imageUpload.js',
                 '/javascripts/index.js',
-                '/javascripts/insert.js',
                 '/javascripts/login.js',
                 '/javascripts/overlay.js',
                 '/javascripts/plantUtilities.js',
@@ -30,6 +29,7 @@ self.addEventListener('install', event => {
                 '/stylesheets/main.scss',
                 '/stylesheets/main.css',
                 '/stylesheets/main.css.map',
+                '/images/avatar.png',
             ];
 
             await cache.addAll(urlsToCache);
@@ -115,9 +115,8 @@ self.addEventListener('fetch', event => {
                 console.log('Service Worker: Fetching from Cache: ', event.request.url);
                 return cachedResponse;
             }
-
             // Check if the URL includes "/add"
-            if (event.request.url.includes('/add')) {
+            if (event.request.url.includes('/add') && !event.request.url.includes('/addplant')) {
                 // Construct a redirect response to "/main"
                 return new Response(null, {
                     status: 302,
