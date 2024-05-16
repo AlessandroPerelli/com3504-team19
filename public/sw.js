@@ -213,11 +213,11 @@ self.addEventListener('sync', event => {
 
     if (event.tag === 'sync-chats') {
         console.log('Service Worker: Syncing new chats');
-        openSyncChatsIDB().then((syncPostDB) => {
+        openSyncIDB("sync-chats").then((syncPostDB) => {
             getAllSync(syncPostDB, "sync-chats").then((syncChats) => {
                 for (const syncChat of syncChats) {
                     console.log('Service Worker: Syncing new Chat: ', syncChat);
-                    console.log(syncChat.text)
+                    console.log(syncChat.message)
                     // Create a FormData object
                     const formData = new FormData();
 
