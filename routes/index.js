@@ -168,7 +168,7 @@ router.get('/dbpedia', function (req, res, next) {
                   name: bindings[0].label.value,
                   description: bindings[0].description.value,
                   taxon: bindings[0].taxon.value,
-                  JSONresult: results
+                  page: bindings[0].page.value,
 
 
 
