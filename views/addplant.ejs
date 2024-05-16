@@ -23,10 +23,9 @@
       <form action="/add" method="POST" enctype="multipart/form-data" id="add-plant">
         <div class="add-plant-form-container">
           <div class="image-container">
-            <input type="file" class="image-file" id="imageFile" name="img" />
-            <label for="imageFile" class="image-label"
-              >Drag and drop or click here to upload an image</label
-            >
+            <input type="file" class="image-file" id="imageFile" name="img" style="display: none;" />
+            <label for="imageFile" class="image-label">Drag and drop or click here to upload an image</label>
+            <img id="imagePreview" class="image-preview" src="" alt="Image Preview" />
           </div>
           <div class="item">
             <label for="plantName">Plant name</label>
@@ -77,46 +76,48 @@
               placeholder="Enter the plant description"
             ></textarea>
           </div>
-          <div class="checkbox-items">
-            <div class="item">
-              <label for="flowers" class="plant-flowers">Has flowers?</label>
-              <input type="checkbox" id="flowers" name="does_the_plant_have_flowers" />
+          <div class="checkbox-items-box">
+            <div class="checkbox-items">
+              <div class="item">
+                <label for="flowers" class="plant-flowers">Has flowers?</label>
+                <input type="checkbox" id="flowers" name="does_the_plant_have_flowers" />
+              </div>
+              <div class="item">
+                <label for="leaves" class="plant-leaves">Has leaves?</label>
+                <input type="checkbox" id="leaves" name="does_the_plant_have_leaves" />
+              </div>
+              <div class="item">
+                <label for="fruit" class="plant-fruit">Has fruit?</label>
+                <input type="checkbox" id="fruit" name="does_the_plant_have_fruit" />
+              </div>
             </div>
-            <div class="item">
-              <label for="leaves" class="plant-leaves">Has leaves?</label>
-              <input type="checkbox" id="leaves" name="does_the_plant_have_leaves" />
+            <div class="checkbox-items">
+              <div class="item">
+                <label for="full-sunlight" class="plant-full-sunlight">Needs full sunlight exposure?</label>
+                <input type="checkbox" id="full-sunlight" class="sunlight-option" name="full_sun" onclick="toggleExclusiveCheckboxes(this)" />
+              </div>
+              <div class="item">
+                <label for="partial-shade" class="plant-shade">Needs to have partial shade?</label>
+                <input type="checkbox" id="partial-shade" class="sunlight-option" name="partial_shade" onclick="toggleExclusiveCheckboxes(this)" />
+              </div>
+              <div class="item">
+                <label for="full-shade" class="plant-full-shade">Needs full shade?</label>
+                <input type="checkbox" id="full-shade" class="sunlight-option" name="full_shade" onclick="toggleExclusiveCheckboxes(this)" />
+              </div>
             </div>
-            <div class="item">
-              <label for="fruit" class="plant-fruit">Has fruit?</label>
-              <input type="checkbox" id="fruit" name="does_the_plant_have_fruit" />
-            </div>
-          </div>
-          <div class="checkbox-items">
-            <div class="item">
-              <label for="full-sunlight" class="plant-full-sunlight">Needs full sunlight exposure?</label>
-              <input type="checkbox" id="full-sunlight" class="sunlight-option" name="full_sun" onclick="toggleExclusiveCheckboxes(this)" />
-            </div>
-            <div class="item">
-              <label for="partial-shade" class="plant-shade">Needs to have partial shade?</label>
-              <input type="checkbox" id="partial-shade" class="sunlight-option" name="partial_shade" onclick="toggleExclusiveCheckboxes(this)" />
-            </div>
-            <div class="item">
-              <label for="full-shade" class="plant-full-shade">Needs full shade?</label>
-              <input type="checkbox" id="full-shade" class="sunlight-option" name="full_shade" onclick="toggleExclusiveCheckboxes(this)" />
-            </div>
-          </div>
-          <div class="checkbox-items">
-            <div class="item">
-              <label for="evergreen" class="plant-evergreen">Is the plant an evergreen?</label>
-              <input type="checkbox" id="evergreen" name="evergreen" />
-            </div>
-            <div class="item">
-              <label for="succulent" class="plant-succulent">Is the plant a succulent?</label>
-              <input type="checkbox" id="succulent" name="succulent" />
-            </div>
-            <div class="item">
-              <label for="forest" class="plant-forest">Is the plant in a forest?</label>
-              <input type="checkbox" id="forest" name="forest" />
+            <div class="checkbox-items">
+              <div class="item">
+                <label for="evergreen" class="plant-evergreen">Is the plant an evergreen?</label>
+                <input type="checkbox" id="evergreen" name="evergreen" />
+              </div>
+              <div class="item">
+                <label for="succulent" class="plant-succulent">Is the plant a succulent?</label>
+                <input type="checkbox" id="succulent" name="succulent" />
+              </div>
+              <div class="item">
+                <label for="forest" class="plant-forest">Is the plant in a forest?</label>
+                <input type="checkbox" id="forest" name="forest" />
+              </div>
             </div>
           </div>
           <div class="item">
@@ -147,5 +148,6 @@
     <script src="/javascripts/insert.js"></script>
     <script src="/javascripts/idb-utility.js"></script>
     <script src="/javascripts/plantUtilities.js"></script>
+    <script src="/javascripts/imageUpload.js"></script>
   </body>
 </html>
