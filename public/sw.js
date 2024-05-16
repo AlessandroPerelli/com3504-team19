@@ -56,7 +56,7 @@ self.addEventListener('install', event => {
 // Function to sync plants with MongoDB
 async function syncPlantsWithMongoDB() {
     console.log('Service Worker: Syncing plants with MongoDB');
-    const db = await openSyncPlantsIDB();
+    const db = await openSyncIDB("sync-plants");
     const tx = db.transaction('sync-plants', 'readonly');
     const store = tx.objectStore('sync-plants');
     const plants = await store.getAll();
@@ -174,8 +174,8 @@ self.addEventListener('fetch', event => {
 self.addEventListener('sync', event => {
     if (event.tag === 'sync-plant') {
         console.log('Service Worker: Syncing new Plants');
-        openSyncPlantsIDB().then((syncPostDB) => {
-            getAllSyncPlants(syncPostDB).then((syncPlants) => {
+        openSyncIDB("sync-plants").then((syncPostDB) => {
+            getAllSync(syncPostDB, "sync-plants").then((syncPlants) => {
                 for (const syncPlant of syncPlants) {
                     console.log('Service Worker: Syncing new Plant: ', syncPlant);
                     // Create a FormData object
@@ -199,12 +199,46 @@ self.addEventListener('sync', event => {
                         if (response.ok) {
                             console.log('Service Worker: Syncing new Plant: ', syncPlant, ' done');
                             // If the plant was successfully added, delete it from IndexedDB
-                            deleteSyncPlantFromIDB(syncPostDB, syncPlant._id);
+                            deleteSyncFromIDB(syncPostDB, syncPlant._id, "sync-plants");
                         } else {
                             console.error('Service Worker: Syncing new Plant: ', syncPlant, ' failed');
                         }
                     }).catch((err) => {
                         console.error('Service Worker: Syncing new Plant: ', syncPlant, ' failed:', err);
+                    });
+                }
+            });
+        });
+    }
+
+    if (event.tag === 'sync-chats') {
+        console.log('Service Worker: Syncing new chats');
+        openSyncChatsIDB().then((syncPostDB) => {
+            getAllSync(syncPostDB, "sync-chats").then((syncChats) => {
+                for (const syncChat of syncChats) {
+                    console.log('Service Worker: Syncing new Chat: ', syncChat);
+                    console.log(syncChat.text)
+                    // Create a FormData object
+                    const formData = new FormData();
+
+                    // Iterate over the properties of the JSON object and append them to FormData
+                    for (const key in syncChat) {
+                        if (syncChat.hasOwnProperty(key)) {
+                            formData.append(key, syncChat[key]);
+                        }
+                    }
+
+                    // Fetch with FormData instead of JSON
+                    fetch('http://localhost:3000/updateComments', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                        },
+                    }).then(() => {
+                        console.log('Service Worker: Syncing new Chat: ', syncChat, ' done');
+                        deleteSyncChatFromIDB(syncPostDB,syncChat._id);
+                    }).catch((err) => {
+                        console.error('Service Worker: Syncing new Chat: ', syncChat, ' failed');
                     });
                 }
             });

@@ -22,10 +22,10 @@ async function addMongoDBDataToIndexedDB(data) {
 }
 
 // Function to handle adding a new plant
-const addNewPlantToSync = (syncPlantIDB, form_data) => {
+const addNewToSync = (syncPlantIDB, form_data, syncIDB) => {
 
-    const transaction = syncPlantIDB.transaction(["sync-plants"], "readwrite")
-    const plantStore = transaction.objectStore("sync-plants")
+    const transaction = syncPlantIDB.transaction([syncIDB], "readwrite")
+    const plantStore = transaction.objectStore(syncIDB)
     const addRequest = plantStore.add(Object.fromEntries(form_data))
     addRequest.addEventListener("success", () => {
         console.log("Added " + "#" + addRequest.result + ": " + form_data)
@@ -171,10 +171,10 @@ async function syncPlantsWithIndexedDB() {
 }
 
 // Function to get the plant list from the IndexedDB
-const getAllSyncPlants = (syncPlantIDB) => {
+const getAllSync = (syncPlantIDB, syncIDB) => {
     return new Promise((resolve, reject) => {
-        const transaction = syncPlantIDB.transaction(["sync-plants"]);
-        const plantStore = transaction.objectStore("sync-plants");
+        const transaction = syncPlantIDB.transaction([syncIDB]);
+        const plantStore = transaction.objectStore(syncIDB);
         const getAllRequest = plantStore.getAll();
 
         getAllRequest.addEventListener("success", () => {
@@ -188,9 +188,9 @@ const getAllSyncPlants = (syncPlantIDB) => {
 }
 
 // Function to delete a syn
-const deleteSyncPlantFromIDB = (syncPlantIDB, id) => {
-    const transaction = syncPlantIDB.transaction(["sync-plants"], "readwrite")
-    const plantStore = transaction.objectStore("sync-plants")
+const deleteSyncFromIDB = (syncPlantIDB, id, syncIDB) => {
+    const transaction = syncPlantIDB.transaction([syncIDB], "readwrite")
+    const plantStore = transaction.objectStore(syncIDB)
     const deleteRequest = plantStore.delete(id)
     deleteRequest.addEventListener("success", () => {
         console.log("Deleted " + id)
@@ -217,9 +217,9 @@ function openPlantsIDB() {
     });
 }
 
-function openSyncPlantsIDB() {
+function openSyncIDB(syncIDB) {
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open("sync-plants", 1);
+        const request = indexedDB.open(syncIDB, 1);
 
         request.onerror = function (event) {
             reject(new Error(`Database error: ${event.target}`));
@@ -227,7 +227,7 @@ function openSyncPlantsIDB() {
 
         request.onupgradeneeded = function (event) {
             const db = event.target.result;
-            db.createObjectStore('sync-plants', {keyPath: '_id', autoIncrement: true});
+            db.createObjectStore(syncIDB, {keyPath: '_id', autoIncrement: true});
         };
 
         request.onsuccess = function (event) {

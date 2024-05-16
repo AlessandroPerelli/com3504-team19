@@ -30,8 +30,8 @@ const addPlantEventListener = () => {
     const form_data = new FormData(document.getElementById('add-plant'));
     console.log(form_data);
     if (!navigator.onLine) {
-        openSyncPlantsIDB().then((db) => {
-            addNewPlantToSync(db, form_data);
+        openSyncIDB("sync-plants").then((db) => {
+            addNewToSync(db, form_data, "sync-plants");
         });
     }
 }
