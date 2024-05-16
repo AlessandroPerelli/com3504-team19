@@ -89,7 +89,7 @@ function verifyUsername(){
 
   }else{
     form.setAttribute("action","/setUsername");
-    form.setAttribute("method","post");
+    form.setAttribute("method","POST");
 
     var nickname_button = document.createElement("button");
     nickname_button.setAttribute("class","active");
