@@ -7,7 +7,7 @@ var multer = require("multer");
 var bcrypt = require("bcrypt");
 var path = require("path");
 var session = require("express-session");
-const { formatDateTime } = require("../public/javascripts/plantViewLogic");
+const { formatDateTime } = require("../public/javascripts/plantUtilities");
 
 
 var storage = multer.diskStorage({
@@ -81,9 +81,15 @@ router.get("/viewplant", function (req, res, next) {
       const allPlantsData = JSON.parse(plant);
       const plantData = allPlantsData.find((p) => p._id === plantId);
       if (plantData) {
-          plantData.sight_time_formatted = formatDateTime(plantData.sight_time);
-          plantData.time_formatted = formatDateTime(plantData.time);
-        res.render("components/plant", { plant: plantData, layout: false, comments: plantData.comments});
+        // Format sight_time and time before passing to the template
+        plantData.sight_time_formatted = formatDateTime(plantData.sight_time);
+        plantData.time_formatted = formatDateTime(plantData.time);
+
+        res.render("components/plant", {
+          plant: plantData,
+          layout: false,
+          comments: plantData.comments,
+        });
       } else {
         res.status(404).send("Plant not found");
       }

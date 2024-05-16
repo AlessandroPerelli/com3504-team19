@@ -21,6 +21,10 @@ header {
   border-bottom: solid 3px #E5E8EB;
 }
 
+label {
+  font-weight: 500;
+}
+
 .navbar {
   display: flex;
   justify-content: space-around;
@@ -81,7 +85,6 @@ a {
   margin: 0 10px;
   cursor: pointer;
 }
-
 
 button {
   cursor: pointer;
@@ -194,7 +197,7 @@ button {
     transition: transform 0.2s;
 
     &:hover {
-      transform: scale(1.05);
+      transform: scale(1.02);
     }
 
     img {
@@ -247,7 +250,6 @@ button {
   flex-direction: column;
   align-items: center;
   padding: 2rem;
-  margin: 0% 20%;
 
   h1 {
     align-self: center;
@@ -257,15 +259,17 @@ button {
 
 .add-plant-form-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  gap: 2rem;
 
   input {
     background-color: transparent;
-    border: solid 1px #F4F0E5;
+    border: solid 1px #ebe8e0;
     border-radius: 1rem;
     padding: 1.5rem 1rem;
     padding-right: 12rem;
+    margin-top: 2%;
     font-size: 16px;
     width: 100%;
     box-sizing: border-box;
@@ -287,6 +291,7 @@ button {
     border-radius: 1rem;
     padding: 4rem 1rem;
     padding-right: 12rem;
+    margin-top: 2%;
     font-size: 16px;
     width: 100%;
     box-sizing: border-box;
@@ -305,11 +310,34 @@ button {
     }
   }
 
+  .times {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .checkbox-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .dimensions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
   .item {
     display: flex;
     flex-direction: column;
   }
 
+  button {
+    padding: 1rem 7rem;
+    border-radius: 2rem;
+    font-size: larger;
+  }
 }
 
 .image-container {
