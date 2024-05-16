@@ -36,30 +36,45 @@ function sendComment() {
   let chatText = document.getElementById("comment_input").value;
   let name = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
   let date = Date.now();
+  let commentData = {
+    plantId: roomNo,
+    name: name,
+    comment: chatText,
+    date: date
+  };
+
   socket.emit("chat", roomNo, name, chatText);
 
-  fetch("/updateComments", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      plantId: roomNo,
-      name: name,
-      comment: chatText,
-      date: date,
-    }),
-  })
-    .then((response) => {
-      if (response.ok) {
-        console.log("Comment added successfully");
-      } else {
-        console.error("Failed to add comment");
-      }
-    })
-    .catch((error) => {
-      console.error("Error adding comment:", error);
+  if (!navigator.onLine) {
+    openSyncIDB("sync-chats").then((db) => {
+        addNewToSync(db, commentData, "sync-chats");
     });
+
+  } else {
+    fetch("/updateComments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        plantId: roomNo,
+        name: name,
+        comment: chatText,
+        date: date,
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("Comment added successfully");
+        } else {
+          console.error("Failed to add comment");
+        }
+      })
+      .catch((error) => {
+        console.error("Error adding comment:", error);
+      });
+
+  }
 }
 
 function verifyUsername(){
@@ -101,4 +116,50 @@ function verifyUsername(){
   }
 
   container.appendChild(form);
+}
+
+function openSyncIDB(syncIDB) {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(syncIDB, 1);
+
+    request.onerror = function (event) {
+      reject(new Error(`Database error: ${event.target}`));
+    };
+
+    request.onupgradeneeded = function (event) {
+      const db = event.target.result;
+      db.createObjectStore(syncIDB, {keyPath: '_id', autoIncrement: true});
+    };
+
+    request.onsuccess = function (event) {
+      const db = event.target.result;
+      resolve(db);
+    };
+  });
+}
+
+const addNewToSync = (syncPlantIDB, commentData, syncIDB) => {
+  const transaction = syncPlantIDB.transaction([syncIDB], "readwrite");
+  const plantStore = transaction.objectStore(syncIDB);
+
+  // Directly add the commentData object to the store
+  const addRequest = plantStore.add(commentData);
+
+  addRequest.addEventListener("success", () => {
+    console.log("Added " + "#" + addRequest.result + ": " + JSON.stringify(commentData));
+
+    const getRequest = plantStore.get(addRequest.result);
+    getRequest.addEventListener("success", () => {
+      console.log("Found " + JSON.stringify(getRequest.result));
+
+      // Send a sync message to the service worker
+      navigator.serviceWorker.ready.then((sw) => {
+        sw.sync.register("sync-plant");
+      }).then(() => {
+        console.log("Sync registered");
+      }).catch((err) => {
+        console.log("Sync registration failed: " + JSON.stringify(err));
+      });
+    });
+  });
 }

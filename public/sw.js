@@ -44,6 +44,9 @@ self.addEventListener('install', event => {
 
                 const imageURLs = extractImageURLsFromPlants(mongoDBData);
                 await cacheImages(imageURLs);
+
+                const plantUrls = getPlantUrls(mongoDBData);
+                await cacheImages(plantUrls);
             }
         }
         catch{
@@ -87,6 +90,42 @@ async function syncPlantsWithMongoDB() {
     }
 }
 
+// Function to sync plants with MongoDB
+async function syncChatsWithMongoDB() {
+    console.log('Service Worker: Syncing chats with MongoDB');
+    const db = await openSyncIDB("sync-chats");
+    const tx = db.transaction('sync-chats', 'readonly');
+    const store = tx.objectStore('sync-chats');
+    const chats = await store.getAll();
+
+    if (chats.length > 0) {
+        try {
+            for (const chat of chats) {
+                const plantId = chat.plantId;
+
+                const response = await fetch(`http://localhost:3000/plants/${plantId}/addChat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(chat),
+                });
+                if (response.ok) {
+                    console.log('Service Worker: Chat synced with MongoDB');
+                    // Remove synced plant from IndexedDB
+                    const deleteTx = db.transaction('sync-chats', 'readwrite');
+                    const deleteStore = deleteTx.objectStore('sync-chats');
+                    deleteStore.delete(plant._id);
+                } else {
+                    console.error('Service Worker: Failed to sync chat with MongoDB');
+                }
+            }
+        } catch (error) {
+            console.error('Service Worker: Failed to sync chats with MongoDB', error);
+        }
+    }
+}
+
 //clear cache on reload
 self.addEventListener('activate', event => {
 // Remove old caches
@@ -102,6 +141,7 @@ self.addEventListener('activate', event => {
         })()
     )
     event.waitUntil(syncPlantsWithMongoDB());
+    event.waitUntil(syncChatsWithMongoDB());
 })
 
 // Fetch event to fetch from cache first
@@ -116,7 +156,7 @@ self.addEventListener('fetch', event => {
                 return cachedResponse;
             }
             // Check if the URL includes "/add"
-            if (event.request.url.includes('/add') && !event.request.url.includes('/addplant')) {
+            if ((event.request.url.includes('/add') && !event.request.url.includes('/addplant')) || event.request.url.includes('chat_input')) {
                 // Construct a redirect response to "/main"
                 return new Response(null, {
                     status: 302,

@@ -112,27 +112,37 @@ const deleteAllExistingPlantsFromIDB = (plantIDB) => {
 const extractImageURLsFromPlants = (plants) => {
     const imageURLs = [];
     plants.forEach(plant => {
-        if (plant.img && typeof plant.img === 'string') {
-            imageURLs.push(plant.img);
-        }
+        const plantImg = plant.img;
+        const plantUrl = `/images/uploads/${plantImg}`;
+        imageURLs.push(plantUrl);
     });
     return imageURLs;
 };
+
+const getPlantUrls = (plantIds) => {
+    const plantUrls = [];
+
+    plantIds.forEach(plant => {
+        const plantId = plant._id;
+        const plantUrl = `/viewplant?id=${plantId}`;
+        plantUrls.push(plantUrl);
+    });
+
+    return plantUrls;
+}
 
 // Function to cache images
 const cacheImages = async (imageURLs) => {
     const cache = await caches.open("static");
     const imagePromises = imageURLs.map(async (url) => {
-        const imageURL = `/images/uploads/${url}`; // Append "/public/images/" to the image URL
         try {
-            const response = await fetch(imageURL);
+            const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Failed to fetch');
             }
-            await cache.put(imageURL, response);
-            console.log('Cached image:', imageURL);
+            await cache.put(url, response);
         } catch (error) {
-            console.error('Failed to cache image:', imageURL, error);
+            console.error('Failed to cache image:', url, error);
         }
     });
 
