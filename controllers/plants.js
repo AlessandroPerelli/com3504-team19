@@ -15,7 +15,7 @@ exports.create = function (userData, filePath) {
     sight_time: userData.sight_time,
     height: userData.height,
     spread: userData.spread,
-
+    colour: userData.colour,
     //Plant Characteristics
     does_the_plant_have_flowers: userData.does_the_plant_have_flowers === "on",
     does_the_plant_have_leaves: userData.does_the_plant_have_leaves === "on",
