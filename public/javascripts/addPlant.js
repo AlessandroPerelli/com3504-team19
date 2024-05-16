@@ -2,7 +2,7 @@ const LOCAL_STORAGE_KEY = "username"
 function verifyUsernameToAddPlant(){
     const username = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
     var addButton = document.getElementById("submit-button");
-    var addPlantForm = document.getElementById("add-plant-form");
+    var addPlantForm = document.getElementById("add-plant");
     var usernameInput = document.getElementById("user-nickname");
 
     if(username){
