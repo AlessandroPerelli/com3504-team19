@@ -76,48 +76,49 @@
               placeholder="Enter the plant description"
             ></textarea>
           </div>
-          <div class="checkbox-items-box">
-            <div class="checkbox-items">
-              <div class="item">
-                <label for="flowers" class="plant-flowers">Has flowers?</label>
-                <input type="checkbox" id="flowers" name="does_the_plant_have_flowers" />
-              </div>
-              <div class="item">
-                <label for="leaves" class="plant-leaves">Has leaves?</label>
-                <input type="checkbox" id="leaves" name="does_the_plant_have_leaves" />
-              </div>
-              <div class="item">
-                <label for="fruit" class="plant-fruit">Has fruit?</label>
-                <input type="checkbox" id="fruit" name="does_the_plant_have_fruit" />
-              </div>
+          <h3>Characteristics</h3>
+          <div class="checkbox-items">
+            <div class="item">
+              <label for="flowers" class="plant-flowers">Has flowers?</label>
+              <input type="checkbox" id="flowers" name="does_the_plant_have_flowers" />
             </div>
-            <div class="checkbox-items">
-              <div class="item">
-                <label for="full-sunlight" class="plant-full-sunlight">Needs full sunlight exposure?</label>
-                <input type="checkbox" id="full-sunlight" class="sunlight-option" name="full_sun" onclick="toggleExclusiveCheckboxes(this)" />
-              </div>
-              <div class="item">
-                <label for="partial-shade" class="plant-shade">Needs to have partial shade?</label>
-                <input type="checkbox" id="partial-shade" class="sunlight-option" name="partial_shade" onclick="toggleExclusiveCheckboxes(this)" />
-              </div>
-              <div class="item">
-                <label for="full-shade" class="plant-full-shade">Needs full shade?</label>
-                <input type="checkbox" id="full-shade" class="sunlight-option" name="full_shade" onclick="toggleExclusiveCheckboxes(this)" />
-              </div>
+            <div class="item">
+              <label for="leaves" class="plant-leaves">Has leaves?</label>
+              <input type="checkbox" id="leaves" name="does_the_plant_have_leaves" />
             </div>
-            <div class="checkbox-items">
-              <div class="item">
-                <label for="evergreen" class="plant-evergreen">Is the plant an evergreen?</label>
-                <input type="checkbox" id="evergreen" name="evergreen" />
-              </div>
-              <div class="item">
-                <label for="succulent" class="plant-succulent">Is the plant a succulent?</label>
-                <input type="checkbox" id="succulent" name="succulent" />
-              </div>
-              <div class="item">
-                <label for="forest" class="plant-forest">Is the plant in a forest?</label>
-                <input type="checkbox" id="forest" name="forest" />
-              </div>
+            <div class="item">
+              <label for="fruit" class="plant-fruit">Has fruit?</label>
+              <input type="checkbox" id="fruit" name="does_the_plant_have_fruit" />
+            </div>
+          </div>
+          <h3>Sunlight Conditions</h3>
+          <div class="checkbox-items">
+            <div class="item">
+              <label for="full-sunlight" class="plant-full-sunlight">Needs full sunlight exposure?</label>
+              <input type="checkbox" id="full-sunlight" class="sunlight-option" name="full_sun" onclick="toggleExclusiveCheckboxes(this)" />
+            </div>
+            <div class="item">
+              <label for="partial-shade" class="plant-shade">Needs to have partial shade?</label>
+              <input type="checkbox" id="partial-shade" class="sunlight-option" name="partial_shade" onclick="toggleExclusiveCheckboxes(this)" />
+            </div>
+            <div class="item">
+              <label for="full-shade" class="plant-full-shade">Needs full shade?</label>
+              <input type="checkbox" id="full-shade" class="sunlight-option" name="full_shade" onclick="toggleExclusiveCheckboxes(this)" />
+            </div>
+          </div>
+          <h3>Plant Type</h3>
+          <div class="checkbox-items">
+            <div class="item">
+              <label for="evergreen" class="plant-evergreen">Is the plant an evergreen?</label>
+              <input type="checkbox" id="evergreen" name="evergreen" />
+            </div>
+            <div class="item">
+              <label for="succulent" class="plant-succulent">Is the plant a succulent?</label>
+              <input type="checkbox" id="succulent" name="succulent" />
+            </div>
+            <div class="item">
+              <label for="forest" class="plant-forest">Is the plant in a forest?</label>
+              <input type="checkbox" id="forest" name="forest" />
             </div>
           </div>
           <div class="item">
