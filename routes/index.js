@@ -130,14 +130,19 @@ router.post('/dbpedia',function(req, res, next) {
   
 });
 
-router.get('/dbpedia', function (req, res, next) {
-  console.log(req.query);
+const fetch = require("node-fetch");
+
+router.get("/dbpedia", function (req, res, next) {
   const plantName = req.query.plantName;
-  console.log("Hello i have the "+plantName);
+  if (!plantName) {
+    return res.status(400).send("Plant name is required");
+  }
+
+  console.log("Hello, I have the " + plantName);
   const resource = `http://dbpedia.org/resource/${plantName}`;
   console.log(resource);
-  console.log("hellO");
-  const endpointUrl = 'https://dbpedia.org/sparql';
+
+  const endpointUrl = "https://dbpedia.org/sparql";
   const sparqlQuery = ` 
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX dbo: <http://dbpedia.org/ontology/>
@@ -148,38 +153,40 @@ router.get('/dbpedia', function (req, res, next) {
         <${resource}> dbo:abstract ?description .
         <${resource}> dbp:taxon ?taxon .
 
-    FILTER (langMatches(lang(?label), "en")) .
-    FILTER (langMatches(lang(?description), "en")) .
+        FILTER (langMatches(lang(?label), "en")) .
+        FILTER (langMatches(lang(?description), "en")) .
+    }`;
 
-    }`
   const encodedQuery = encodeURIComponent(sparqlQuery);
-  console.log("hello 2");
+  console.log("Hello 2");
   const url = `${endpointUrl}?query=${encodedQuery}&format=json`;
 
   fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        console.log("hello3");
-        if(data){
-          let bindings = data.results.bindings;
-          let results = JSON.stringify(bindings);
-
-          console.log("hello4");
-          console.log("I did this right");
-          res.render('dbpedia_results', {
-            name: bindings[0].label.value,
-            description: bindings[0].description.value,
-            taxon: bindings[0].taxon.value,
-            page: bindings[0].page.value
-          });
-          console.log("I did this right");
-        }
-        else{
-          res.status(404).send("Plant not found"); 
-        }
-      });
-      res.redirect('/login')
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Hello 3");
+      if (data && data.results.bindings.length > 0) {
+        let bindings = data.results.bindings;
+        console.log("Hello 4");
+        console.log("I did this right");
+        res.render("dbpedia_results", {
+          name: bindings[0].label.value,
+          description: bindings[0].description.value,
+          taxon: bindings[0].taxon.value,
+          page: bindings[0].page.value,
+        });
+        console.log("I did this right");
+      } else {
+        res.status(404).send("Plant not found");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching DBPedia data:", error);
+      res.status(500).send("Internal Server Error");
+    });
 });
+
+
 
 
 
