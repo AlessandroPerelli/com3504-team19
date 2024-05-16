@@ -39,8 +39,6 @@ function writeOnHistory(text) {
 
 function sendComment() {
   var form = document.getElementById("DBPedia_form");
-  console.log("HERE");
-  console.log(form.action);
   let chatText = document.getElementById("comment_input").value;
   let name = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
   let date = Date.now();
@@ -94,6 +92,10 @@ function verifyUsername() {
     paragraph.appendChild(send_comment);
 
     form.appendChild(paragraph);
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+  });
+
   } else {
     form.setAttribute("action", "/setUsername");
     form.setAttribute("method", "post");
