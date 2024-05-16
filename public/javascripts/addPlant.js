@@ -3,6 +3,7 @@ function verifyUsernameToAddPlant(){
     const username = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
     var addButton = document.getElementById("submit-button");
     var addPlantForm = document.getElementById("add-plant");
+    var usernameLabel = document.getElementById("user-nickname-label")
     var usernameInput = document.getElementById("user-nickname");
 
     if(username){
@@ -15,6 +16,7 @@ function verifyUsernameToAddPlant(){
         addPlantForm.setAttribute("action","/setusername");
         addPlantForm.setAttribute("method","POST");
         usernameInput.style.display="none";
+        usernameLabel.style.display="none";
 
         
         addButton.innerHTML = "Please enter a nickname to use this feature";
@@ -22,4 +24,8 @@ function verifyUsernameToAddPlant(){
     }
     usernameInput.setAttribute("readonly",true);
 
+}
+
+window.onload = function(){
+    verifyUsernameToAddPlant();
 }

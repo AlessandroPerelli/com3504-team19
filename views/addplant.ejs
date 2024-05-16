@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="/stylesheets/main.css" />
     <title>Main</title>
   </head>
-  <body onload="verifyUsernameToAddPlant()">
+  <body>
     <% include components/navbar.ejs %>
     <div class="add-plant-container">
       <h1>Add Plant</h1>
@@ -132,8 +132,9 @@
               <label for="spread" class="plant-spread">Enter the plant spread</label>
               <input type="number" id="spread" name="spread" />
             </div>
+          </div>
             <div class="item" id="user-nickname-container">
-              <label for="user-nickname" class="user-nickname"> Nickname</label>
+              <label for="user-nickname" class="user-nickname" id="user-nickname-label"> Nickname</label>
               <input type="text" id="user-nickname" name="user_nickname" />
             </div>            
             <div class="item">
