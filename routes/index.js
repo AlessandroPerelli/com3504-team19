@@ -85,9 +85,6 @@ router.get("/viewplant", function (req, res, next) {
         plantData.sight_time_formatted = formatDateTime(plantData.sight_time);
         plantData.time_formatted = formatDateTime(plantData.time);
 
-        // Set headers to prevent caching
-        res.setHeader('Cache-Control', 'no-store');
-
         res.render("components/plant", {
           plant: plantData,
           layout: false,
