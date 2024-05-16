@@ -27,9 +27,7 @@ exports.create = function (userData, filePath) {
     succulent: userData.succulent === "on",
     forest: userData.forest === "on",
     colour: userData.colour,
-
-    //Identification used with DBPedia
-    identification_status: userData.identification_status,
+    identification_check: userData.identification_check==="on",
 
     user_nickname: userData.user_nickname,
 
