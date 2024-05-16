@@ -127,29 +127,62 @@ router.get("/user", function (req, res, next) {
 });
 
 router.get('/dbpedia', function (req, res, next) {
-  // The DBpedia resource to retrieve data from
-  const plantData = getPlantById(plantId, categories); //Get plant from database
-  const plant = plantData.name;
-  const resource = `http://dbpedia.org/resource/${plant}`;
+  const plantId = req.query.id;
+  console.log("Requested plant ID:", plantId);
 
-  // The DBpedia SPARQL endpoint URL
-  const endpointUrl = 'https://dbpedia.org/sparql';
+  plants
+      .getAll()
+      .then((plant) => {
+        const allPlantsData = JSON.parse(plant);
+        const plantData = allPlantsData.find((p) => p._id === plantId);
+        if (plantData) {
+          const plant = plantData.name; //Get plant from database
+          const resource = `http://dbpedia.org/resource/${plant}`;
+          console.log(resource);
+          const endpointUrl = 'https://dbpedia.org/sparql';
+          const sparqlQuery = ` 
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            PREFIX dbo: <http://dbpedia.org/ontology/>
+            
+            SELECT ?label ?description ?taxon (URI("http://dbpedia.org/resource/${plant}") AS ?page)
+            WHERE {
+                <${resource}> rdfs:label ?label .
+                <${resource}> dbo:abstract ?description .
+                <${resource}> dbp:taxon ?taxon .
+        
+            FILTER (langMatches(lang(?label), "en")) .
+            FILTER (langMatches(lang(?description), "en")) .
+        
+            }`
+          const encodedQuery = encodeURIComponent(sparqlQuery)
 
-  // The SPARQL query to retrieve data for the given resource
-  const sparqlQuery = ` 
-    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    PREFIX dbo: <http://dbpedia.org/ontology/>
-    
-    SELECT ?label ?description ?taxon (URI("http://dbpedia.org/resource/${plant}") AS ?page)
-    WHERE {
-        <${resource}> rdfs:label ?label .
-        <${resource}> dbo:abstract ?description .
-        <${resource}> dbp:taxon ?taxon .
+          const url = `${endpointUrl}?query=${encodedQuery}&format=json`;
 
-    FILTER (langMatches(lang(?label), "en")) .
-    FILTER (langMatches(lang(?description), "en")) .
+          fetch(url)
+              .then(response => response.json())
+              .then(data => {
+                let bindings = data.results.bindings;
+                let results = JSON.stringify(bindings);
 
-    }`;
+                res.render('dbpedia_results', {
+                  name: bindings[0].label.value,
+                  description: bindings[0].description.value,
+                  taxon: bindings[0].taxon.value,
+                  JSONresult: results
+
+
+
+                });
+              });
+
+        } else {
+          res.status(404).send("Plant not found");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching plant details:", error); // Existing log
+        res.status(500).send("Error processing request");
+      });
 });
 
 router.post("/add", upload.single("img"), function (req, res) {
