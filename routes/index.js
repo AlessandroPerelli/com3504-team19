@@ -8,7 +8,7 @@ var bcrypt = require("bcrypt");
 var path = require("path");
 var session = require("express-session");
 const { formatDateTime } = require("../public/javascripts/plantViewLogic");
-
+const { getUsername, setUsername } = require('../public/javascripts/login');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -83,7 +83,7 @@ router.get("/viewplant", function (req, res, next) {
       if (plantData) {
           plantData.sight_time_formatted = formatDateTime(plantData.sight_time);
           plantData.time_formatted = formatDateTime(plantData.time);
-        res.render("components/plant", { plant: plantData, layout: false, comments: plantData.comments});
+        res.render("components/plant", { plant: plantData, layout: false, comments: plantData.comments });
       } else {
         res.status(404).send("Plant not found");
       }
@@ -195,33 +195,12 @@ router.post("/adduser", function (req, res) {
 });
 
 router.post("/login", function (req, res, next) {
-  const { identifier, password } = req.body;
-
-  // Find user by email
-  users
-    .findOne({ $or: [{ email: identifier }, { username: identifier }] })
-    .then((user) => {
-      if (!user) {
-        // User with the provided email does not exist
-        return res.status(401).send("Invalid email/username or password");
-      }
-
-      // Compare password hashes
-      bcrypt.compare(password, user.password, function (err, result) {
-        if (result) {
-          // Passwords match, user is authenticated
-          req.session.user = user;
-          res.redirect("/main");
-        } else {
-          // Passwords don't match
-          res.status(401).send("Invalid email/username or password");
-        }
-      });
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Internal server error");
-    });
+   res.redirect("/main");
 });
+
+router.post("/setusername",function (req, res, next) {
+  res.redirect("/login");
+});
+
 
 module.exports = router;

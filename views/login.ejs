@@ -19,7 +19,17 @@
     <div class="login-container">
       <h1><%= title %></h1>
       <p>Discover the world of plants</p>
-      <% include components/loginform %>
+      <div id="loginForm">
+        <form action="/login" method="post">
+          <div class="form-item">
+            <label for="identifier">Username</label>
+            <input type="text" name="identifier" id="username" placeholder="Enter your username" />
+          </div>
+          <div class="form-item">
+            <button class="active" type="submit" onclick="setUsername()">Enter</button>
+          </div>
+        </form>
+      </div>
     </div>
     <script src="/javascripts/script.js"></script>
     <script src="/javascripts/login.js"></script>

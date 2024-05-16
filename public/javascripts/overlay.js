@@ -25,6 +25,8 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(data);
         overlayContent.querySelector(".overlay-content-view").innerHTML = data;
         overlay.style.display = "block";
+        var overlayShownEvent = new Event("overlayShown");
+        overlay.dispatchEvent(overlayShownEvent);
       })
       .catch((error) => {
         console.error("Error fetching plant details:", error);

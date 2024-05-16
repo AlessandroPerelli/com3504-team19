@@ -7,6 +7,7 @@
       src="https://kit.fontawesome.com/8adee5f06e.js"
       crossorigin="anonymous"
     ></script>
+    <script src="../javascripts/addPlant.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,9 +17,9 @@
     <link rel="stylesheet" href="/stylesheets/main.css" />
     <title>Main</title>
   </head>
-  <body>
+  <body onload="verifyUsernameToAddPlant()">
     <div class="add-plant-container">
-      <form action="/add" method="POST" enctype="multipart/form-data">
+      <form id="add-plant-form">
         <h1>Add Plant</h1>
         <div class="add-plant-form-container">
           <div class="add-plant-left">
@@ -125,12 +126,12 @@
               <label for="spread" class="plant-spread">Enter the plant spread</label>
               <input type="number" id="spread" name="spread" />
             </div>
-            <div class="item">
-              <label for="user-nickname" class="user-nickname">Enter your nickname</label>
+            <div class="item" id="user-nickname-container">
+              <label for="user-nickname" class="user-nickname"> Nickname</label>
               <input type="text" id="user-nickname" name="user_nickname" />
             </div>            
             <div class="item">
-              <button type="submit" class="add-button">Upload</button>
+              <button id="submit-button" type="submit" class="add-button">Upload</button>
             </div>
           </div>
           </div>
