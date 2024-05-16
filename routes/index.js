@@ -235,36 +235,6 @@ router.post("/adduser", function (req, res) {
   });
 });
 
-router.post("/login", function (req, res, next) {
-  const { identifier, password } = req.body;
-
-  // Find user by email
-  users
-    .findOne({ $or: [{ email: identifier }, { username: identifier }] })
-    .then((user) => {
-      if (!user) {
-        // User with the provided email does not exist
-        return res.status(401).send("Invalid email/username or password");
-      }
-
-      // Compare password hashes
-      bcrypt.compare(password, user.password, function (err, result) {
-        if (result) {
-          // Passwords match, user is authenticated
-          req.session.user = user;
-          res.redirect("/main");
-        } else {
-          // Passwords don't match
-          res.status(401).send("Invalid email/username or password");
-        }
-      });
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Internal server error");
-    });
-});
-
 // route to get all plants
 router.get('/plants', function (req, res, next) {
   plants.getAll().then(plantList => {
@@ -275,5 +245,14 @@ router.get('/plants', function (req, res, next) {
     res.status(500).send(err);
   });
 })
+
+router.post("/login", function (req, res, next) {
+   res.redirect("/main");
+});
+
+router.post("/setusername",function (req, res, next) {
+  res.redirect("/login");
+});
+
 
 module.exports = router;

@@ -15,6 +15,7 @@ self.addEventListener('install', event => {
                 '/main',
                 '/login',
                 '/addplant',
+                '/javascripts/addPlant.js',
                 '/javascripts/categories.js',
                 '/javascripts/changeUserProfile.js',
                 '/javascripts/chat.js',
@@ -22,8 +23,9 @@ self.addEventListener('install', event => {
                 '/javascripts/imageUpload.js',
                 '/javascripts/index.js',
                 '/javascripts/insert.js',
+                '/javascripts/login.js',
                 '/javascripts/overlay.js',
-                '/javascripts/plantViewLogic.js',
+                '/javascripts/plantUtilities.js',
                 '/javascripts/switchCategory.js',
                 '/stylesheets/main.scss',
                 '/stylesheets/main.css',
@@ -107,12 +109,13 @@ self.addEventListener('fetch', event => {
     event.respondWith((async () => {
         const cache = await caches.open("static");
         const cachedResponse = await cache.match(event.request);
-        if (cachedResponse) {
-            console.log('Service Worker: Fetching from Cache: ', event.request.url);
-            return cachedResponse;
-        }
 
         if (!navigator.onLine) {
+            if (cachedResponse) {
+                console.log('Service Worker: Fetching from Cache: ', event.request.url);
+                return cachedResponse;
+            }
+
             // Check if the URL includes "/add"
             if (event.request.url.includes('/add')) {
                 // Construct a redirect response to "/main"
@@ -143,27 +146,27 @@ self.addEventListener('fetch', event => {
             }
         }
 
-        // Handle specific requests for the main page (/main)
-        if (event.request.url.includes('/main')) {
-            // Fetch the main page
-            const response = await fetch(event.request);
-            if (response && response.status === 200) {
-                const clonedResponse = response.clone();
-                const text = await clonedResponse.text();
-                // Extract image URLs from the main page
-                const imageUrls = extractImageUrls(text);
-                // Cache the images
-                for (const imageUrl of imageUrls) {
-                    const imageRequest = new Request(imageUrl);
-                    const imageResponse = await fetch(imageRequest);
-                    if (imageResponse && imageResponse.status === 200) {
-                        await cache.put(imageRequest, imageResponse);
-                    }
-                }
-                // Return the original response
-                return response;
-            }
-        }
+        // // Handle specific requests for the main page (/main)
+        // if (event.request.url.includes('/main')) {
+        //     // Fetch the main page
+        //     const response = await fetch(event.request);
+        //     if (response && response.status === 200) {
+        //         const clonedResponse = response.clone();
+        //         const text = await clonedResponse.text();
+        //         // Extract image URLs from the main page
+        //         const imageUrls = extractImageURLsFromPlants(text);
+        //         // Cache the images
+        //         for (const imageUrl of imageUrls) {
+        //             const imageRequest = new Request(imageUrl);
+        //             const imageResponse = await fetch(imageRequest);
+        //             if (imageResponse && imageResponse.status === 200) {
+        //                 await cache.put(imageRequest, imageResponse);
+        //             }
+        //         }
+        //         // Return the original response
+        //         return response;
+        //     }
+        // }
 
         return fetch(event.request);
     })());
