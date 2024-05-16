@@ -20,17 +20,15 @@
     <% include components/navbar.ejs %>
     <div class="main-page-container flex">
       <h1>Explore plants</h1>
-      <i class="fa-solid fa-filter"></i>
       <div class="category-links">
         <button class="category-link" data-category="all">All</button>
-        <% categoryData.forEach(function(category) { %> <% var categoryName =
-        category.categoryName; %> <% include components/categoryfilter.ejs %> <%
-        }); %>
+        <% categoryData.forEach(function(category) { %>
+        <button class="category-link" data-category="<%= category %>">
+          <%= category %>
+        </button>
+        <% }); %>
       </div>
-      <% categoryData.forEach(function(category) { %> <% var categoryName =
-      category.categoryName; %> <% var plants = category.plants; %> <% var
-      showCategoryName = true; %> <% include components/category.ejs %> <% });
-      %>
+      <% include components/plantgrid.ejs %>
     </div>
 
     <div id="addPlantOverlay" class="overlay">
@@ -41,16 +39,21 @@
       <div class="overlay-content-view"></div>
     </div>
 
-    <button id="addPlantButton" class="add-plant-button" onclick="window.location.href='/addplant';">Add Plant</button>
-
-    <script src="/javascripts/overlay.js"></script>
-    <script src="/javascripts/switchCategory.js"></script>
-    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-    <script src = "/javascripts/chat.js" ></script>
+    <button
+      id="addPlantButton"
+      class="add-plant-button"
+      onclick="window.location.href='/addplant';"
+    >
+      Add Plant
+    </button>
   </body>
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js', {scope: '/'});
-  }
-</script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js", { scope: "/" });
+    }
+  </script>
+  <script src="/javascripts/overlay.js"></script>
+  <script src="/javascripts/switchCategory.js"></script>
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  <script src="/javascripts/chat.js"></script>
 </html>

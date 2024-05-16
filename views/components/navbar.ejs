@@ -4,24 +4,8 @@
     <a class="logo" href="/main">Plant Viewer</a>
   </div>
   <nav class="navbar">
-    <% if (showSearch === true) { %>
-      <div class="search-input-navbar">
-        <i class="fas fa-search"></i>
-        <input
-          type="text"
-          id="searchNavbar"
-          placeholder="Search"
-          class="search-input-section"
-        />
-      </div>
-    <% } %>
-    <% if (showProfile === true) { %>
-        <a href="/user">
-            <img class="profile-icon" src="/images/avatar.png" alt="profile" />
-        </a>
-    <% } else { %>
-      <a href="/login">Login</a>
-      <a href="/signup">Signup</a>
-    <% } %>
+    <a href="/user">
+        <img class="profile-icon" src="/images/avatar.png" alt="profile" />
+    </a>
   </nav>
 </header>
