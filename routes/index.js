@@ -126,31 +126,70 @@ router.get("/user", function (req, res, next) {
   }
 });
 
-router.get('/dbpedia', function (req, res, next) {
-  // The DBpedia resource to retrieve data from
-  const plantData = getPlantById(plantId, categories); //Get plant from database
-  const plant = plantData.name;
-  const resource = `http://dbpedia.org/resource/${plant}`;
+router.post('/dbpedia',function(req, res, next) {
+  
+});
 
-  // The DBpedia SPARQL endpoint URL
-  const endpointUrl = 'https://dbpedia.org/sparql';
+const fetch = require("node-fetch");
 
-  // The SPARQL query to retrieve data for the given resource
+router.get("/dbpedia", function (req, res, next) {
+  const plantName = req.query.plantName;
+  if (!plantName) {
+    return res.status(400).send("Plant name is required");
+  }
+
+  console.log("Hello, I have the " + plantName);
+  const resource = `http://dbpedia.org/resource/${plantName}`;
+  console.log(resource);
+
+  const endpointUrl = "https://dbpedia.org/sparql";
   const sparqlQuery = ` 
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX dbo: <http://dbpedia.org/ontology/>
     
-    SELECT ?label ?description ?taxon (URI("http://dbpedia.org/resource/${plant}") AS ?page)
+    SELECT ?label ?description ?taxon (URI("http://dbpedia.org/resource/${plantName}") AS ?page)
     WHERE {
         <${resource}> rdfs:label ?label .
         <${resource}> dbo:abstract ?description .
         <${resource}> dbp:taxon ?taxon .
 
-    FILTER (langMatches(lang(?label), "en")) .
-    FILTER (langMatches(lang(?description), "en")) .
-
+        FILTER (langMatches(lang(?label), "en")) .
+        FILTER (langMatches(lang(?description), "en")) .
     }`;
+
+  const encodedQuery = encodeURIComponent(sparqlQuery);
+  console.log("Hello 2");
+  const url = `${endpointUrl}?query=${encodedQuery}&format=json`;
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Hello 3");
+      if (data && data.results.bindings.length > 0) {
+        let bindings = data.results.bindings;
+        console.log("Hello 4");
+        console.log("I did this right");
+        res.render("dbpedia_results", {
+          name: bindings[0].label.value,
+          description: bindings[0].description.value,
+          taxon: bindings[0].taxon.value,
+          page: bindings[0].page.value,
+        });
+        console.log("I did this right");
+      } else {
+        res.status(404).send("Plant not found");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching DBPedia data:", error);
+      res.status(500).send("Internal Server Error");
+    });
 });
+
+
+
+
+
 
 router.post("/add", upload.single("img"), function (req, res) {
   let userData = req.body;

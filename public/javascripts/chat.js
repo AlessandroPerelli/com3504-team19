@@ -1,12 +1,17 @@
-const LOCAL_STORAGE_KEY = "username"
+const LOCAL_STORAGE_KEY = "username";
 
 let name = null;
 let roomNo = null;
 let socket = io();
 
-document.getElementById("overlay").addEventListener("overlayShown", function(){
-  verifyUsername();
-});
+document
+  .getElementById("overlay")
+  .addEventListener("overlayShown", function () {
+    verifyUsername();
+    var button = document.getElementById("DBPediaButton");
+    // Attach the event listener properly
+    button.addEventListener("click", sendNameToDBPedia);
+  });
 
 function init(plantId) {
   connectToRoom(plantId);
@@ -33,6 +38,9 @@ function writeOnHistory(text) {
 }
 
 function sendComment() {
+  var form = document.getElementById("DBPedia_form");
+  console.log("HERE");
+  console.log(form.action);
   let chatText = document.getElementById("comment_input").value;
   let name = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
   let date = Date.now();
@@ -62,43 +70,52 @@ function sendComment() {
     });
 }
 
-function verifyUsername(){
+function verifyUsername() {
   const username = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
   var container = document.getElementById("send_message");
   var form = document.createElement("form");
 
-  if(username){
+  if (username) {
     var paragraph = document.createElement("p");
 
     var comment_input = document.createElement("input");
-    comment_input.setAttribute("type","text");
-    comment_input.setAttribute("id","comment_input");
-    comment_input.setAttribute("name","chat_input");
-    comment_input.setAttribute("style","width: 80%");
-    comment_input.setAttribute("placeholder","Write a comment...");
+    comment_input.setAttribute("type", "text");
+    comment_input.setAttribute("id", "comment_input");
+    comment_input.setAttribute("name", "chat_input");
+    comment_input.setAttribute("style", "width: 80%");
+    comment_input.setAttribute("placeholder", "Write a comment...");
 
     var send_comment = document.createElement("button");
-    send_comment.setAttribute("id","chat_send")
-    send_comment.setAttribute("onClick","sendComment()")
+    send_comment.setAttribute("id", "chat_send");
+    send_comment.setAttribute("onClick", "sendComment()");
     send_comment.innerHTML = "Send";
 
     paragraph.appendChild(comment_input);
     paragraph.appendChild(send_comment);
 
     form.appendChild(paragraph);
-
-  }else{
-    form.setAttribute("action","/setUsername");
-    form.setAttribute("method","post");
+  } else {
+    form.setAttribute("action", "/setUsername");
+    form.setAttribute("method", "post");
 
     var nickname_button = document.createElement("button");
-    nickname_button.setAttribute("class","active");
-    nickname_button.setAttribute("type","submit");
+    nickname_button.setAttribute("class", "active");
+    nickname_button.setAttribute("type", "submit");
     nickname_button.innerHTML = "Please enter a Username to comment";
-    
-    form.appendChild(nickname_button)
 
+    form.appendChild(nickname_button);
   }
 
   container.appendChild(form);
+}
+
+function sendNameToDBPedia() {
+  console.log("Button clicked, running sendNameToDBPedia");
+
+  var plantName = document.getElementById("plant_name").innerText;
+  console.log(
+    "Redirecting to: /dbpedia?plantName=" + encodeURIComponent(plantName)
+  );
+
+  window.location.href = "/dbpedia?plantName=" + encodeURIComponent(plantName);
 }
