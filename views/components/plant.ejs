@@ -15,16 +15,18 @@
       </div>
       <div class="information-side">
         <div class="plant-information">
+          <h3> Description </h3>
           <p><%= plant.desc %></p>
         </div>
         <!-- Message Area for comments -->
         <div id="message_area" class="message-area">
+        <h3> Comments </h3>
           <% comments.forEach(function(comment) { %>
             <p><b> <%= comment.name %>:</b> <%= comment.message %></p>
           <% }); %>
         </div>
         <div id="send_message">
-
+          
         </div>
       </div>
     </div>
