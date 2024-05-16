@@ -1,18 +1,16 @@
 var express = require("express");
 var router = express.Router();
 var plants = require("../controllers/plants");
-var users = require("../models/users");
-var categories = require("../public/javascripts/categories")
+var categories = require("../public/javascripts/categories");
 var multer = require("multer");
 var bcrypt = require("bcrypt");
 var path = require("path");
 var session = require("express-session");
 const { formatDateTime } = require("../public/javascripts/plantUtilities");
 
-
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './public/images/uploads');
+    cb(null, "./public/images/uploads");
   },
   filename: function (req, file, cb) {
     // Make the file name the date + the file name
@@ -45,7 +43,7 @@ router.get("/login", function (req, res, next) {
 
 router.get("/main", function (req, res, next) {
   let result = plants.getAll();
-  result.then(plant => {
+  result.then((plant) => {
     let data = JSON.parse(plant);
     console.log(data);
     res.render("mainpage", {
@@ -111,8 +109,6 @@ router.post("/updateComments", async (req, res) => {
   }
 });
 
-
-
 router.get("/user", function (req, res, next) {
   if (req.session.user) {
     res.render("user", {
@@ -126,9 +122,7 @@ router.get("/user", function (req, res, next) {
   }
 });
 
-router.post('/dbpedia',function(req, res, next) {
-  
-});
+router.post("/dbpedia", function (req, res, next) {});
 
 const fetch = require("node-fetch");
 
@@ -186,11 +180,6 @@ router.get("/dbpedia", function (req, res, next) {
     });
 });
 
-
-
-
-
-
 router.post("/add", upload.single("img"), function (req, res) {
   let userData = req.body;
   if (!req.file) {
@@ -205,7 +194,6 @@ router.post("/add", upload.single("img"), function (req, res) {
   console.log(result);
   res.redirect("/main");
 });
-
 
 router.post("/adduser", function (req, res) {
   // Check if passwords match
@@ -242,23 +230,25 @@ router.post("/adduser", function (req, res) {
 });
 
 // route to get all plants
-router.get('/plants', function (req, res, next) {
-  plants.getAll().then(plantList => {
-    console.log(plantList);
-    return res.status(200).send(plantList);
-  }).catch(err => {
-    console.log(err);
-    res.status(500).send(err);
-  });
-})
+router.get("/plants", function (req, res, next) {
+  plants
+    .getAll()
+    .then((plantList) => {
+      console.log(plantList);
+      return res.status(200).send(plantList);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(err);
+    });
+});
 
 router.post("/login", function (req, res, next) {
-   res.redirect("/main");
+  res.redirect("/main");
 });
 
-router.post("/setusername",function (req, res, next) {
+router.post("/setusername", function (req, res, next) {
   res.redirect("/login");
 });
-
 
 module.exports = router;

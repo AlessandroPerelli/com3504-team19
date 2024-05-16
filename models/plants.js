@@ -40,7 +40,7 @@ let PlantSchema = new Schema(
         height: {type: Number},
         spread: {type: Number},
         does_the_plant_have_flowers: {type: Boolean},
-        flower_colour: {type: String},
+        colour: {type: String},
         does_the_plant_have_leaves: {type: Boolean},
         does_the_plant_have_fruit: {type: Boolean},
         full_sun: {type: Boolean},
