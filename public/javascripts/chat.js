@@ -62,6 +62,12 @@ function sendComment() {
     });
 }
 
+function keyListener(event){
+  if (event.key === 'Enter'){
+    sendComment();
+  }
+}
+
 function verifyUsername(){
   const username = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
   var container = document.getElementById("send_message");
@@ -85,11 +91,14 @@ function verifyUsername(){
     paragraph.appendChild(comment_input);
     paragraph.appendChild(send_comment);
 
-    form.appendChild(paragraph);
+    form.appendChild(paragraph)
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+    });
 
   }else{
     form.setAttribute("action","/setUsername");
-    form.setAttribute("method","post");
+    form.setAttribute("method","POST");
 
     var nickname_button = document.createElement("button");
     nickname_button.setAttribute("class","active");
