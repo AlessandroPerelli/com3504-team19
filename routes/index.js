@@ -167,39 +167,7 @@ router.post("/add", upload.single("img"), function (req, res) {
 });
 
 
-router.post("/adduser", function (req, res) {
-  // Check if passwords match
-  if (req.body.password !== req.body.confirmpassword) {
-    return res.status(400).send("Passwords do not match");
-  }
 
-  // Hash the password
-  bcrypt.hash(req.body.password, 10, function (err, hash) {
-    if (err) {
-      return res.status(500).send("Error hashing password");
-    }
-
-    // Create a user instance
-    const defaultAvatar = "/images/avatar.png";
-    const user = new users({
-      email: req.body.email,
-      username: req.body.username,
-      password: hash,
-      avatar: defaultAvatar,
-    });
-
-    // Save the user to the database
-    user
-      .save()
-      .then((data) => {
-        console.log("Successfully created a new User");
-        res.redirect("/main");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
-});
 
 // route to get all plants
 router.get('/plants', function (req, res, next) {
