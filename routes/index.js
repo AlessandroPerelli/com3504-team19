@@ -127,61 +127,49 @@ router.get("/user", function (req, res, next) {
 });
 
 router.get('/dbpedia', function (req, res, next) {
-  const plantId = req.query.id;
-  console.log("Requested plant ID:", plantId);
+  console.log(req.query);
+  const plantName = req.query.plantName;
+  console.log("Hello i have the "+plantName);
+  const resource = `http://dbpedia.org/resource/${plantName}`;
+  console.log(resource);
+  const endpointUrl = 'https://dbpedia.org/sparql';
+  const sparqlQuery = ` 
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX dbo: <http://dbpedia.org/ontology/>
+    
+    SELECT ?label ?description ?taxon (URI("http://dbpedia.org/resource/${plantName}") AS ?page)
+    WHERE {
+        <${resource}> rdfs:label ?label .
+        <${resource}> dbo:abstract ?description .
+        <${resource}> dbp:taxon ?taxon .
 
-  plants
-      .getAll()
-      .then((plant) => {
-        const allPlantsData = JSON.parse(plant);
-        const plantData = allPlantsData.find((p) => p._id === plantId);
-        if (plantData) {
-          const plant = plantData.name; //Get plant from database
-          const resource = `http://dbpedia.org/resource/${plant}`;
-          console.log(resource);
-          const endpointUrl = 'https://dbpedia.org/sparql';
-          const sparqlQuery = ` 
-            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-            PREFIX dbo: <http://dbpedia.org/ontology/>
-            
-            SELECT ?label ?description ?taxon (URI("http://dbpedia.org/resource/${plant}") AS ?page)
-            WHERE {
-                <${resource}> rdfs:label ?label .
-                <${resource}> dbo:abstract ?description .
-                <${resource}> dbp:taxon ?taxon .
-        
-            FILTER (langMatches(lang(?label), "en")) .
-            FILTER (langMatches(lang(?description), "en")) .
-        
-            }`
-          const encodedQuery = encodeURIComponent(sparqlQuery)
+    FILTER (langMatches(lang(?label), "en")) .
+    FILTER (langMatches(lang(?description), "en")) .
 
-          const url = `${endpointUrl}?query=${encodedQuery}&format=json`;
+    }`
+  const encodedQuery = encodeURIComponent(sparqlQuery)
 
-          fetch(url)
-              .then(response => response.json())
-              .then(data => {
-                let bindings = data.results.bindings;
-                let results = JSON.stringify(bindings);
+  const url = `${endpointUrl}?query=${encodedQuery}&format=json`;
 
-                res.render('dbpedia_results', {
-                  name: bindings[0].label.value,
-                  description: bindings[0].description.value,
-                  taxon: bindings[0].taxon.value,
-                  JSONresult: results
-
-
-
-                });
-              });
-
-        } else {
-          res.status(404).send("Plant not found");
+  fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        if(data){
+          let bindings = data.results.bindings;
+          let results = JSON.stringify(bindings);
+  
+          console.log(bindings);
+  
+          res.render('dbpedia_results', {
+            name: bindings[0].label.value,
+            description: bindings[0].description.value,
+            taxon: bindings[0].taxon.value,
+            JSONresult: results
+          });
         }
-      })
-      .catch((error) => {
-        console.error("Error fetching plant details:", error); // Existing log
-        res.status(500).send("Error processing request");
+        else{
+          res.status(404).send("Plant not found"); 
+        }
       });
 });
 

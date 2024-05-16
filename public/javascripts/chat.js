@@ -6,6 +6,7 @@ let socket = io();
 
 document.getElementById("overlay").addEventListener("overlayShown", function(){
   verifyUsername();
+  updateDBPediaLink();
 });
 
 function init(plantId) {
@@ -33,6 +34,9 @@ function writeOnHistory(text) {
 }
 
 function sendComment() {
+  var form = document.getElementById("DBPedia_form");
+  console.log("HERE")
+  console.log(form.action);
   let chatText = document.getElementById("comment_input").value;
   let name = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
   let date = Date.now();
@@ -101,4 +105,14 @@ function verifyUsername(){
   }
 
   container.appendChild(form);
+}
+
+function updateDBPediaLink(){
+  if(navigator.onLine){
+    var plantName = document.getElementById("plant_name").innerText; 
+    var form = document.getElementById("DBPedia_form");
+  
+    form.setAttribute("action",`/dbpedia?plantName=${plantName}`);
+    console.log(form.action);
+  }
 }
