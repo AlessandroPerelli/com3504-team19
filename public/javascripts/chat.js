@@ -154,7 +154,7 @@ const addNewToSync = (syncPlantIDB, commentData, syncIDB) => {
 
       // Send a sync message to the service worker
       navigator.serviceWorker.ready.then((sw) => {
-        sw.sync.register("sync-plant");
+        sw.sync.register("sync-chat");
       }).then(() => {
         console.log("Sync registered");
       }).catch((err) => {
