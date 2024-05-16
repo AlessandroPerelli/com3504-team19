@@ -283,6 +283,8 @@ button {
     &:focus {
       outline: none;
     }
+
+
   }
 
   textarea {
@@ -354,29 +356,6 @@ button {
   display: none;
 }
 
-.add-plant-left {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem 0.5rem;
-  width: 50%;
-
-  .form-item {
-    width: 100%;
-  }
-}
-
-.add-plant-right {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem 0.5rem;
-  width: 50%;
-
-  .form-item {
-    width: 100%;
-  }
-}
 
 .overlay {
   display: none;

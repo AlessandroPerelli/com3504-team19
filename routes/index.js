@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
 var plants = require("../controllers/plants");
-var users = require("../models/users");
 var categories = require("../public/javascripts/categories")
 var multer = require("multer");
 var bcrypt = require("bcrypt");
@@ -125,6 +124,52 @@ router.get("/user", function (req, res, next) {
     res.redirect("/login");
   }
 });
+router.get('/dbpedia', function (req, res, next) {
+  // The DBpedia resource to retrieve data from
+  const plantData = getPlantById(plantId, categories); //Get plant from database
+  const plant = plantData.name;
+  const resource = `http://dbpedia.org/resource/${plant}`;
+
+  // The DBpedia SPARQL endpoint URL
+  const endpointUrl = 'https://dbpedia.org/sparql';
+
+  // The SPARQL query to retrieve data for the given resource
+  const sparqlQuery = ` 
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX dbo: <http://dbpedia.org/ontology/>
+    
+    SELECT ?label ?description ?taxon (URI("http://dbpedia.org/resource/${plant}") AS ?page)
+    WHERE {
+        <${resource}> rdfs:label ?label .
+        <${resource}> dbo:abstract ?description .
+        <${resource}> dbp:taxon ?taxon .
+
+    FILTER (langMatches(lang(?label), "en")) .
+    FILTER (langMatches(lang(?description), "en")) .
+
+    }`;
+
+  // Encode the query as a URL parameter
+  const encodedQuery = encodeURIComponent(sparqlQuery);
+
+  // Build the URL for the SPARQL query
+  const url = `${endpointUrl}?query=${encodedQuery}&format=json`;
+  // Use fetch to retrieve the data
+  fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        // The results are in the 'data' object
+        let bindings = data.results.bindings;
+        let result = JSON.stringify(bindings);
+        // Render the result in your paris.ejs page
+        res.render(`${plant}`, {  // NEED TO ADD A PROPER VIEW INSTEAD OF PLANT
+          title: bindings[0].label.value,
+          name: bindings[0].taxon.value,
+          abstract: bindings[0].description.value,
+          JSONresult: result
+        });
+      });
+});
 
 router.post('/dbpedia',function(req, res, next) {
   
@@ -207,39 +252,7 @@ router.post("/add", upload.single("img"), function (req, res) {
 });
 
 
-router.post("/adduser", function (req, res) {
-  // Check if passwords match
-  if (req.body.password !== req.body.confirmpassword) {
-    return res.status(400).send("Passwords do not match");
-  }
 
-  // Hash the password
-  bcrypt.hash(req.body.password, 10, function (err, hash) {
-    if (err) {
-      return res.status(500).send("Error hashing password");
-    }
-
-    // Create a user instance
-    const defaultAvatar = "/images/avatar.png";
-    const user = new users({
-      email: req.body.email,
-      username: req.body.username,
-      password: hash,
-      avatar: defaultAvatar,
-    });
-
-    // Save the user to the database
-    user
-      .save()
-      .then((data) => {
-        console.log("Successfully created a new User");
-        res.redirect("/main");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
-});
 
 // route to get all plants
 router.get('/plants', function (req, res, next) {
