@@ -12,7 +12,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Function to fetch plant details and display in the overlay
+  /**
+   * @function fetchPlantDetails
+   * Function to fetch plant details and display in the overlay
+   * @param {plantID} The plantId to get the details for
+   */
   function fetchPlantDetails(plantId) {
     // Add a cache-busting parameter (timestamp)
     const url = `/viewplant?id=${plantId}`;

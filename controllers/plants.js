@@ -1,8 +1,13 @@
 // Import the db model
 const plantModel = require("../models/plants");
 
-////////////////// Functions need to be deleted and altered for plants
-// Function to create new students
+/**
+ * Creates a new plant instance and saves it to the database.
+ *
+ * @param {Object} userData - The user data for creating a new plant.
+ * @param {string} filePath - The file path of the plant image.
+ * @returns {Promise<string|null>} - A JSON string of the created plant data or null if an error occurs.
+ */
 exports.create = function (userData, filePath) {
   // Create a new plant instance using the provided user data
   let plant = new plantModel({
@@ -52,7 +57,11 @@ exports.create = function (userData, filePath) {
     });
 };
 
-// Function to get all plants
+/**
+ * Retrieves all plants from the database.
+ *
+ * @returns {Promise<string|null>} - A JSON string of the list of plants or null if an error occurs.
+ */
 exports.getAll = function () {
   // Retrieve all Plants from the database
   return plantModel.find({}).then((plants) => {
@@ -68,6 +77,15 @@ exports.getAll = function () {
     });
 };
 
+/**
+ * Updates the comments for a specific plant.
+ *
+ * @param {string} plantId - The ID of the plant to update.
+ * @param {string} name - The name of the commenter.
+ * @param {string} comment - The comment text.
+ * @param {string} date - The date of the comment.
+ * @throws {Error} - Throws an error if the document is not updated.
+ */
 exports.updateComments = async function (plantId, name, comment, date) {
   try {
     const newComment = {
@@ -95,6 +113,13 @@ exports.updateComments = async function (plantId, name, comment, date) {
   }
 };
 
+/**
+ * Updates the name and identification status of a specific plant.
+ *
+ * @param {string} plantId - The ID of the plant to update.
+ * @param {string} plantName - The new name of the plant.
+ * @throws {Error} - Throws an error if the document is not updated.
+ */
 exports.updatePlant = async function(plantId, plantName){
   const result = await plantModel.updateOne(
     { _id: plantId },
