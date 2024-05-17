@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var plants = require("../controllers/plants");
+var plantModel = require("../models/plants");
 var multer = require("multer");
 var bcrypt = require("bcrypt");
 var path = require("path");
@@ -117,6 +118,27 @@ router.post("/updateComments", async (req, res) => {
   } catch (error) {
     console.error("Error in /updateComments endpoint:", error.message);
     res.status(500).send("Error adding comment");
+  }
+});
+
+// Route to add a chat to a specific plant
+router.post('/plants/:plantId/addChat', async (req, res) => {
+  const { plantId } = req.params;
+  const chat = req.body;
+
+  try {
+      const plant = await plantModel.findById(plantId);
+      if (!plant) {
+          return res.status(404).send('Plant not found');
+      }
+
+      plant.comments.push(chat);
+      await plant.save();
+
+      res.status(200).send('Chat added successfully');
+  } catch (error) {
+      console.error('Failed to add chat to plant', error);
+      res.status(500).send('Internal Server Error');
   }
 });
 

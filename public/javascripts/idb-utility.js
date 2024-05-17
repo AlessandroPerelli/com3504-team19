@@ -38,10 +38,10 @@ async function addMongoDBDataToIndexedDB(data) {
 * @param {syncPlantIDB} The offline DB that the plant gets uploaded to
 */
 
-const addNewPlantToSync = (syncPlantIDB, form_data) => {
+const addNewToSync = (syncPlantIDB, form_data, syncIDB) => {
 
-    const transaction = syncPlantIDB.transaction(["sync-plants"], "readwrite")
-    const plantStore = transaction.objectStore("sync-plants")
+    const transaction = syncPlantIDB.transaction([syncIDB], "readwrite")
+    const plantStore = transaction.objectStore(syncIDB)
     const addRequest = plantStore.add(Object.fromEntries(form_data))
     addRequest.addEventListener("success", () => {
         console.log("Added " + "#" + addRequest.result + ": " + form_data)
@@ -143,13 +143,24 @@ const deleteAllExistingPlantsFromIDB = (plantIDB) => {
 const extractImageURLsFromPlants = (plants) => {
     const imageURLs = [];
     plants.forEach(plant => {
-        if (plant.img && typeof plant.img === 'string') {
-            imageURLs.push(plant.img);
-        }
+        const plantImg = plant.img;
+        const plantUrl = `/images/uploads/${plantImg}`;
+        imageURLs.push(plantUrl);
     });
     return imageURLs;
 };
 
+const getPlantUrls = (plantIds) => {
+    const plantUrls = [];
+
+    plantIds.forEach(plant => {
+        const plantId = plant._id;
+        const plantUrl = `/viewplant?id=${plantId}`;
+        plantUrls.push(plantUrl);
+    });
+
+    return plantUrls;
+}
 
 /** 
 * @constant {cacheImages}
@@ -159,16 +170,14 @@ const extractImageURLsFromPlants = (plants) => {
 const cacheImages = async (imageURLs) => {
     const cache = await caches.open("static");
     const imagePromises = imageURLs.map(async (url) => {
-        const imageURL = `/images/uploads/${url}`; // Append "/public/images/" to the image URL
         try {
-            const response = await fetch(imageURL);
+            const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Failed to fetch');
             }
-            await cache.put(imageURL, response);
-            console.log('Cached image:', imageURL);
+            await cache.put(url, response);
         } catch (error) {
-            console.error('Failed to cache image:', imageURL, error);
+            console.error('Failed to cache image:', url, error);
         }
     });
 
@@ -220,10 +229,10 @@ async function syncPlantsWithIndexedDB() {
 * Gets the plant list from the IndexedDB
 * @param {syncPlantIDB} The IndexedDB to get the plants from
 */
-const getAllSyncPlants = (syncPlantIDB) => {
+const getAllSync = (syncPlantIDB, syncIDB) => {
     return new Promise((resolve, reject) => {
-        const transaction = syncPlantIDB.transaction(["sync-plants"]);
-        const plantStore = transaction.objectStore("sync-plants");
+        const transaction = syncPlantIDB.transaction([syncIDB]);
+        const plantStore = transaction.objectStore(syncIDB);
         const getAllRequest = plantStore.getAll();
 
         getAllRequest.addEventListener("success", () => {
@@ -243,9 +252,9 @@ const getAllSyncPlants = (syncPlantIDB) => {
 * @param {syncPlantIDB} The IndexedDB to delete the sync from
 * @param {id} The Id of the sync to delete
 */
-const deleteSyncPlantFromIDB = (syncPlantIDB, id) => {
-    const transaction = syncPlantIDB.transaction(["sync-plants"], "readwrite")
-    const plantStore = transaction.objectStore("sync-plants")
+const deleteSyncFromIDB = (syncPlantIDB, id, syncIDB) => {
+    const transaction = syncPlantIDB.transaction([syncIDB], "readwrite")
+    const plantStore = transaction.objectStore(syncIDB)
     const deleteRequest = plantStore.delete(id)
     deleteRequest.addEventListener("success", () => {
         console.log("Deleted " + id)
@@ -283,9 +292,9 @@ function openPlantsIDB() {
  * Function to open the Indexed DB for the sync plants, which are all plants uploaded offline
  * @returns A promise that either happens or fails
  */
-function openSyncPlantsIDB() {
+function openSyncIDB(syncIDB) {
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open("sync-plants", 1);
+        const request = indexedDB.open(syncIDB, 1);
 
         request.onerror = function (event) {
             reject(new Error(`Database error: ${event.target}`));
@@ -293,7 +302,7 @@ function openSyncPlantsIDB() {
 
         request.onupgradeneeded = function (event) {
             const db = event.target.result;
-            db.createObjectStore('sync-plants', {keyPath: '_id', autoIncrement: true});
+            db.createObjectStore(syncIDB, {keyPath: '_id', autoIncrement: true});
         };
 
         request.onsuccess = function (event) {

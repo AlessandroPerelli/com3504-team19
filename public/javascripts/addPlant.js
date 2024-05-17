@@ -39,6 +39,19 @@ function verifyUsernameToAddPlant(){
 
 }
 
+const addPlantEventListener = () => {
+    const form_data = new FormData(document.getElementById('add-plant'));
+    console.log(form_data);
+    if (!navigator.onLine) {
+        openSyncIDB("sync-plants").then((db) => {
+            addNewToSync(db, form_data, "sync-plants");
+        });
+    }
+}
+
 window.onload = function(){
     verifyUsernameToAddPlant();
+    // Add event listeners to buttons
+    const addButton = document.getElementById("submit-button");
+    addButton.addEventListener("click", addPlantEventListener);
 }
