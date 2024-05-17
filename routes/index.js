@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 var plants = require("../controllers/plants");
 var plantModel = require("../models/plants");
-var users = require("../models/users");
 var categories = require("../public/javascripts/categories")
 var multer = require("multer");
 var bcrypt = require("bcrypt");
