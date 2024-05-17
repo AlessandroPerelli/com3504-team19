@@ -161,7 +161,6 @@ router.get("/dbpedia", function (req, res, next) {
           taxon: bindings[0].taxon.value,
           URI: bindings[0].page.value,
         });
-        console.log("HELLOOo")
         console.log(bindings[0].page.value)
       } else {
         res.status(404).send("Plant not found");
