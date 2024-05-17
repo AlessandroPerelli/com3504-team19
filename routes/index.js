@@ -133,7 +133,9 @@ router.get("/dbpedia", function (req, res, next) {
   }
 
   console.log("Hello, I have the " + plantName);
-  const resource = `http://dbpedia.org/resource/${plantName}`;
+  const plantName_validated = plantName.replace(/\s+/g,"_");
+
+  const resource = `http://dbpedia.org/resource/${plantName_validated}`;
   console.log(resource);
 
   const endpointUrl = "https://dbpedia.org/sparql";
@@ -141,7 +143,7 @@ router.get("/dbpedia", function (req, res, next) {
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX dbo: <http://dbpedia.org/ontology/>
     
-    SELECT ?label ?description ?taxon (URI("http://dbpedia.org/resource/${plantName}") AS ?page)
+    SELECT ?label ?description ?taxon (URI("http://dbpedia.org/resource/${plantName_validated}") AS ?page)
     WHERE {
         <${resource}> rdfs:label ?label .
         <${resource}> dbo:abstract ?description .
