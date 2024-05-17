@@ -127,8 +127,9 @@ router.get("/dbpedia", function (req, res, next) {
   if (!plantName) {
     return res.status(400).send("Plant name is required");
   }
+  const plantName_validated = plantName.replace(/\s+/g,"_");
 
-  const resource = `http://dbpedia.org/resource/${plantName}`;
+  const resource = `http://dbpedia.org/resource/${plantName_validated}`;
   console.log(resource);
 
   const endpointUrl = "https://dbpedia.org/sparql";
@@ -136,7 +137,7 @@ router.get("/dbpedia", function (req, res, next) {
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX dbo: <http://dbpedia.org/ontology/>
     
-    SELECT ?label ?description ?taxon (URI("http://dbpedia.org/resource/${plantName}") AS ?page)
+    SELECT ?label ?description ?taxon (URI("http://dbpedia.org/resource/${plantName_validated}") AS ?page)
     WHERE {
         <${resource}> rdfs:label ?label .
         <${resource}> dbo:abstract ?description .
@@ -160,7 +161,6 @@ router.get("/dbpedia", function (req, res, next) {
           taxon: bindings[0].taxon.value,
           page: bindings[0].page.value,
         });
-        console.log("I did this right");
       } else {
         res.status(404).send("Plant not found");
       }
