@@ -14,4 +14,5 @@ function toggleExclusiveCheckboxes(clickedCheckbox) {
     }
   });
 }
+
 module.exports = { formatDateTime };

@@ -7,24 +7,33 @@
     <div class="plant-information-container">
       <div class="image-side">
         <img src="/images/uploads/<%= plant.img %>" alt="plant" />
-        <h3><%= plant.name %></h3>
-        <p>Picture taken in <%= plant.location %></p>
-        <p>Seen at <%= plant.sight_time_formatted %></p>
-        <p>Uploaded by: <%= plant.user_nickname %></p>
-        <p><%= plant.time_formatted %></p>
+        <div id="plant_details">
+          <div id="plant_identification">
+            <h3 id="plant_name"><%= plant.name %></h3>
+            <p id="identification_status"> <%= plant.identification_status %></p>
+
+          </div>
+          <p>Picture taken in <%= plant.location %></p>
+          <p>Seen at <%= plant.sight_time_formatted %></p>
+          <p id="user_nickname">Uploaded by: <%= plant.user_nickname %></p>
+          <p><%= plant.time_formatted %></p>
+          <button id="DBPediaButton"> Get DBPedia Results </button>
+        </div>
       </div>
       <div class="information-side">
         <div class="plant-information">
+          <h3> Description </h3>
           <p><%= plant.desc %></p>
         </div>
         <!-- Message Area for comments -->
         <div id="message_area" class="message-area">
+        <h3> Comments </h3>
           <% comments.forEach(function(comment) { %>
             <p><b> <%= comment.name %>:</b> <%= comment.message %></p>
           <% }); %>
         </div>
         <div id="send_message">
-
+          
         </div>
       </div>
     </div>

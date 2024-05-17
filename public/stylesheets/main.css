@@ -218,8 +218,7 @@ button:hover {
 .plant-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 0.5vh;
-  margin: 20px 0;
+  gap: 1vh;
 }
 .plant-grid .plant-item {
   background: #fff;
@@ -377,28 +376,6 @@ button:hover {
 
 .image-file {
   display: none;
-}
-
-.add-plant-left {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem 0.5rem;
-  width: 50%;
-}
-.add-plant-left .form-item {
-  width: 100%;
-}
-
-.add-plant-right {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem 0.5rem;
-  width: 50%;
-}
-.add-plant-right .form-item {
-  width: 100%;
 }
 
 .overlay {
