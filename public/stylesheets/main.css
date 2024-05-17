@@ -354,6 +354,11 @@ button:hover {
   flex-direction: row;
   justify-content: space-between;
 }
+.add-plant-form-container .is-identified {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 .add-plant-form-container .item {
   display: flex;
   flex-direction: column;
@@ -457,4 +462,10 @@ button:hover {
 .overlay-content-view .plant-information-container .image-side img {
   width: 100%;
   height: auto;
+}
+
+.plant-id {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }/*# sourceMappingURL=main.css.map */
