@@ -85,7 +85,6 @@ exports.getAll = function () {
  * @param {string} name - The name of the commenter.
  * @param {string} comment - The comment text.
  * @param {string} date - The date of the comment.
- * @returns {Promise<void>}
  * @throws {Error} - Throws an error if the document is not updated.
  */
 exports.updateComments = async function (plantId, name, comment, date) {
@@ -120,7 +119,6 @@ exports.updateComments = async function (plantId, name, comment, date) {
  *
  * @param {string} plantId - The ID of the plant to update.
  * @param {string} plantName - The new name of the plant.
- * @returns {Promise<void>}
  * @throws {Error} - Throws an error if the document is not updated.
  */
 exports.updatePlant = async function(plantId, plantName){
