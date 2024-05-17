@@ -251,13 +251,13 @@ self.addEventListener('sync', event => {
         });
     }
 
-    if (event.tag === 'sync-chats') {
+    if (event.tag === 'sync-chat') {
         console.log('Service Worker: Syncing new chats');
         openSyncIDB("sync-chats").then((syncPostDB) => {
             getAllSync(syncPostDB, "sync-chats").then((syncChats) => {
                 for (const syncChat of syncChats) {
                     console.log('Service Worker: Syncing new Chat: ', syncChat);
-                    console.log(syncChat.message)
+                    console.log(syncChat.comment)
                     // Create a FormData object
                     const formData = new FormData();
 
@@ -271,12 +271,19 @@ self.addEventListener('sync', event => {
                     // Fetch with FormData instead of JSON
                     fetch('http://localhost:3000/updateComments', {
                         method: 'POST',
-                        body: formData,
+                        body: JSON.stringify(syncChat),
                         headers: {
+                            "Content-Type": "application/json",
                         },
-                    }).then(() => {
-                        console.log('Service Worker: Syncing new Chat: ', syncChat, ' done');
-                        deleteSyncChatFromIDB(syncPostDB,syncChat._id);
+                    }).then(response => {
+                        console.log(response);
+                        if (response.ok) {
+                            console.log('Service Worker: Syncing new Plant: ', syncChat, ' done');
+                            // If the plant was successfully added, delete it from IndexedDB
+                            deleteSyncFromIDB(syncPostDB, syncChat._id, "sync-chats");
+                        } else {
+                            console.error('Service Worker: Syncing new Plant: ', syncChat, ' failed');
+                        }
                     }).catch((err) => {
                         console.error('Service Worker: Syncing new Chat: ', syncChat, ' failed');
                     });

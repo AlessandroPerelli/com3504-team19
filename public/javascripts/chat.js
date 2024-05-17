@@ -45,12 +45,11 @@ function sendComment() {
 
   socket.emit("chat", roomNo, name, chatText);
 
-  if (!navigator.onLine) {
-    openSyncIDB("sync-chats").then((db) => {
-        addNewToSync(db, commentData, "sync-chats");
-    });
+  openSyncIDB("sync-chats").then((db) => {
+      addNewToSync(db, commentData, "sync-chats");
+  });
 
-  } else {
+  if (navigator.onLine) {
     fetch("/updateComments", {
       method: "POST",
       headers: {
