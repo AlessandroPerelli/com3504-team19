@@ -175,6 +175,7 @@ button {
 
 .main-page-container {
   margin: 0% 20%;
+  gap: 2rem;
   
   h1 {
     align-self: center;
@@ -348,18 +349,27 @@ button {
 }
 
 .image-container {
-  padding: 10rem 1.5rem;
+  padding: 2rem 1.5rem;
   border: solid 1px #F4F0E5;
   border-radius: 1rem;
+
+  .image-label {
+      cursor: pointer;
+    }
+  
+  .image-file {
+    display: none;
+  }
+
+  .image-preview {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+  }
+
 }
 
-.image-label {
-  cursor: pointer;
-}
 
-.image-file {
-  display: none;
-}
 
 
 .overlay {
@@ -439,10 +449,11 @@ button {
         flex-direction: column;
         align-items: center;
 
-        img {
-          width: 100%;
-          height: auto;
-        }
+        .plant-image {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+          }
   
       }
     }
