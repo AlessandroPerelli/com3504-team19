@@ -140,7 +140,7 @@ function verifyUsername() {
 
 /**
  * @function sendNameToDBPedia
- * Function to get plant name from the page 
+ * Function to get plant name from the view plant page and redirect to the DBPedia entry for that plant
  */
 function sendNameToDBPedia() {
   console.log("Button clicked, running sendNameToDBPedia");
@@ -153,6 +153,13 @@ function sendNameToDBPedia() {
   window.location.href = "/dbpedia?plantName=" + encodeURIComponent(plantName);
 }
 
+/**
+ * @function verifyConfirmed
+ * Function to verify the confirmation status of a plant identification:
+ * If its confirmed, the name is unchangable
+ * If the username is not the same as the plant creator, the name is unchangable
+ * If it isn't confirmed and the username is the same as the plant creator, the name is changable via the form
+ */
 function verifyConfirmed(){
   const username = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
   var identification_status = document.getElementById("identification_status");
