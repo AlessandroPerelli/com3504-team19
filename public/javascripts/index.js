@@ -24,15 +24,5 @@ window.onload = function () {
             });
         });
 
-    } 
-    // else {
-    //     console.log("Offline mode")
-    //     openPlantsIDB().then((db) => {
-    //         getAllPlants(db).then((plants) => {
-    //             for (const plant of plants) {
-    //                 insertPlantInList(plant)
-    //             }
-    //         });
-    //     });
-    // }
+    }
 }

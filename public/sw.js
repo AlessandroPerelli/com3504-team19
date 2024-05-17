@@ -184,29 +184,6 @@ self.addEventListener('fetch', event => {
                 }
             }
         }
-
-        // // Handle specific requests for the main page (/main)
-        // if (event.request.url.includes('/main')) {
-        //     // Fetch the main page
-        //     const response = await fetch(event.request);
-        //     if (response && response.status === 200) {
-        //         const clonedResponse = response.clone();
-        //         const text = await clonedResponse.text();
-        //         // Extract image URLs from the main page
-        //         const imageUrls = extractImageURLsFromPlants(text);
-        //         // Cache the images
-        //         for (const imageUrl of imageUrls) {
-        //             const imageRequest = new Request(imageUrl);
-        //             const imageResponse = await fetch(imageRequest);
-        //             if (imageResponse && imageResponse.status === 200) {
-        //                 await cache.put(imageRequest, imageResponse);
-        //             }
-        //         }
-        //         // Return the original response
-        //         return response;
-        //     }
-        // }
-
         return fetch(event.request);
     })());
 });
