@@ -15,6 +15,7 @@ self.addEventListener('install', event => {
                 '/main',
                 '/login',
                 '/addplant',
+                '/user',
                 '/javascripts/addPlant.js',
                 '/javascripts/categories.js',
                 '/javascripts/changeUserProfile.js',
