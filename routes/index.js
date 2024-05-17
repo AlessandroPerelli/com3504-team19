@@ -128,7 +128,6 @@ router.get("/dbpedia", function (req, res, next) {
     return res.status(400).send("Plant name is required");
   }
 
-  console.log("Hello, I have the " + plantName);
   const resource = `http://dbpedia.org/resource/${plantName}`;
   console.log(resource);
 
@@ -148,17 +147,13 @@ router.get("/dbpedia", function (req, res, next) {
     }`;
 
   const encodedQuery = encodeURIComponent(sparqlQuery);
-  console.log("Hello 2");
   const url = `${endpointUrl}?query=${encodedQuery}&format=json`;
 
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      console.log("Hello 3");
       if (data && data.results.bindings.length > 0) {
         let bindings = data.results.bindings;
-        console.log("Hello 4");
-        console.log("I did this right");
         res.render("dbpedia_results", {
           name: bindings[0].label.value,
           description: bindings[0].description.value,
@@ -244,6 +239,21 @@ router.post("/login", function (req, res, next) {
 
 router.post("/setusername", function (req, res, next) {
   res.redirect("/login");
+});
+
+router.post("/editplant",  async function(req,res,next){
+  const plantId = req.body.plantId;
+  const plantName = req.body.name;
+
+  try {
+    await plants.updatePlant(plantId, plantName);
+    console.log(plantId);
+    res.status(200).send("Plant updated successfully");
+  } catch (error) {
+    console.error("Error in /editplant endpoint:", error.message);
+    res.status(500).send("Error adding plant");
+  }
+
 });
 
 module.exports = router;

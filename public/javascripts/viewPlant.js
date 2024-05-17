@@ -4,14 +4,11 @@ let name = null;
 let roomNo = null;
 let socket = io();
 
-document
-  .getElementById("overlay")
-  .addEventListener("overlayShown", function () {
-    verifyUsername();
-    var button = document.getElementById("DBPediaButton");
-    // Attach the event listener properly
-    button.addEventListener("click", sendNameToDBPedia);
-  });
+document.getElementById("overlay").addEventListener("overlayShown", function () {
+  verifyUsername();
+  var button = document.getElementById("DBPediaButton");
+  button.addEventListener("click", sendNameToDBPedia);
+});
 
 function init(plantId) {
   connectToRoom(plantId);

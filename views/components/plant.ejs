@@ -7,12 +7,30 @@
     <div class="plant-information-container">
       <div class="image-side">
         <img src="/images/uploads/<%= plant.img %>" alt="plant" />
-        <h3 id="plant_name"><%= plant.name %></h3>
-        <p>Picture taken in <%= plant.location %></p>
-        <p>Seen at <%= plant.sight_time_formatted %></p>
-        <p>Uploaded by: <%= plant.user_nickname %></p>
-        <p><%= plant.time_formatted %></p>
-        <button id="DBPediaButton"> Get DBPedia Results </button>
+        <div id="plant_details">
+          <h3 id="plant_name"><%= plant.name %></h3>
+          <% if (plant.identification_status) { %>
+            <p> Status: Confirmed </p>
+          <% } else {%>
+            <p> Status: In-progress</p>
+            <p> Confirm this plant name below: </p>
+            <form action="/editplant" method="post" id="confirm_name">
+              <input
+              type="text"
+              id="plantName"
+              name="name"
+              required
+            />
+            <input type="text" id="plantId" name="plantId" value="<%= plant._id %>" hidden>
+            <button type="submit"> Confirm Name </button>
+            </form>
+          <% } %>
+          <p>Picture taken in <%= plant.location %></p>
+          <p>Seen at <%= plant.sight_time_formatted %></p>
+          <p>Uploaded by: <%= plant.user_nickname %></p>
+          <p><%= plant.time_formatted %></p>
+          <button id="DBPediaButton"> Get DBPedia Results </button>
+        </div>
       </div>
       <div class="information-side">
         <div class="plant-information">
