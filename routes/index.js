@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
 var plants = require("../controllers/plants");
-var categories = require("../public/javascripts/categories");
 var multer = require("multer");
 var bcrypt = require("bcrypt");
 var path = require("path");
@@ -48,7 +47,6 @@ router.get("/main", function (req, res, next) {
     console.log(data);
     res.render("mainpage", {
       plantData: data,
-      categoryData: categories,
       showSearch: true,
       showProfile: true,
     });
