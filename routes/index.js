@@ -248,12 +248,12 @@ router.post("/editplant",  async function(req,res,next){
   try {
     await plants.updatePlant(plantId, plantName);
     console.log(plantId);
-    res.status(200).send("Plant updated successfully");
+    // Redirect to /main after updating the plant
+    res.redirect("/main");
   } catch (error) {
     console.error("Error in /editplant endpoint:", error.message);
-    res.status(500).send("Error adding plant");
+    res.status(500).send("Error updating plant: " + error.message);
   }
-
 });
 
 module.exports = router;
