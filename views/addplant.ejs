@@ -25,7 +25,7 @@
           <div class="image-container">
             <input type="file" class="image-file" id="imageFile" name="img" style="display: none;" required  />
             <label for="imageFile" class="image-label">Drag and drop or click here to upload an image</label>
-            <img id="imagePreview" class="image-preview" src="" alt="Image Preview" />
+            <img id="imagePreview" class="image-preview" src="" alt="Image Preview" style="display: none;" />
           </div>
           <div class="item">
             <label for="plantName">Plant name</label>
@@ -138,9 +138,11 @@
               <input type="number" id="spread" name="spread" required />
             </div>
           </div>
-          <div class="item">
-            <label for="identification" class="identification"> Is the name of this plant confirmed? </label>
-            <input type="checkbox" id="identification_check" name="identification_check"  />
+          <div class="is-identified">
+            <div class="item">
+              <label for="identification" class="identification"> Is the name of this plant confirmed? </label>
+              <input type="checkbox" id="identification_check" name="identification_check"  />
+            </div>
           </div>
             <div class="item" id="user-nickname-container">
               <label for="user-nickname" class="user-nickname" id="user-nickname-label"> Nickname</label>

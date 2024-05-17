@@ -1,3 +1,6 @@
+/**
+ * Shows the image preview in addplant.ejs
+ */
 document
   .getElementById("imageFile")
   .addEventListener("change", function (event) {

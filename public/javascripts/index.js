@@ -1,4 +1,7 @@
-// Register service worker to control making site work offline
+/**
+ * Register service worker to control making site work offline
+*/
+
 window.onload = function () {
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js', {scope: '/'})

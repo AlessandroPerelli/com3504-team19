@@ -3,6 +3,7 @@ let mongoose = require('mongoose');
 // Get the Schema class from mongoose
 let Schema = mongoose.Schema;
 
+// Define the schema for the Comment model
 let CommentSchema = new Schema(
     {
         name: {type: String},
@@ -11,32 +12,16 @@ let CommentSchema = new Schema(
     }
 )
 
-//     name: userData.name,
-//     time: userData.time,
-//     location: userData.location,
-//     size: userData.size,
-//     desc: userData.desc,
-//     categories: userData.categories,
-//     img: filePath,
-
 // Define the schema for the Plant model
 let PlantSchema = new Schema(
     {
-        // Define the name
+        // Plant Characteristics
         name: { type: String, default: 'UNKNOWN' },
         time: { type: Date },
-        // Define location as two values Lat and Long
         location: { type: String},
-        // description of plant
         desc: { type: String, maxLength: 250},
-        // Define the img field with type String
-        img: {type: String },
-
-
-        // Time of sighting
+        img: {type: String }, // Image is a string due to saving the relative file path
         sight_time: {type: Date},
-
-        //Plant Characteristics
         height: {type: Number},
         spread: {type: Number},
         does_the_plant_have_flowers: {type: Boolean},
@@ -50,10 +35,13 @@ let PlantSchema = new Schema(
         succulent: {type: Boolean},
         forest: {type: Boolean},
 
+        // Identification Status
         identification_status: {type: Boolean}, 
 
+        // Plant Creator
         user_nickname: {type: String},
 
+        // List of comments attached to the plantid
         comments: [CommentSchema],
     }
 );
@@ -65,5 +53,5 @@ PlantSchema.set('toObject', { getters: true, virtuals: true });
 // Create the mongoose model 'Plant' based on the defined schema
 let Plants = mongoose.model('plant', PlantSchema);
 
-// Export the Student model for use in other modules
+// Export the Plants model for use in other modules
 module.exports = Plants;

@@ -9,6 +9,9 @@ var path = require("path");
 var session = require("express-session");
 const { formatDateTime } = require("../public/javascripts/plantUtilities");
 
+/**
+ * Storage configuration for multer.
+ */
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./public/images/uploads");
@@ -29,7 +32,9 @@ router.use(
   })
 );
 
-/* GET home page. */
+/**
+ * GET home page and redirect to main.
+ */
 router.get("/", function (req, res, next) {
   res.redirect("/main");
 });
@@ -42,6 +47,9 @@ router.get("/login", function (req, res, next) {
   });
 });
 
+/**
+ * GET login page.
+ */
 router.get("/main", function (req, res, next) {
   let result = plants.getAll();
   result.then((plant) => {
@@ -49,13 +57,15 @@ router.get("/main", function (req, res, next) {
     console.log(data);
     res.render("mainpage", {
       plantData: data,
-      categoryData: categories,
       showSearch: true,
       showProfile: true,
     });
   });
 });
 
+/**
+ * GET main page with all plants.
+ */
 router.get("/addplant", function (req, res, next) {
   res.render("addplant", {
     dateTime: new Date().toISOString().split("T")[0],
@@ -63,6 +73,9 @@ router.get("/addplant", function (req, res, next) {
   });
 });
 
+/**
+ * GET add plant page.
+ */
 router.get("/viewplant", function (req, res, next) {
   console.log("Route /viewplant called"); // Added log
 
@@ -95,6 +108,9 @@ router.get("/viewplant", function (req, res, next) {
     });
 });
 
+/**
+ * POST update comments for a plant.
+ */
 router.post("/updateComments", async (req, res) => {
   const { plantId, name, comment, date } = req.body;
   try {
@@ -127,6 +143,9 @@ router.post('/plants/:plantId/addChat', async (req, res) => {
   }
 });
 
+/**
+ * GET user page if logged in, otherwise redirect to login.
+ */
 router.get("/user", function (req, res, next) {
   if (req.session.user) {
     res.render("user", {
@@ -140,6 +159,9 @@ router.get("/user", function (req, res, next) {
   }
 });
 
+/**
+ * GET data from DBpedia.
+ */
 router.post("/dbpedia", function (req, res, next) {});
 
 const fetch = require("node-fetch");
@@ -194,6 +216,9 @@ router.get("/dbpedia", function (req, res, next) {
     });
 });
 
+/**
+ * POST add a new plant.
+ */
 router.post("/add", upload.single("img"), function (req, res) {
   let userData = req.body;
   if (!req.file) {
@@ -208,41 +233,9 @@ router.post("/add", upload.single("img"), function (req, res) {
   res.redirect("/main");
 });
 
-router.post("/adduser", function (req, res) {
-  // Check if passwords match
-  if (req.body.password !== req.body.confirmpassword) {
-    return res.status(400).send("Passwords do not match");
-  }
-
-  // Hash the password
-  bcrypt.hash(req.body.password, 10, function (err, hash) {
-    if (err) {
-      return res.status(500).send("Error hashing password");
-    }
-
-    // Create a user instance
-    const defaultAvatar = "/images/avatar.png";
-    const user = new users({
-      email: req.body.email,
-      username: req.body.username,
-      password: hash,
-      avatar: defaultAvatar,
-    });
-
-    // Save the user to the database
-    user
-      .save()
-      .then((data) => {
-        console.log("Successfully created a new User");
-        res.redirect("/main");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
-});
-
-// route to get all plants
+/**
+ * GET all plants.
+ */
 router.get("/plants", function (req, res, next) {
   plants
     .getAll()
@@ -256,14 +249,23 @@ router.get("/plants", function (req, res, next) {
     });
 });
 
+/**
+ * POST login.
+ */
 router.post("/login", function (req, res, next) {
   res.redirect("/main");
 });
 
+/**
+ * POST set username.
+ */
 router.post("/setusername", function (req, res, next) {
   res.redirect("/login");
 });
 
+/**
+ * POST edit plant currently open. Redirects to main after update.
+ */
 router.post("/editplant",  async function(req,res,next){
   const plantId = req.body.plantId;
   const plantName = req.body.name;
