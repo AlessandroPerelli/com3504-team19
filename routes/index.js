@@ -159,8 +159,10 @@ router.get("/dbpedia", function (req, res, next) {
           name: bindings[0].label.value,
           description: bindings[0].description.value,
           taxon: bindings[0].taxon.value,
-          page: bindings[0].page.value,
+          URI: bindings[0].page.value,
         });
+        console.log("HELLOOo")
+        console.log(bindings[0].page.value)
       } else {
         res.status(404).send("Plant not found");
       }
