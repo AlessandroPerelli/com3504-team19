@@ -244,6 +244,8 @@ router.post("/setusername", function (req, res, next) {
 router.post("/editplant",  async function(req,res,next){
   const plantId = req.body.plantId;
   const plantName = req.body.name;
+  console.log("i get here");
+  console.log(req.body);
 
   try {
     await plants.updatePlant(plantId, plantName);

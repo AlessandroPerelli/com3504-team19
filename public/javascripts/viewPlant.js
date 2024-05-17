@@ -6,6 +6,7 @@ let socket = io();
 
 document.getElementById("overlay").addEventListener("overlayShown", function () {
   verifyUsername();
+  verifyConfirmed();
   var button = document.getElementById("DBPediaButton");
   button.addEventListener("click", sendNameToDBPedia);
 });
@@ -117,4 +118,53 @@ function sendNameToDBPedia() {
   );
 
   window.location.href = "/dbpedia?plantName=" + encodeURIComponent(plantName);
+}
+
+function verifyConfirmed(){
+  const username = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
+  var identification_status = document.getElementById("identification_status");
+  var plantCreator = document.getElementById("user_nickname").innerText;
+  plantCreator = plantCreator.replace("Uploaded by: ", "");
+
+  if( identification_status.innerText ==="false" && username === plantCreator ){
+    var plantIdentificationContainer = document.getElementById("plant_identification");
+    identification_status.innerText = "Status: In Progress";
+    var paragraph = document.createElement("p");
+    var confirmNameForm = document.createElement("form");
+    var newPlantName = document.createElement("input");
+    var plantId = document.createElement("input");
+    var submissionButton = document.createElement("button");
+
+    paragraph.innerHTML = "Confirm this plant name below:";
+    confirmNameForm.setAttribute("action", "/editplant");
+    confirmNameForm.setAttribute("method", "post");
+    confirmNameForm.setAttribute("id", "confirm_name");
+
+    newPlantName.setAttribute("type", "text");
+    newPlantName.setAttribute("id", "plantName");
+    newPlantName.setAttribute("name", "name");
+    newPlantName.setAttribute("required", true);
+
+    plantId.setAttribute("type", "text");
+    plantId.setAttribute("id", "plantId");
+    plantId.setAttribute("name", "plantId")
+    plantId.setAttribute("value", roomNo);
+    plantId.setAttribute("hidden", true);
+
+    submissionButton.setAttribute("type", "submit");
+    submissionButton.innerText = "Confirm Plant"
+
+    confirmNameForm.appendChild(newPlantName);
+    confirmNameForm.appendChild(plantId);
+    confirmNameForm.appendChild(submissionButton);
+
+    plantIdentificationContainer.appendChild(paragraph);
+    plantIdentificationContainer.appendChild(confirmNameForm);
+
+  }else if( identification_status.innerText === "false" ){
+    identification_status.innerText = "Status: In Progress";
+  }else {
+    identification_status.innerText = "Status: Completed";
+  }
+
 }
