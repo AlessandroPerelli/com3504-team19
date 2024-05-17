@@ -17,7 +17,7 @@ self.addEventListener('install', event => {
                 '/addplant',
                 '/javascripts/addPlant.js',
                 '/javascripts/changeUserProfile.js',
-                '/javascripts/chat.js',
+                '/javascripts/viewPlant.js',
                 '/javascripts/idb-utility.js',
                 '/javascripts/imageUpload.js',
                 '/javascripts/index.js',
