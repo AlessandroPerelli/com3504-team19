@@ -4,6 +4,10 @@ let name = null;
 let roomNo = null;
 let socket = io();
 
+/**
+ * Overlay event listener that runs when all HTML elements of the overlay have been shown
+ * Will verify the nickname and the plant status and add event listeners
+ */
 document.getElementById("overlay").addEventListener("overlayShown", function () {
   verifyUsername();
   verifyConfirmed();
@@ -11,6 +15,11 @@ document.getElementById("overlay").addEventListener("overlayShown", function () 
   button.addEventListener("click", sendNameToDBPedia);
 });
 
+/**
+ * @function init
+ * Function to initialise the comments
+ * @param {plantId} The plantID of the plant that the comments are tied to
+ */
 function init(plantId) {
   connectToRoom(plantId);
 }
@@ -20,11 +29,22 @@ socket.on("chat", function (room, userId, chatText) {
   writeOnHistory("<b>" + who + ":</b> " + chatText);
 });
 
+/**
+ * @function connectToRoom
+ * Function to connect to a specific comment room.
+ * @param {string} plantId - The ID of the plant which will become the room number
+ */
 function connectToRoom(plantId) {
   roomNo = plantId;
   name = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
   socket.emit("create or join", roomNo, name);
 }
+
+/**
+ * @function writeOnHistory
+ * Function to display a new chat message in the comment area.
+ * @param {string} text - The text of the comment to be displayed.
+ */
 
 function writeOnHistory(text) {
   let messageArea = document.getElementById("message_area");
@@ -35,8 +55,11 @@ function writeOnHistory(text) {
   document.getElementById("comment_input").value = "";
 }
 
+/**
+ * @function sendComment
+ * Function to send a new comment to the server and display it in the comment area.
+ */
 function sendComment() {
-  var form = document.getElementById("DBPedia_form");
   let chatText = document.getElementById("comment_input").value;
   let name = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
   let date = Date.now();
@@ -66,6 +89,12 @@ function sendComment() {
     });
 }
 
+/**
+ * @function verifyUsername
+ * Function to verify if a username is set:
+ * If it isn't a user can't comment
+ * If it is, a user has access to the comment input
+ */
 function verifyUsername() {
   const username = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
   var container = document.getElementById("send_message");
@@ -109,6 +138,10 @@ function verifyUsername() {
   container.appendChild(form);
 }
 
+/**
+ * @function sendNameToDBPedia
+ * Function to get plant name from the page 
+ */
 function sendNameToDBPedia() {
   console.log("Button clicked, running sendNameToDBPedia");
 

@@ -1,3 +1,7 @@
+/**
+ * @constant {addPlantEventListener}
+ * Plant listener that does a sync to the offline Indexed db if the server is not online
+ */
 const addPlantEventListener = () => {
     const form_data = new FormData(document.getElementById('add-plant'));
     console.log(form_data);
