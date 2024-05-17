@@ -24,7 +24,6 @@ self.addEventListener('install', event => {
                 '/javascripts/login.js',
                 '/javascripts/overlay.js',
                 '/javascripts/plantUtilities.js',
-                '/javascripts/switchCategory.js',
                 '/javascripts/viewPlant.js',
                 '/stylesheets/main.scss',
                 '/stylesheets/main.css',

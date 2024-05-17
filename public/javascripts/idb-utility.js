@@ -252,7 +252,7 @@ const getAllSync = (syncPlantIDB, syncIDB) => {
 * @param {syncPlantIDB} The IndexedDB to delete the sync from
 * @param {id} The Id of the sync to delete
 */
-const deleteSyncFromIDB = (syncPlantIDB, id syncIDB) => {
+const deleteSyncFromIDB = (syncPlantIDB, id, syncIDB) => {
     const transaction = syncPlantIDB.transaction([syncIDB], "readwrite")
     const plantStore = transaction.objectStore(syncIDB)
     const deleteRequest = plantStore.delete(id)
