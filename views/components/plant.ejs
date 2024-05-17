@@ -9,7 +9,15 @@
         <img src="/images/uploads/<%= plant.img %>" alt="plant" />
         <h3><%= plant.name %></h3>
         <p>Height and Spread: <%= plant.height %> X <%= plant.spread %></p>
-        <p>Colour: <%= plant.colour %></p>
+        <% if (plant.does_the_plant_have_flowers) { %>
+          <p>Has Flowers: Yes</p>
+        <% } %>
+        <% if (plant.does_the_plant_have_leaves) { %>
+          <p>Has Leaves: Yes</p>
+        <% } %>
+        <% if (plant.does_the_plant_have_fruits) { %>
+          <p>Has Fruits: Yes</p>
+        <% } %>
         <p>Picture taken in <%= plant.location %></p>
         <p>Seen at <%= plant.sight_time_formatted %></p>
         <p>Uploaded by: <%= plant.user_nickname %></p>
