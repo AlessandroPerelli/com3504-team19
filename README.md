@@ -11,6 +11,7 @@
 3. A view all plants page that shows all plants currently on the site
 4. When you click on a plant, the plant comes up with a chat and the information on the plant
 5. Offline functionality for adding plants and viewing plants
+6. The ability to edit a plant if the status is unconfirmed and the username is the same as the plant creator using identification
 
 ## Github
 All evidence of commits are available on our [Github](https://github.com/AlessandroPerelli/com3504-team19)
