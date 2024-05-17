@@ -48,32 +48,6 @@ function sendComment() {
   openSyncIDB("sync-chats").then((db) => {
       addNewToSync(db, commentData, "sync-chats");
   });
-
-  if (navigator.onLine) {
-    fetch("/updateComments", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        plantId: roomNo,
-        name: name,
-        comment: chatText,
-        date: date,
-      }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log("Comment added successfully");
-        } else {
-          console.error("Failed to add comment");
-        }
-      })
-      .catch((error) => {
-        console.error("Error adding comment:", error);
-      });
-
-  }
 }
 
 function verifyUsername(){
