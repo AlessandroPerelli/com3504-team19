@@ -26,10 +26,7 @@ exports.create = function (userData, filePath) {
     evergreen: userData.evergreen === "on",
     succulent: userData.succulent === "on",
     forest: userData.forest === "on",
-    colour: userData.colour,
-
-    //Identification used with DBPedia
-    identification_status: userData.identification_status,
+    identification_status: userData.identification_check==="on",
 
     user_nickname: userData.user_nickname,
 
@@ -97,3 +94,21 @@ exports.updateComments = async function (plantId, name, comment, date) {
     throw error;
   }
 };
+
+exports.updatePlant = async function(plantId, plantName){
+  const result = await plantModel.updateOne(
+    { _id: plantId },
+    { $set: { name: plantName, identification_status: true } }
+  );
+
+  if (result.nModified === 0) {
+    console.error(
+      `No documents were updated. Check if the plantId ${plantId} exists.`
+    );
+    throw new Error("Document not updated");
+  }
+
+  console.log(`${result.nModified} document(s) updated`);
+
+
+}

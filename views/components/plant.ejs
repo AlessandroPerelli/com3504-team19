@@ -7,12 +7,18 @@
     <div class="plant-information-container">
       <div class="image-side">
         <img src="/images/uploads/<%= plant.img %>" alt="plant" />
-        <h3 id="plant_name"><%= plant.name %></h3>
-        <p>Picture taken in <%= plant.location %></p>
-        <p>Seen at <%= plant.sight_time_formatted %></p>
-        <p>Uploaded by: <%= plant.user_nickname %></p>
-        <p><%= plant.time_formatted %></p>
-        <button id="DBPediaButton"> Get DBPedia Results </button>
+        <div id="plant_details">
+          <div id="plant_identification">
+            <h3 id="plant_name"><%= plant.name %></h3>
+            <p id="identification_status"> <%= plant.identification_status %></p>
+
+          </div>
+          <p>Picture taken in <%= plant.location %></p>
+          <p>Seen at <%= plant.sight_time_formatted %></p>
+          <p id="user_nickname">Uploaded by: <%= plant.user_nickname %></p>
+          <p><%= plant.time_formatted %></p>
+          <button id="DBPediaButton"> Get DBPedia Results </button>
+        </div>
       </div>
       <div class="information-side">
         <div class="plant-information">

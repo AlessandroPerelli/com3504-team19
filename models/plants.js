@@ -50,7 +50,7 @@ let PlantSchema = new Schema(
         succulent: {type: Boolean},
         forest: {type: Boolean},
 
-        identification_status: {type: Boolean}, // Don't do
+        identification_status: {type: Boolean}, 
 
         user_nickname: {type: String},
 

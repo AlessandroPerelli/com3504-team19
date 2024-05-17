@@ -56,14 +56,10 @@ router.get("/main", function (req, res, next) {
 });
 
 router.get("/addplant", function (req, res, next) {
-  // if (req.session.user) {
   res.render("addplant", {
     dateTime: new Date().toISOString().split("T")[0],
     layout: false,
   });
-  // } else {
-  //   res.redirect("/login");
-  // }
 });
 
 router.get("/viewplant", function (req, res, next) {
@@ -131,8 +127,6 @@ router.get("/dbpedia", function (req, res, next) {
   if (!plantName) {
     return res.status(400).send("Plant name is required");
   }
-
-  console.log("Hello, I have the " + plantName);
   const plantName_validated = plantName.replace(/\s+/g,"_");
 
   const resource = `http://dbpedia.org/resource/${plantName_validated}`;
@@ -154,17 +148,13 @@ router.get("/dbpedia", function (req, res, next) {
     }`;
 
   const encodedQuery = encodeURIComponent(sparqlQuery);
-  console.log("Hello 2");
   const url = `${endpointUrl}?query=${encodedQuery}&format=json`;
 
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      console.log("Hello 3");
       if (data && data.results.bindings.length > 0) {
         let bindings = data.results.bindings;
-        console.log("Hello 4");
-        console.log("I did this right");
         res.render("dbpedia_results", {
           name: bindings[0].label.value,
           description: bindings[0].description.value,
@@ -193,7 +183,6 @@ router.post("/add", upload.single("img"), function (req, res) {
   let filename = filePath.split(/\\|\//).pop();
 
   let result = plants.create(userData, filename);
-  console.log(result);
   res.redirect("/main");
 });
 
@@ -251,6 +240,23 @@ router.post("/login", function (req, res, next) {
 
 router.post("/setusername", function (req, res, next) {
   res.redirect("/login");
+});
+
+router.post("/editplant",  async function(req,res,next){
+  const plantId = req.body.plantId;
+  const plantName = req.body.name;
+  console.log("i get here");
+  console.log(req.body);
+
+  try {
+    await plants.updatePlant(plantId, plantName);
+    console.log(plantId);
+    // Redirect to /main after updating the plant
+    res.redirect("/main");
+  } catch (error) {
+    console.error("Error in /editplant endpoint:", error.message);
+    res.status(500).send("Error updating plant: " + error.message);
+  }
 });
 
 module.exports = router;
